@@ -1,0 +1,25 @@
+.inputWrapper {
+  align-items: start;
+  height: 53px;
+}
+
+.input__label {
+  text-align: left;
+  color: @colorSecondaryLight;
+}
+
+.input {
+  width: 280px;
+  height: 25px;
+  padding: 0;
+  border: none;
+  border-bottom: solid 1px @colorPrimary;
+
+  &::placeholder {
+    color: @colorSecondaryLight;
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+}

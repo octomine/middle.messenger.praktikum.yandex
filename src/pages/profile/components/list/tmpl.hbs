@@ -1,0 +1,8 @@
+{{#if title}}
+{{> label title}}
+{{/if}}
+<ul class="{{> styles element="list" modifiers=(split modifiers)}}">
+    {{#each fields}}
+    {{> (../lineType) this}}
+    {{/each}}
+</ul>

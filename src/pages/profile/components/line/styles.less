@@ -1,0 +1,19 @@
+.line {
+  width: 510px;
+  height: 33px;
+  justify-content: space-between;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid @colorSecondaryLighter;
+  }
+}
+
+.label {
+  &-key {
+    text-align: left;
+  }
+  &-value {
+    text-align: right;
+    color: @colorSecondaryLight;
+  }
+}

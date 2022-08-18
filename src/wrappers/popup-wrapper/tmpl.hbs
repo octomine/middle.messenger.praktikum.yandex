@@ -1,0 +1,16 @@
+<div class="plate plate-popup fv">
+    {{> label title modifiers=(concat title.modifiers "popup")}}
+    <div class="fv cent popup__content">
+        {{#if custom}}
+        {{> (custom) customCtx}}
+        {{else}}
+        {{contentText}}
+        {{/if}}
+    </div>
+    {{> button button}}
+    {{#if footer}}
+    <div class="footer">
+        {{> (footer) footerCtx}}
+    </div>
+    {{/if}}
+</div>

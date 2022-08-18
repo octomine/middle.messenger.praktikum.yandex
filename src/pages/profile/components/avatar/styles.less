@@ -1,0 +1,24 @@
+.avatar {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: @blankImage, @colorSecondaryLighter;
+  cursor: pointer;
+}
+
+.avatar__content {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+
+  & > div {
+    text-align: center;
+    color: @colorInvert;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
