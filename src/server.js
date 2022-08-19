@@ -1,9 +1,9 @@
 const express = require("express");
 
 const app = express();
-const PORT = 3000;
+const PORT = 80;
 
 app.use(express.static("./dist"));
-app.listen(PORT, () => {
-  console.log(`listening to port: ${PORT}`);
+app.listen(process.env.PORT || PORT, () => {
+  console.log(`listening to port: ${process.env.PORT || PORT}`);
 });

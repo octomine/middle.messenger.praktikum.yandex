@@ -15,6 +15,7 @@
 
 // VARS
 @colorPrimary: #3369f3;
+@colorPrimaryLight: #e4edfd;
 @colorSecondary: #1e1e1e;
 @colorSecondaryLight: #999999;
 @colorSecondaryLighter: #efefef;
@@ -90,4 +91,10 @@ a {
 
 .footer {
   margin-top: 14px;
+}
+
+:focus {
+  outline-color: @colorPrimaryLight;
+  outline-width: 1px;
+  outline-offset: 2px;
 }
