@@ -15,11 +15,12 @@
   border: none;
   border-bottom: solid 1px @colorPrimary;
 
-  &::placeholder {
-    color: @colorSecondaryLight;
+  &:focus {
+    outline: none;
+    border-width: 0 0 2px;
   }
 
-  &:focus-visible {
-    outline: none;
+  &::placeholder {
+    color: @colorSecondaryLight;
   }
 }
