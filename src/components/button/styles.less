@@ -1,0 +1,32 @@
+.button {
+  padding: 0;
+  width: 280px;
+  height: 37px;
+  border: none;
+  border-radius: @radiusButton;
+  background: @colorPrimary;
+  color: @colorInvert;
+  font-size: @fontSizeM;
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:active {
+    transform: translateY(2px);
+  }
+
+  &-link {
+    width: min-content;
+    height: min-content;
+    background: none;
+    color: @colorPrimary;
+    font-size: @fontSizeS;
+    border-radius: 0;
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+  &-alert {
+    color: @colorAlarm;
+  }
+}
