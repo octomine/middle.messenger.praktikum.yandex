@@ -1,0 +1,1 @@
+export type TBlockProps = object & { events: object };
