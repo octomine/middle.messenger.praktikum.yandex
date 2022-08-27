@@ -6,22 +6,24 @@ import "../../components/input";
 
 import FormWrapper from "../../wrappers/form-wrapper/FormWrapper";
 import Button from '../../components/button';
+import Form from '../../components/form';
+import Input from '../../components/input';
 
 const ctx = {
-  title: {
-    txt: "Вход",
-  },
-  form: {
+  title: { txt: "Вход" },
+  form: new Form({
     fields: [
-      { title: "Логин", error: "Неверный логин" },
-      { title: "Пароль", error: "Неверный пароль", password: true },
+      new Input({ name: "login", title: "Логин", error: "Неверный логин" }),
+      new Input({
+        name: "password", title: "Пароль", error: "Неверный пароль", password: true,
+      }),
     ],
     block: "login",
-  },
+  }),
   button: new Button({
     label: "Авторизоваться",
     events: {
-      click: () => console.log('LOG IN!!1')
+      click: () => login()
     }
   }),
   link: new Button({
@@ -32,6 +34,11 @@ const ctx = {
     }
   }),
 };
+
+function login() {
+  // TODO: валидация!!1
+  console.log(form.children.form.collect());
+}
 
 const form = new FormWrapper(ctx);
 

@@ -1,9 +1,6 @@
 import Block from "./Block";
 
-export type TBlockProps = object & {
-  block?: string,
-  modifiers?: string,
-  styles?: string,
+export type TBlockProps = Record<string, string> & {
   events?: object,
   children?: Record<string, Block>
 };

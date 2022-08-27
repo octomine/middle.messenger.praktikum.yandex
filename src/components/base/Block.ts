@@ -23,7 +23,6 @@ export default class Block {
   }
 
   _element = null;
-  _meta = null;
   _id = null;
 
   constructor(propsAndChildren: TBlockProps = {}) {
@@ -31,9 +30,7 @@ export default class Block {
 
     const { props, children } = this._getChildrenAndProps(propsAndChildren);
     this.children = children;
-    this._meta = {
-      props,
-    }
+
     this._id = makeID();
 
     this.props = this._makePropsProxy(props);
@@ -102,7 +99,7 @@ export default class Block {
     const { events = {} } = this.props;
     Object.keys(events).forEach((evtName) => {
       this._element.addEventListener(evtName, events[evtName]);
-    })
+    });
   }
 
   _removeEvents() {
