@@ -26,13 +26,12 @@ export default class Block {
   _meta = null;
   _id = null;
 
-  constructor(tagName: string = "div", propsAndChildren: TBlockProps = {}) {
+  constructor(propsAndChildren: TBlockProps = {}) {
     const eventBus = new EventBus();
 
     const { props, children } = this._getChildrenAndProps(propsAndChildren);
     this.children = children;
     this._meta = {
-      tagName,
       props,
     }
     this._id = makeID();
@@ -48,7 +47,7 @@ export default class Block {
     return this._element;
   }
 
-  _getChildrenAndProps(childrenAndProps) {
+  _getChildrenAndProps(childrenAndProps: TBlockProps) {
     const children = {};
     const props = {};
 
@@ -94,14 +93,8 @@ export default class Block {
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  _createResources() {
-    const { tagName } = this._meta;
-    this._element = this._createDocumentElement(tagName);
-  }
-
-  _createDocumentElement(tagName: string) {
+  _createDocumentElement(tagName: string): HTMLElement {
     const el = document.createElement(tagName);
-    el.setAttribute('data-id', this._id);
     return el;
   }
 
@@ -113,14 +106,18 @@ export default class Block {
   }
 
   _removeEvents() {
-    const { events = {} } = this.props;
-    Object.keys(events).forEach((evtName) => {
-      this._element.removeEventListener(evtName, events[evtName]);
-    })
+    if (this._element) {
+      const { events = {} } = this.props;
+      Object.keys(events).forEach((evtName) => {
+        this._element.removeEventListener(evtName, events[evtName]);
+      });
+    }
   }
 
   _componentDidMount() {
     this.componentDidMount();
+
+    Object.values(this.children).forEach((child: Block) => child.dispatchComponentDidMount());
   }
 
   _componentDidUpdate(newProps: object, oldProps: object) {
@@ -131,10 +128,9 @@ export default class Block {
 
   _render() {
     const block = this.render();
-
     this._removeEvents();
-    this._element.innerHTML = '';
-    this._element.appendChild(block);
+    this._element = block.firstChild;
+    this._element.setAttribute('data-id', this._id);
     this._addEvents();
   }
 
@@ -150,7 +146,6 @@ export default class Block {
   }
 
   init() {
-    this._createResources();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
@@ -166,11 +161,10 @@ export default class Block {
     return newProps !== oldProps;
   }
 
-  compile(tmpl, props) {
+  compile(tmpl, props: TBlockProps) {
     const propsAndStubs = { ...props };
-
     Object.entries(this.children).forEach(([key, value]) => {
-      propsAndStubs[key] = `<div data-id="${value._id}" />`;
+      propsAndStubs[key] = `<div data-id="${value._id}"></div>`;
     });
 
     const fragment = this._createDocumentElement('template');
@@ -183,5 +177,7 @@ export default class Block {
     return fragment.content;
   }
 
-  render() { }
+  render(): DocumentFragment {
+    return new DocumentFragment();
+  }
 }

@@ -1,11 +1,11 @@
-import "../../components/common/styles";
-import "../../components/button";
+import Block from '../../components/base/index'
+
 import "../../components/label";
 import "../../components/form";
 import "../../components/input";
-import "../../wrappers/form-wrapper";
 
-import tmpl from "./tmpl.hbs";
+import FormWrapper from "../../wrappers/form-wrapper/FormWrapper";
+import Button from '../../components/button';
 
 const ctx = {
   title: {
@@ -18,18 +18,29 @@ const ctx = {
     ],
     block: "login",
   },
-  button: {
+  button: new Button({
     label: "Авторизоваться",
-  },
-  link: {
+    events: {
+      click: () => console.log('LOG IN!!1')
+    }
+  }),
+  link: new Button({
     label: "Нет аккаунта?",
-    styles: "footer",
-  },
+    modifiers: "link",
+    events: {
+      click: () => console.log('REGISTER!!1')
+    }
+  }),
 };
 
-window.addEventListener("DOMContentLoaded", () => {
-  const main = document.getElementsByClassName("main")[0];
-  const el = tmpl(ctx);
+const form = new FormWrapper(ctx);
 
-  main.innerHTML = el;
-});
+function render(query: string, block: Block) {
+  const root = document.querySelector(query);
+  root.appendChild(block.getContent());
+  block.dispatchComponentDidMount();
+
+  return root;
+}
+
+render('.main', form);

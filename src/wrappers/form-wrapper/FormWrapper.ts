@@ -1,4 +1,9 @@
-import Handlebars from "handlebars/dist/handlebars.runtime";
+import Block from "../../components/base/Block";
+
 import tmpl from "./tmpl.hbs";
 
-Handlebars.registerPartial("formWrapper", tmpl);
+export default class FormWrapper extends Block {
+  render() {
+    return this.compile(tmpl, this.props);
+  }
+}
