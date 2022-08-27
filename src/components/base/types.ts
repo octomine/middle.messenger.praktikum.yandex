@@ -1,1 +1,1 @@
-export type TBlockProps = object & { events: object };
+export type TBlockProps = object & { events?: object };

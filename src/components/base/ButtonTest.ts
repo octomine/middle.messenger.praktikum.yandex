@@ -1,20 +1,17 @@
 import Block from "./Block";
-import { TBlockProps } from "./types";
-
 import "../common/styles";
+
+import { TButtonProps } from "../button/types";
 import tmpl from '../button/tmpl.hbs';
 
 export default class ButtonTest extends Block {
-  props: TBlockProps & {
-    label: string,
-    modifiers: string,
-  }
+  props: TButtonProps
 
-  constructor(props: object) {
+  constructor(props: TButtonProps) {
     super('div', props); // TODO: подумать, как сделать более по-другому
   }
 
   render() {
-    return tmpl(this.props);
+    return this.compile(tmpl, this.props);
   }
 }

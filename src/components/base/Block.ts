@@ -1,3 +1,5 @@
+import { v4 as makeID } from 'uuid'
+
 import EventBus from './event-bus';
 import { TBlockProps } from './types';
 
@@ -11,6 +13,7 @@ const checkPrivate = (prp: string): void => {
 export default class Block {
   eventBus: () => EventBus;
   props: TBlockProps;
+  children: Record<string, Block>;
 
   static EVENTS = {
     INIT: "init",
@@ -21,13 +24,18 @@ export default class Block {
 
   _element = null;
   _meta = null;
+  _id = null;
 
-  constructor(tagName: string = "div", props: object = {}) {
+  constructor(tagName: string = "div", propsAndChildren: TBlockProps = {}) {
     const eventBus = new EventBus();
+
+    const { props, children } = this._getChildrenAndProps(propsAndChildren);
+    this.children = children;
     this._meta = {
       tagName,
       props,
     }
+    this._id = makeID();
 
     this.props = this._makePropsProxy(props);
     this.eventBus = () => eventBus;
@@ -40,7 +48,22 @@ export default class Block {
     return this._element;
   }
 
-  _makePropsProxy(props) {
+  _getChildrenAndProps(childrenAndProps) {
+    const children = {};
+    const props = {};
+
+    Object.entries(childrenAndProps).forEach(([key, value]) => {
+      if (value instanceof Block) {
+        children[key] = value;
+      } else {
+        props[key] = value;
+      }
+    })
+
+    return { props, children }
+  }
+
+  _makePropsProxy(props: TBlockProps) {
     const self = this;
 
     return new Proxy(props, {
@@ -64,7 +87,7 @@ export default class Block {
     })
   }
 
-  _registerEvents(eventBus) {
+  _registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
@@ -78,7 +101,7 @@ export default class Block {
 
   _createDocumentElement(tagName: string) {
     const el = document.createElement(tagName);
-    console.log(el);
+    el.setAttribute('data-id', this._id);
     return el;
   }
 
@@ -102,14 +125,16 @@ export default class Block {
 
   _componentDidUpdate(newProps: object, oldProps: object) {
     if (this.componentDidUpdate(newProps, oldProps)) {
-      this._render();
+      this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
   _render() {
     const block = this.render();
+
     this._removeEvents();
-    this._element.innerHTML = block;
+    this._element.innerHTML = '';
+    this._element.appendChild(block);
     this._addEvents();
   }
 
@@ -139,6 +164,23 @@ export default class Block {
   componentDidUpdate(newProps: object, oldProps: object) {
     // TODO: вот тут ОЧ прям внимательно подумать, как сравнивать
     return newProps !== oldProps;
+  }
+
+  compile(tmpl, props) {
+    const propsAndStubs = { ...props };
+
+    Object.entries(this.children).forEach(([key, value]) => {
+      propsAndStubs[key] = `<div data-id="${value._id}" />`;
+    });
+
+    const fragment = this._createDocumentElement('template');
+    fragment.innerHTML = tmpl(propsAndStubs);
+    Object.values(this.children).forEach((child) => {
+      const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
+      stub.replaceWith(child.getContent());
+    })
+
+    return fragment.content;
   }
 
   render() { }

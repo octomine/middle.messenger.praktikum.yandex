@@ -1,5 +1,7 @@
 import Block from './components/base'
 import ButtonTest from './components/base/ButtonTest';
+import Box from './components/base/Box';
+
 
 const btn = new ButtonTest({
   label: 'click',
@@ -7,6 +9,7 @@ const btn = new ButtonTest({
     click: (evt: PointerEvent) => console.log(`CLICK!!1 ${evt}`)
   }
 });
+const box = new Box({ button: btn });
 
 function render(query: string, block: Block) {
   const root = document.querySelector(query);
@@ -16,5 +19,5 @@ function render(query: string, block: Block) {
   return root;
 }
 
-render('.main', btn);
-btn.setProps({ label: 'see events' });
+render('.main', box);
+// btn.setProps({ label: 'see events' });
