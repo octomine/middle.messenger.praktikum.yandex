@@ -1,6 +1,12 @@
 <div class="plate fv">
   {{> label title modifiers="l"}}
-  {{{form}}}
+  <ul class="{{> styles element="form"}}">
+    {{#each fields}}
+    <li>
+      {{{this}}}
+    </li>
+    {{/each}}
+  </ul>
   {{{button}}}
   <div class="footer">
     {{{link}}}

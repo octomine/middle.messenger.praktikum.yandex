@@ -16,15 +16,15 @@ export default class Input extends Block {
   }
 
   get input() {
-    return this._element.querySelector('.input');
+    return this.element.querySelector('.input');
   }
 
   get label() {
-    return this._element.querySelector('.input__label');
+    return this.element.querySelector('.input__label');
   }
 
   get error() {
-    return this._element.querySelector('.label-error');
+    return this.element.querySelector('.label-error');
   }
 
   get value(): Record<string, string> {

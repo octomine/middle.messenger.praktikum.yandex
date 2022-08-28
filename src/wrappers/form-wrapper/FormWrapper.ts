@@ -1,9 +1,48 @@
 import Block from "../../components/base/Block";
+import Button from "../../components/button";
+import Input from "../../components/input";
 
 import tmpl from "./tmpl.hbs";
 
 export default class FormWrapper extends Block {
+  constructor(props) {
+    super(props);
+  }
+
+  init() {
+    const { fields, button, link, submit } = this.props;
+
+    fields.map((field: object) => this.children[`field_${field.name}`] = new Input(field));
+
+    this.children.button = new Button({
+      label: button,
+      events: {
+        click: () => submit()
+      }
+    });
+    this.children.link = new Button({ label: link, modifiers: "link" });
+  }
+
+  collect() {
+    const { fields } = this.props;
+    fields.map(({ name }) => {
+      console.log(this.children[`field_${name}`].value);
+    })
+  }
+
+  componentDidUpdate(oldProps, newProps) {
+    const { fields } = newProps;
+    fields.map((field: object) => this.children[`field_${field.name}`].setProps(field))
+
+    return true;
+  }
+
   render() {
-    return this.compile(tmpl, this.props);
+    const { title: txt, block } = this.props;
+    const fields = this.props.fields.map(
+      ({ name }) => `<div data-id="${this.children[`field_${name}`]._id}"></div>`
+    );
+
+    return this.compile(tmpl, { title: { txt }, block, fields });
   }
 }

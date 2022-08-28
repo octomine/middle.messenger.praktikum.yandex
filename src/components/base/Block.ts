@@ -10,10 +10,10 @@ const checkPrivate = (prp: string): void => {
   };
 }
 
-export default class Block {
+export default class Block<P> {
   eventBus: () => EventBus;
-  props: TBlockProps;
-  children: Record<string, Block>;
+  props: TBlockProps & P;
+  children: Record<string, Block<unknown>>;
 
   static EVENTS = {
     INIT: "init",
@@ -85,7 +85,7 @@ export default class Block {
   }
 
   _registerEvents(eventBus: EventBus) {
-    eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
+    eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
@@ -94,6 +94,11 @@ export default class Block {
   _createDocumentElement(tagName: string): HTMLElement {
     const el = document.createElement(tagName);
     return el;
+  }
+
+  _init() {
+    this.init();
+    this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
   _addEvents() {
@@ -143,9 +148,7 @@ export default class Block {
     return this.element;
   }
 
-  init() {
-    this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
-  }
+  init() { }
 
   dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
@@ -159,16 +162,19 @@ export default class Block {
     return newProps !== oldProps;
   }
 
-  compile(tmpl, props: TBlockProps) {
+  compile(tmpl: TemplateDelegate, props: TBlockProps) {
     const propsAndStubs = { ...props };
     Object.entries(this.children).forEach(([key, value]) => {
       propsAndStubs[key] = `<div data-id="${value._id}"></div>`;
     });
-
+    console.log(propsAndStubs);
     const fragment = this._createDocumentElement('template');
     fragment.innerHTML = tmpl(propsAndStubs);
     Object.values(this.children).forEach((child) => {
       const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
+      if (!stub) {
+        return;
+      }
       stub.replaceWith(child.getContent());
     })
 
