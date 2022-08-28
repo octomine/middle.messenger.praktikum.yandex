@@ -10,7 +10,7 @@ export default class FormWrapper extends Block {
   }
 
   init() {
-    const { fields, button, link, submit } = this.props;
+    const { fields, button, link, submit, click } = this.props;
 
     fields.map((field: object) => this.children[`field_${field.name}`] = new Input(field));
 
@@ -20,7 +20,13 @@ export default class FormWrapper extends Block {
         click: () => submit()
       }
     });
-    this.children.link = new Button({ label: link, modifiers: "link" });
+    this.children.link = new Button({
+      label: link,
+      modifiers: "link",
+      events: {
+        click: () => click()
+      }
+    });
   }
 
   collect() {
@@ -28,13 +34,6 @@ export default class FormWrapper extends Block {
     fields.map(({ name }) => {
       console.log(this.children[`field_${name}`].value);
     })
-  }
-
-  componentDidUpdate(oldProps, newProps) {
-    const { fields } = newProps;
-    fields.map((field: object) => this.children[`field_${field.name}`].setProps(field))
-
-    return true;
   }
 
   render() {

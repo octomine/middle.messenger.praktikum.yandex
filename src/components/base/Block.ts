@@ -167,7 +167,7 @@ export default class Block<P> {
     Object.entries(this.children).forEach(([key, value]) => {
       propsAndStubs[key] = `<div data-id="${value._id}"></div>`;
     });
-    console.log(propsAndStubs);
+
     const fragment = this._createDocumentElement('template');
     fragment.innerHTML = tmpl(propsAndStubs);
     Object.values(this.children).forEach((child) => {

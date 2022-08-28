@@ -10,11 +10,10 @@ const ctx = {
   ],
   button: 'Авторизоваться',
   link: 'Нет аккаунта?',
-  // submit: () => form.collect(),
-  submit: () => {
-    form.collect()
-    form.setProps({ fields: [{ name: "login", error: '!!!' }] })
-  },
+  submit: () => form.collect(),
+  click: () => {
+    form.setProps({ title: "!!!" });
+  }
 }
 
 const form = new FormWrapper(ctx);
