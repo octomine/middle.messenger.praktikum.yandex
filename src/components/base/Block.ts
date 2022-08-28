@@ -72,15 +72,16 @@ export default class Block {
       set(target: object, prop: string, value) {
         checkPrivate(prop);
 
+        const old = { ...target };
         target[prop] = value;
         // TODO: вот ОЧ прям внимательно подумать, как лучше передавать новые и старые пропсы
-        self.eventBus().emit(Block.EVENTS.FLOW_CDU, { ...target }, target);
+        self.eventBus().emit(Block.EVENTS.FLOW_CDU, old, { ...target });
         return true;
       },
       deleteProperty() {
         throw ERROR_NO_RIGHTS;
       }
-    })
+    });
   }
 
   _registerEvents(eventBus: EventBus) {
@@ -117,8 +118,8 @@ export default class Block {
     Object.values(this.children).forEach((child: Block) => child.dispatchComponentDidMount());
   }
 
-  _componentDidUpdate(newProps: object, oldProps: object) {
-    if (this.componentDidUpdate(newProps, oldProps)) {
+  _componentDidUpdate(oldProps: object, newProps: object) {
+    if (this.componentDidUpdate(oldProps, newProps)) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
@@ -153,7 +154,7 @@ export default class Block {
   // переопределяется в наследниках
   componentDidMount() { }
 
-  componentDidUpdate(newProps: object, oldProps: object) {
+  componentDidUpdate(oldProps: object, newProps: object) {
     // TODO: вот тут ОЧ прям внимательно подумать, как сравнивать
     return newProps !== oldProps;
   }

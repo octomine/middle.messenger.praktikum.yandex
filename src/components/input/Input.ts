@@ -4,35 +4,41 @@ import "../label";
 import tmpl from "./tmpl.hbs";
 
 export default class Input extends Block {
-  componentDidMount() {
-    this.element.addEventListener('change', (evt: InputEvent) => this.setProps({ value: evt.target.value }));
+  static ERRORS = {
+    EMPTY: "Обязательное поле"
+  }
 
+  componentDidMount() {
     this.input.addEventListener('focus', () => this.label.classList.toggle('hide', false));
     this.input.addEventListener('blur',
-      () => this.label.classList.toggle('hide', this.noValue)
+      () => this.label.classList.toggle('hide', !(!!this.input.value)) // TODO: подумать, а то как-то диковато выглядит
     );
   }
 
-  get noValue(): boolean {
-    return !this.props.value || this.props.value === '';
-  }
-
   get input() {
-    return this.element.querySelector('.input');
+    return this._element.querySelector('.input');
   }
 
   get label() {
-    return this.element.querySelector('.input__label');
+    return this._element.querySelector('.input__label');
   }
 
   get error() {
-    return this.element.querySelector('.label-error');
+    return this._element.querySelector('.label-error');
   }
 
   get value(): Record<string, string> {
-    const { name, value } = this.props;
+    const { name } = this.props;
+    const { value } = this.input;
+    if (!value) { // TODO: ну и вообще валидация
+      return { name, error: Input.ERRORS.EMPTY }
+    }
 
-    return { [name]: value };
+    return { name, value };
+  }
+
+  componentDidUpdate(oldProps, newProps) {
+    return super.componentDidUpdate(oldProps, newProps);
   }
 
   render() {

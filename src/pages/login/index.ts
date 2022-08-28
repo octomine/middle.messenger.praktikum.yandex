@@ -13,9 +13,9 @@ const ctx = {
   title: { txt: "Вход" },
   form: new Form({
     fields: [
-      new Input({ name: "login", title: "Логин", error: "Неверный логин" }),
+      new Input({ name: "login", title: "Логин" }),
       new Input({
-        name: "password", title: "Пароль", error: "Неверный пароль", password: true,
+        name: "password", title: "Пароль", password: true,
       }),
     ],
     block: "login",
@@ -36,8 +36,19 @@ const ctx = {
 };
 
 function login() {
-  // TODO: валидация!!1
-  console.log(form.children.form.collect());
+  const res = form.children.form.collect();
+  const tmp = res.filter(({ error }) => error);
+  const errors = tmp.reduce((res, item) => {
+    const { name, error } = item;
+    return { ...res, [name]: error };
+  }, {});
+  if (errors) {
+    form.children.form.showErrors(errors);
+    render('.main', form);
+  } else {
+    const toReq = res.reduce((res, { name, value }) => ({ ...res, [name]: value }), {});
+    console.log(toReq);// выводить поля формы в лог
+  }
 }
 
 const form = new FormWrapper(ctx);
