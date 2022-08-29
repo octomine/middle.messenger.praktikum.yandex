@@ -10,9 +10,9 @@ export default class FormWrapper extends Block {
   }
 
   init() {
-    const { fields, button, link, submit, click } = this.props;
+    const { fields, button, link, submit } = this.props;
 
-    fields.map((field: object) => this.children[`field_${field.name}`] = new Input(field));
+    fields.map((field: object) => this.children[field.name] = new Input(field));
 
     this.children.button = new Button({
       label: button,
@@ -23,23 +23,30 @@ export default class FormWrapper extends Block {
     this.children.link = new Button({
       label: link,
       modifiers: "link",
-      events: {
-        click: () => click()
-      }
     });
   }
 
-  collect() {
+  collect(): Record<string, string> {
+    // TODO: сделать как-то более лучше 
     const { fields } = this.props;
-    fields.map(({ name }) => {
-      console.log(this.children[`field_${name}`].value);
-    })
+    const errors = fields.map(({ name }) => {
+      this.children[name].setProps({ error: null, value: this.children[name].value.value });
+      return this.children[name].value
+    }).filter(({ error }) => error);
+    if (errors.length > 0) {
+      errors.map(({ name, error }) => this.children[name].setProps({ error }));
+      return {};
+    }
+    return fields.reduce((res: object, { name }) => {
+      const { name: propName, value } = this.children[name].value
+      return { ...res, [propName]: value };
+    }, {});
   }
 
   render() {
     const { title: txt, block } = this.props;
     const fields = this.props.fields.map(
-      ({ name }) => `<div data-id="${this.children[`field_${name}`]._id}"></div>`
+      ({ name }) => `<div data-id="${this.children[name]._id}"></div>`
     );
 
     return this.compile(tmpl, { title: { txt }, block, fields });

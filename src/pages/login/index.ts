@@ -10,10 +10,10 @@ const ctx = {
   ],
   button: 'Авторизоваться',
   link: 'Нет аккаунта?',
-  submit: () => form.collect(),
-  click: () => {
-    form.setProps({ title: "!!!" });
-  }
+  submit: () => {
+    console.log('---');
+    console.log(form.collect());
+  },
 }
 
 const form = new FormWrapper(ctx);

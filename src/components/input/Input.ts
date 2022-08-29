@@ -8,7 +8,12 @@ export default class Input extends Block {
     EMPTY: "Обязательное поле"
   }
 
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
+    // TODO: убрать отсюда, приюумать как сделать нормально!!1
     this.input.addEventListener('focus', () => this.label.classList.toggle('hide', false));
     this.input.addEventListener('blur',
       () => this.label.classList.toggle('hide', !(!!this.input.value)) // TODO: подумать, а то как-то диковато выглядит
@@ -35,10 +40,6 @@ export default class Input extends Block {
     }
 
     return { name, value };
-  }
-
-  componentDidUpdate(oldProps, newProps) {
-    return super.componentDidUpdate(oldProps, newProps);
   }
 
   render() {

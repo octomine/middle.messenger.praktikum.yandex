@@ -97,6 +97,7 @@ export default class Block<P> {
   }
 
   _init() {
+    this._element = this._createDocumentElement('div');
     this.init();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
@@ -132,7 +133,8 @@ export default class Block<P> {
   _render() {
     const block = this.render();
     this._removeEvents();
-    this._element = block.firstChild;
+    this._element.innerHTML = '';
+    this._element.append(block);//.firstChild);
     this._element.setAttribute('data-id', this._id);
     this._addEvents();
   }
@@ -159,7 +161,7 @@ export default class Block<P> {
 
   componentDidUpdate(oldProps: object, newProps: object) {
     // TODO: вот тут ОЧ прям внимательно подумать, как сравнивать
-    return newProps !== oldProps;
+    return true;
   }
 
   compile(tmpl: TemplateDelegate, props: TBlockProps) {
