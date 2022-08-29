@@ -1,39 +1,31 @@
-import "../../components/common/styles";
-import "../../components/button";
-import "../../components/label";
-import "../../components/form";
-import "../../components/input";
-import "../../wrappers/form-wrapper";
-
-import tmpl from "./tmpl.hbs";
+import Block from '../../components/base/index'
+import FormWrapper from "../../wrappers/form-wrapper/FormWrapper";
 
 const ctx = {
-  title: {
-    txt: "Регистрация",
-  },
-  form: {
-    fields: [
-      { title: "Почта", error: "Обязательное поле" },
-      { title: "Логин", error: "Обязательное поле" },
-      { title: "Имя" },
-      { title: "Фамилия" },
-      { title: "Телефон" },
-      { title: "Пароль", error: "Обязательное поле" },
-      { title: "Пароль (ещё раз)", error: "Пароли не совпадают" },
-    ],
-    block: "registration",
-  },
-  button: {
-    label: "Зарегистрироваться",
-  },
-  link: {
-    label: "Войти",
-  },
+  title: "Регистрация",
+  fields: [
+    { name: "email", title: "Почта" },
+    { name: "login", title: "Логин" },
+    { name: "first_name", title: "Имя" },
+    { name: "second_name", title: "Фамилия" },
+    { name: "phone", title: "Телефон" },
+    { name: "password", title: "Пароль", password: true },
+    { name: "", title: "Пароль (ещё раз)", password: true },
+  ],
+  block: "registration",
+  button: "Зарегистрироваться",
+  link: "Войти",
+  submit: () => console.log(form.collect())
 };
 
-window.addEventListener("DOMContentLoaded", () => {
-  const main = document.getElementsByClassName("main")[0];
-  const el = tmpl(ctx);
+const form = new FormWrapper(ctx);
 
-  main.innerHTML = el;
-});
+function render(query: string, block: Block) {
+  const root = document.querySelector(query);
+  root.appendChild(block.getContent());
+  block.dispatchComponentDidMount();
+
+  return root;
+}
+
+render('.main', form);

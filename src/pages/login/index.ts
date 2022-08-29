@@ -1,35 +1,29 @@
-import "../../components/common/styles";
-import "../../components/button";
-import "../../components/label";
-import "../../components/form";
-import "../../components/input";
-import "../../wrappers/form-wrapper";
-
-import tmpl from "./tmpl.hbs";
+import Block from '../../components/base/index'
+import FormWrapper from "../../wrappers/form-wrapper/FormWrapper";
 
 const ctx = {
-  title: {
-    txt: "Вход",
+  title: "Вход",
+  block: "login",
+  fields: [
+    { name: "login", title: "Логин" },
+    { name: "password", title: "Пароль", password: true },
+  ],
+  button: 'Авторизоваться',
+  link: 'Нет аккаунта?',
+  submit: () => {
+    console.log('---');
+    console.log(form.collect());
   },
-  form: {
-    fields: [
-      { title: "Логин", error: "Неверный логин" },
-      { title: "Пароль", error: "Неверный пароль", password: true },
-    ],
-    block: "login",
-  },
-  button: {
-    label: "Авторизоваться",
-  },
-  link: {
-    label: "Нет аккаунта?",
-    styles: "footer",
-  },
-};
+}
 
-window.addEventListener("DOMContentLoaded", () => {
-  const main = document.getElementsByClassName("main")[0];
-  const el = tmpl(ctx);
+const form = new FormWrapper(ctx);
 
-  main.innerHTML = el;
-});
+function render(query: string, block: Block<unknown>) {
+  const root = document.querySelector(query);
+  root.appendChild(block.getContent());
+  block.dispatchComponentDidMount();
+
+  return root;
+}
+
+render('.main', form);
