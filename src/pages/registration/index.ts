@@ -1,4 +1,4 @@
-import Block from '../../components/base/index'
+import { render } from '../../utils/render';
 import FormWrapper from "../../wrappers/form-wrapper/FormWrapper";
 
 const ctx = {
@@ -10,7 +10,7 @@ const ctx = {
     { name: "second_name", title: "Фамилия" },
     { name: "phone", title: "Телефон" },
     { name: "password", title: "Пароль", password: true },
-    { name: "", title: "Пароль (ещё раз)", password: true },
+    { name: "password_check", title: "Пароль (ещё раз)", password: true, equal: "password" },
   ],
   block: "registration",
   button: "Зарегистрироваться",
@@ -19,13 +19,5 @@ const ctx = {
 };
 
 const form = new FormWrapper(ctx);
-
-function render(query: string, block: Block) {
-  const root = document.querySelector(query);
-  root.appendChild(block.getContent());
-  block.dispatchComponentDidMount();
-
-  return root;
-}
 
 render('.main', form);

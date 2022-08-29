@@ -5,7 +5,7 @@ import tmpl from "./tmpl.hbs";
 
 export default class Input extends Block {
   static ERRORS = {
-    EMPTY: "Обязательное поле"
+    REQUIRED: "Обязательное поле"
   }
 
   constructor(props) {
@@ -36,7 +36,7 @@ export default class Input extends Block {
     const { name } = this.props;
     const { value } = this.input;
     if (!value) { // TODO: ну и вообще валидация
-      return { name, error: Input.ERRORS.EMPTY }
+      return { name, error: Input.ERRORS.REQUIRED }
     }
 
     return { name, value };

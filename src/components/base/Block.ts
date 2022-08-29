@@ -1,6 +1,6 @@
 import { v4 as makeID } from 'uuid'
 
-import EventBus from './event-bus';
+import EventBus from '../../utils/event-bus';
 import { TBlockProps } from './types';
 
 const ERROR_NO_RIGHTS = new Error('Нет прав');
@@ -23,7 +23,7 @@ export default class Block<P> {
   }
 
   _element = null;
-  _id = null;
+  id = null;
 
   constructor(propsAndChildren: TBlockProps = {}) {
     const eventBus = new EventBus();
@@ -31,7 +31,7 @@ export default class Block<P> {
     const { props, children } = this._getChildrenAndProps(propsAndChildren);
     this.children = children;
 
-    this._id = makeID();
+    this.id = makeID();
 
     this.props = this._makePropsProxy(props);
     this.eventBus = () => eventBus;
@@ -74,7 +74,7 @@ export default class Block<P> {
 
         const old = { ...target };
         target[prop] = value;
-        // TODO: вот ОЧ прям внимательно подумать, как лучше передавать новые и старые пропсы
+
         self.eventBus().emit(Block.EVENTS.FLOW_CDU, old, { ...target });
         return true;
       },
@@ -98,6 +98,7 @@ export default class Block<P> {
 
   _init() {
     this._element = this._createDocumentElement('div');
+    this._element.setAttribute('data-id', this.id);
     this.init();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
@@ -121,7 +122,7 @@ export default class Block<P> {
   _componentDidMount() {
     this.componentDidMount();
 
-    Object.values(this.children).forEach((child: Block) => child.dispatchComponentDidMount());
+    Object.values(this.children).forEach((child: Block<unknown>) => child.dispatchComponentDidMount());
   }
 
   _componentDidUpdate(oldProps: object, newProps: object) {
@@ -134,8 +135,7 @@ export default class Block<P> {
     const block = this.render();
     this._removeEvents();
     this._element.innerHTML = '';
-    this._element.append(block);//.firstChild);
-    this._element.setAttribute('data-id', this._id);
+    this._element.append(block);
     this._addEvents();
   }
 

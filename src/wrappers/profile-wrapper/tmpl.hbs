@@ -1,7 +1,10 @@
 <div class="fv cent profileWrapper">
-    {{> avatar}}
-    {{> (content) contentCtx}}
-    {{#if footer}}
-    {{> (footer) footerCtx}}
-    {{/if}}
+  {{{avatar}}}
+  {{#if title}}
+  {{> label txt=title block="list" modifiers="list"}}
+  {{/if}}
+  {{{content}}}
+  {{#if footer}}
+  {{{footer}}}
+  {{/if}}
 </div>
