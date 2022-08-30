@@ -4,9 +4,9 @@ import "../../components/label";
 import "../../components/button";
 
 import "./components/avatar";
-import "./components/line";
+import "./components/list/elements/line";
 import "./components/line-link";
-import "./components/line-input";
+import "./components/list-input/elements/line-input";
 import "./components/list";
 
 import "../../wrappers/profile-wrapper";

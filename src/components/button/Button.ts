@@ -3,11 +3,15 @@ import "../common/styles";
 
 import tmpl from "./tmpl.hbs";
 
-export default class Button extends Block {
+interface ButtonProps {
+  label: string;
+}
+
+export default class Button extends Block<ButtonProps> {
   constructor(props) {
     super(props);
   }
-  
+
   render() {
     return this.compile(tmpl, this.props);
   }

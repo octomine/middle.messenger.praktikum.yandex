@@ -12,8 +12,8 @@ const checkPrivate = (prp: string): void => {
 
 export default class Block<P> {
   eventBus: () => EventBus;
-  props: TBlockProps & P;
-  children: Record<string, Block<unknown>>;
+  props: P;
+  children: Record<string, Block<any>>;
 
   static EVENTS = {
     INIT: "init",
@@ -25,7 +25,7 @@ export default class Block<P> {
   _element = null;
   id = null;
 
-  constructor(propsAndChildren: TBlockProps = {}) {
+  constructor(propsAndChildren: P) {
     const eventBus = new EventBus();
 
     const { props, children } = this._getChildrenAndProps(propsAndChildren);
@@ -122,7 +122,16 @@ export default class Block<P> {
   _componentDidMount() {
     this.componentDidMount();
 
-    Object.values(this.children).forEach((child: Block<unknown>) => child.dispatchComponentDidMount());
+    const dispatchCDMInner = (children: Block<unknown>[]): void => {
+      children.forEach((child) => {
+        if (Array.isArray(child)) {
+          dispatchCDMInner(child);
+        } else {
+          child.dispatchComponentDidMount();
+        }
+      })
+    }
+    dispatchCDMInner(Object.values(this.children));
   }
 
   _componentDidUpdate(oldProps: object, newProps: object) {
@@ -161,26 +170,39 @@ export default class Block<P> {
 
   componentDidUpdate(oldProps: object, newProps: object) {
     // TODO: вот тут ОЧ прям внимательно подумать, как сравнивать
-    return true;
+    return oldProps !== newProps;
   }
 
-  compile(tmpl: TemplateDelegate, props: TBlockProps) {
+  compile(tmpl: TemplateDelegate, props: P) {
+    const stub = (id: string): string => `<div data-id="${id}"></div>`;
+    const replaceStub = (el: HTMLElement, block: Block): void => {
+      const { id } = block;
+      const stub = el.querySelector(`[data-id="${id}"]`);
+      if (stub) {
+        stub.replaceWith(block.getContent());
+      }
+    }
+
     const propsAndStubs = { ...props };
     Object.entries(this.children).forEach(([key, value]) => {
-      propsAndStubs[key] = `<div data-id="${value._id}"></div>`;
+      if (Array.isArray(value)) {
+        propsAndStubs[key] = value.map(({ id }) => stub(id));
+      } else {
+        propsAndStubs[key] = stub(value.id);
+      }
     });
 
     const fragment = this._createDocumentElement('template');
     fragment.innerHTML = tmpl(propsAndStubs);
+    const el = fragment.content;
     Object.values(this.children).forEach((child) => {
-      const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
-      if (!stub) {
-        return;
+      if (Array.isArray(child)) {
+        child.forEach((inner) => replaceStub(el, inner))
       }
-      stub.replaceWith(child.getContent());
+      replaceStub(el, child);
     })
 
-    return fragment.content;
+    return el;
   }
 
   render(): DocumentFragment {

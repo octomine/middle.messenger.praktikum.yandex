@@ -1,8 +1,5 @@
-import "../../components/common/styles";
-import "../../components/button";
-import "../../components/label";
-
-import tmpl from "./tmpl.hbs";
+import { render } from '../../utils/render';
+import Status from './components/status';
 
 const ctx = {
   '404': {
@@ -18,12 +15,11 @@ const ctx = {
 };
 
 window.addEventListener("DOMContentLoaded", () => {
-  let status = location.hash.replace("#", "");
-  status = ctx[status] ? status : '404';
-  document.title = status;
+  let sts = location.hash.replace("#", "");
+  sts = ctx[sts] ? sts : '404';
+  document.title = sts;
 
-  const main = document.getElementsByClassName("main")[0];
-  const el = tmpl(ctx[status]);
+  const status = new Status(ctx[sts]);
 
-  main.innerHTML = el;
+  render('.main', status);
 });
