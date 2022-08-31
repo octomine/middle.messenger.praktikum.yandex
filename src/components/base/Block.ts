@@ -97,8 +97,8 @@ export default class Block<P> {
   }
 
   _init() {
-    this._element = this._createDocumentElement('div');
-    this._element.setAttribute('data-id', this.id);
+    // this._element = this._createDocumentElement('div');
+    // this._element.setAttribute('data-id', this.id);
     this.init();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
@@ -106,17 +106,15 @@ export default class Block<P> {
   _addEvents() {
     const { events = {} } = this.props;
     Object.keys(events).forEach((evtName) => {
-      this._element.addEventListener(evtName, events[evtName]);
+      this._element?.addEventListener(evtName, events[evtName]);
     });
   }
 
   _removeEvents() {
-    if (this._element) {
-      const { events = {} } = this.props;
-      Object.keys(events).forEach((evtName) => {
-        this._element.removeEventListener(evtName, events[evtName]);
-      });
-    }
+    const { events = {} } = this.props;
+    Object.keys(events).forEach((evtName) => {
+      this._element?.removeEventListener(evtName, events[evtName]);
+    });
   }
 
   _componentDidMount() {
@@ -141,10 +139,14 @@ export default class Block<P> {
   }
 
   _render() {
-    const block = this.render();
+    const newElement = this.render().firstElementChild;
+    newElement.setAttribute('data-id', this.id);
+
     this._removeEvents();
-    this._element.innerHTML = '';
-    this._element.append(block);
+
+    this._element?.replaceWith(newElement);
+    this._element = newElement;
+
     this._addEvents();
   }
 
