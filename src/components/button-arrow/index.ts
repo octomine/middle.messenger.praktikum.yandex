@@ -1,1 +1,1 @@
-export * from "./ButtonArrow";
+export { default } from "./ButtonArrow";

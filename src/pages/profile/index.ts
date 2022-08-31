@@ -5,6 +5,7 @@ import List from './components/list';
 import ListLink from './components/list-link';
 import ListInput from './components/list-input';
 import Button from '../../components/button';
+import ButtonArrow from '../../components/button-arrow';
 
 const title = {
   profile: "Профиль",
@@ -86,7 +87,14 @@ window.addEventListener('DOMContentLoaded', () => {
       document.title = title.profile;
   }
 
+  const btn = new ButtonArrow({
+    modifiers: "left",
+    events: {
+      click: () => console.log('BACK!!1')
+    }
+  });
   const profile = new ProfileWrapper(ctx);
 
+  render('.main', btn);
   render('.main', profile);
 });
