@@ -1,5 +1,5 @@
-import Block from '../../../../../../components/base';
-import "../../../../../../components/label";
+import Block from "../../../base";
+import "../../../label";
 
 import tmpl from "./tmpl.hbs";
 

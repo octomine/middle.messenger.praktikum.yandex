@@ -1,10 +1,10 @@
-import Block from "../../../../components/base";
-import "../../../../components/common/styles";
+import Block from "../base";
+import "../common/styles";
 
 import tmpl from "./tmpl.hbs";
 import Line from "./elements/line";
 
-interface ListProps {
+export interface ListProps {
   fields: Record<string, string>[],
 }
 
