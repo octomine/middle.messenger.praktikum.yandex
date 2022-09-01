@@ -1,5 +1,6 @@
 import Block from "../../../../../../components/base";
 
+import Input from "../../../../../../components/input";
 import tmpl from "./tmpl.hbs";
 
 interface LineInputProps {
@@ -11,6 +12,17 @@ interface LineInputProps {
 export default class LineInput extends Block<LineInputProps> {
   constructor(props: LineInputProps) {
     super(props);
+  }
+
+  init() {
+    const { value, title: placeholder, isPassword } = this.props;
+    this.children.input = new Input({
+      block: "line",
+      modifiers: "profile",
+      value,
+      placeholder,
+      isPassword,
+    });
   }
 
   get input() {

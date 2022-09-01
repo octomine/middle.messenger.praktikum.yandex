@@ -1,6 +1,8 @@
 import Block from "../../components/base/Block";
 import Button from "../../components/button";
-import Input from "../../components/input";
+import '../../components/label';
+
+import ListForm from './components/list-form';
 
 import tmpl from "./tmpl.hbs";
 
@@ -19,9 +21,9 @@ export default class FormWrapper extends Block<FormProps> {
   }
 
   init() {
-    const { fields, button, link, submit } = this.props;
-    this.children.fields = fields.map((field) => new Input(field));
+    const { fields, block, button, link, submit } = this.props;
 
+    this.children.list = new ListForm({ fields, block });
     this.children.button = new Button({
       label: button,
       events: {
@@ -34,9 +36,8 @@ export default class FormWrapper extends Block<FormProps> {
     });
   }
 
-  collect(): Record<string, string> {
-    // TODO: сделать как-то более лучше 
-    this.children.fields.forEach(({ name, value }) => console.log(`${name}: ${value}`));
+  collect() {
+    this.children.list.collect();
   }
 
   render() {

@@ -1,21 +1,23 @@
-<li class='fv chatHolder'>
+<li class='fv line_chat'>
   <div class='fh chat'>
-    <div class='chatAvatar'></div>
-    <div class='fv left'>
-      {{> label txt=title modifiers="m"}}
-      <div class='message'>
-        {{msg}}
+    <div class='chat_avatar'></div>
+    <div class="fv as">
+      <div class="fh ac row">
+        {{> label txt=title modifiers="m"}}
+        <div class='time'>
+          {{time}}
+        </div>
       </div>
-    </div>
-    <div class='fv right'>
-      <div class='time'>
-        {{time}}
+      <div class="fh ac row">
+        <div class='message'>
+          {{msg}}
+        </div>
+        {{#if unread}}
+        <div class='fh unread'>
+          {{unread}}
+        </div>
+        {{/if}}
       </div>
-      {{#if unread}}
-      <div class='fh unread'>
-        {{unread}}
-      </div>
-      {{/if}}
     </div>
   </div>
   <div class='dash'></div>

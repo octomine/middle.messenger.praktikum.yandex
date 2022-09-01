@@ -1,9 +1,9 @@
 import { render } from '../../utils/render';
 
 import ProfileWrapper from '../../wrappers/profile-wrapper';
-import List from '../../components/list';
-import ListLink from './components/list-link';
-import ListInput from './components/list-input';
+import ListProfile from '../../wrappers/profile-wrapper/components/list-profile'
+import ListInput from '../../wrappers/profile-wrapper/components/list-input';
+import ListLink from '../../wrappers/profile-wrapper/components/list-link';
 import Button from '../../components/button';
 import ButtonArrow from '../../components/button-arrow';
 
@@ -16,17 +16,19 @@ const title = {
 window.addEventListener('DOMContentLoaded', () => {
   const ctxProfile = {
     title: "Восилей",
-    content: new List({
+    content: new ListProfile({
+      modifiers: "titled",
       fields: [
-        { key: "Почта", value: "adf@mail.ru" },
-        { key: "Логин", value: "adf" },
-        { key: "Имя", value: "Восилей" },
-        { key: "Фамилия", value: "Пупкен" },
-        { key: "Имя в чате", value: "VoPup" },
-        { key: "Телефон", value: "+7 (321) 987-45-33" },
+        { title: "Почта", value: "adf@mail.ru" },
+        { title: "Логин", value: "adf" },
+        { title: "Имя", value: "Восилей" },
+        { title: "Фамилия", value: "Пупкен" },
+        { title: "Имя в чате", value: "VoPup" },
+        { title: "Телефон", value: "+7 (321) 987-45-33" },
       ]
     }),
     footer: new ListLink({
+      block: "footer",
       fields: [
         { label: "Изменить данные" },
         { label: "Изменить пароль" },
@@ -37,13 +39,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const ctxChange = {
     content: new ListInput({
+      block: "profile",
       fields: [
-        { name: "email", key: "Почта", value: "adf@mail.ru" },
-        { name: "login", key: "Логин", value: "adf" },
-        { name: "first_name", key: "Имя", value: "Восилей" },
-        { name: "second_name", key: "Фамилия", value: "Пупкен" },
-        { name: "display_name", key: "Имя в чате", value: "VoPup" },
-        { name: "phone", key: "Телефон", value: "+7 (321) 987-45-33" },
+        { name: "email", title: "Почта", value: "adf@mail.ru" },
+        { name: "login", title: "Логин", value: "adf" },
+        { name: "first_name", title: "Имя", value: "Восилей" },
+        { name: "second_name", title: "Фамилия", value: "Пупкен" },
+        { name: "display_name", title: "Имя в чате", value: "VoPup" },
+        { name: "phone", title: "Телефон", value: "+7 (321) 987-45-33" },
       ]
     }),
     footer: new Button({
@@ -57,10 +60,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const ctxPassword = {
     content: new ListInput({
+      block: "profile",
       fields: [
-        { name: "oldPassword", key: "Старый пароль", value: "asdasdfasdf", isPassword: true },
-        { name: "newPassword", key: "Новый пароль", value: "adf", isPassword: true },
-        { key: "Повторите новый пароль", isPassword: true, isEqual: "newPassword" },
+        { name: "oldPassword", title: "Старый пароль", value: "asdasdfasdf", isPassword: true },
+        { name: "newPassword", title: "Новый пароль", value: "adf", isPassword: true },
+        { title: "Повторите новый пароль", isPassword: true, isEqual: "newPassword" },
       ],
     }),
     footer: new Button({

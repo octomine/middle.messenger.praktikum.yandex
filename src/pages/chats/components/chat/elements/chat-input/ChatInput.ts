@@ -3,6 +3,7 @@ import Block from "../../../../../../components/base";
 import tmpl from './tmpl.hbs';
 import ButtonArrow from "../../../../../../components/button-arrow";
 import ButtonAttach from "../button-attach/ButtonAttach";
+import Input from "../../../../../../components/input";
 
 interface ChatInputProps {
 
@@ -20,11 +21,31 @@ export default class ChatInput extends Block<ChatInputProps> {
       }
     });
 
+    this.children.input = new Input({
+      placeholder: 'Сообщение', modifiers: 'chat',
+      events: {
+        keyup: (evt: KeyboardEvent) => {
+          if (evt.key === 'Enter') {
+            this.send();
+          }
+        }
+      }
+    });
+
     this.children.button = new ButtonArrow({
       events: {
-        click: () => console.log('SEND!!1')
+        click: () => this.send()
       }
     })
+  }
+
+  send() {
+    const { value } = this.children.input;
+    if (value && value.length > 0) {
+      console.log('SEND!!1');
+      console.log(this.children.input.value);
+      this.children.input.setProps({ value: '' });
+    }
   }
 
   render() {

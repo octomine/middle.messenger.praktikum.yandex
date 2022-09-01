@@ -2,7 +2,6 @@ import Block from "../base";
 import "../common/styles";
 
 import tmpl from "./tmpl.hbs";
-import Line from "./elements/line";
 
 export interface ListProps {
   fields: Record<string, string>[],
@@ -19,10 +18,10 @@ export default class List extends Block<ListProps> {
   }
 
   line(field): Block<unknown> {
-    return new Line(field);
+    return null;
   }
 
   render() {
-    return this.compile(tmpl, {});
+    return this.compile(tmpl, this.props);
   }
 }

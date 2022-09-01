@@ -1,6 +1,6 @@
 import Block from '../../components/base';
 
-import Avatar from '../../pages/profile/components/avatar';
+import Avatar from './components/avatar';
 import tmpl from "./tmpl.hbs";
 
 interface ProfileProps {
@@ -8,7 +8,7 @@ interface ProfileProps {
   fields: [],
 }
 
-export default class ProfileWrapper extends Block<ProfileProps> {
+export default class profile_wrapper extends Block<ProfileProps> {
   constructor(props: ProfileProps) {
     super(props);
   }

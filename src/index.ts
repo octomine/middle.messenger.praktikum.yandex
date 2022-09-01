@@ -1,18 +1,15 @@
-import List from './components/list';
 import { render } from './utils/render'
 
+import LineForm from './wrappers/form-wrapper/components/list-form/elements/line-form/LineForm';
+
 const ctx = {
-  fields: [
-    { label: '1' },
-    { label: '22' },
-    { label: '333' },
-    { label: '4444' },
-    { label: '55555' },
-  ]
+  title: 'title',
+  placeholder: 'test',
+  error:'!!!'
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  const list = new List(ctx);
+  const input = new LineForm(ctx);
 
-  render('.main', list);
+  render('.main', input);
 });
