@@ -1,4 +1,4 @@
-import List from "../list";
+import List from "../../../../components/list";
 import LineInput from './elements/line-input';
 
 interface ListInputProps {

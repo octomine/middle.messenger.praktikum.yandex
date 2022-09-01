@@ -13,7 +13,7 @@ const checkPrivate = (prp: string): void => {
 export default class Block<P> {
   eventBus: () => EventBus;
   props: P;
-  children: Record<string, Block<any>>;
+  children: Record<string, Block<any> | Array<Record<string, Block<any>>>>;
 
   static EVENTS = {
     INIT: "init",

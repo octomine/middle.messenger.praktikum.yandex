@@ -1,19 +1,37 @@
+import { getTime } from "../../../../../../utils/time";
 import Block from "../../../../../../components/base";
 import tmpl from './tmpl.hbs';
-import { getTime } from "../../../../../../utils/time";
 
 interface LineChatProps {
-
+  id: string,
+  title: string,
+  unread_count: number,
+  last_message: object,
 }
 
 export default class LineChat extends Block<LineChatProps> {
+  _isSelected: boolean = false;
+
   constructor(props: LineChatProps) {
     super(props);
   }
 
-  render() {
-    const { title: txt, last_message: { content: msg, time }, unread_count: unread } = this.props;
+  get chatID(): string {
+    return this.props.id;
+  }
 
-    return this.compile(tmpl, { title: { txt }, msg, time: getTime(time), unread });
+  set isSelected(val: boolean) {
+    this._isSelected = val;
+    this._element.querySelector('.chat').classList.toggle('chat-selected', val);
+  }
+
+  get isSelected(): boolean {
+    return this._isSelected;
+  }
+
+  render() {
+    const { title, last_message: { content: msg, time }, unread_count: unread } = this.props;
+
+    return this.compile(tmpl, { title, msg, time: getTime(time), unread });
   }
 }

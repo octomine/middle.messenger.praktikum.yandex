@@ -1,0 +1,30 @@
+.searchWrapper {
+  width: 290px;
+  height: 69px;
+  border-bottom: solid 1px @colorSecondaryLighter;
+}
+
+.search__input {
+  width: 290px;
+  height: 32px;
+  border: none;
+  border-radius: 5px;
+  background: @colorSecondaryLighter;
+
+  &:focus {
+    padding-left: 23px;
+    background: @magnifierImage, @colorSecondaryLighter;
+    &::placeholder {
+      color: transparent;
+      background: none;
+    }
+  }
+
+  &::placeholder {
+    margin-left: 70px;
+    background: @magnifierImage;
+    text-align: center;
+    font-size: 12px;
+    color: @colorSecondaryLight;
+  }
+}

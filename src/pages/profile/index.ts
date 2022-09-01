@@ -1,7 +1,7 @@
 import { render } from '../../utils/render';
 
 import ProfileWrapper from '../../wrappers/profile-wrapper';
-import List from './components/list';
+import List from '../../components/list';
 import ListLink from './components/list-link';
 import ListInput from './components/list-input';
 import Button from '../../components/button';

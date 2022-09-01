@@ -1,4 +1,4 @@
-import List from "../list";
+import List from "../../../../components/list";
 import LineLink from './elements/line-link';
 
 interface ListLinkProps {
