@@ -1,4 +1,4 @@
-import Block from "../../components/base/Block";
+import Block from "../../components/common/block";
 import Button from "../../components/button";
 import '../../components/label';
 

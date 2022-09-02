@@ -1,4 +1,4 @@
-import Block from '../../components/base';
+import Block from '../../components/common/block';
 
 import Avatar from './components/avatar';
 import tmpl from "./tmpl.hbs";

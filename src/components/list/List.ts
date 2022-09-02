@@ -1,4 +1,4 @@
-import Block from "../base";
+import Block from "../common/block";
 import "../common/styles";
 
 import tmpl from "./tmpl.hbs";

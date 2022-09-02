@@ -1,4 +1,4 @@
-import Block from "../../../../../../components/base";
+import Block from "../../../../../../components/common/block";
 import Input from "../../../../../../components/input/Input";
 import '../../../../../../components/label'
 import '../../../../../../components/common/styles'

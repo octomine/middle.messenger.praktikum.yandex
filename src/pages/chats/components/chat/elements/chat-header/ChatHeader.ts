@@ -1,5 +1,6 @@
-import Block from "../../../../../../components/base";
-import Avatar from "../../../../../../components/avatar/Avatar";
+import Block from "../../../../../../components/common/block";
+import Avatar from "../../../../../../components/avatar";
+import Button from "../../../../../../components/button";
 
 import tmpl from './tmpl.hbs';
 
@@ -13,7 +14,8 @@ export default class ChatHeader extends Block<ChaHeaderProps> {
   }
 
   init() {
-    this.children.avatar = new Avatar({ block: 'chat_header', modifiers: 's' })
+    this.children.avatar = new Avatar({ block: 'chat_header', modifiers: 's' });
+    this.children.options = new Button({ modifiers: "options" })
   }
 
   render() {

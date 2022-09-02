@@ -1,6 +1,7 @@
-import tmpl from "./tmpl.hbs";
-import Block from "../../../../../../components/base";
+import Block from "../../../../../../components/common/block";
 import Button from "../../../../../../components/button";
+
+import tmpl from "./tmpl.hbs";
 
 interface LineLinkProps {
   label: string,

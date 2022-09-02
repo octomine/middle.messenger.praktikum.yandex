@@ -1,5 +1,5 @@
 import { getTime } from "../../../../../../utils/time";
-import Block from "../../../../../../components/base";
+import Block from "../../../../../../components/common/block";
 import tmpl from './tmpl.hbs';
 import Avatar from "../../../../../../components/avatar/Avatar";
 

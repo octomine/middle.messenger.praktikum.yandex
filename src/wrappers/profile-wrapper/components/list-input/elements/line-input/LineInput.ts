@@ -1,6 +1,6 @@
-import Block from "../../../../../../components/base";
-
+import Block from "../../../../../../components/common/block";
 import Input from "../../../../../../components/input";
+
 import tmpl from "./tmpl.hbs";
 
 interface LineInputProps {

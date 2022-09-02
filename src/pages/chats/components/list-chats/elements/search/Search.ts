@@ -1,4 +1,4 @@
-import Block from "../../../../../../components/base";
+import Block from "../../../../../../components/common/block";
 
 import tmpl from "./tmpl.hbs";
 

@@ -1,6 +1,6 @@
 import { v4 as makeID } from 'uuid'
 
-import EventBus from '../../utils/event-bus';
+import EventBus from '../../../utils/event-bus';
 import { TBlockProps } from './types';
 
 const ERROR_NO_RIGHTS = new Error('Нет прав');
