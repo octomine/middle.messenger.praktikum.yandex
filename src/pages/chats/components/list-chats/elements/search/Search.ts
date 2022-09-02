@@ -1,13 +1,9 @@
-import Block from "../../../../../../components/common/block";
+import Block, { TBlockProps } from "../../../../../../components/common/block";
 
 import tmpl from "./tmpl.hbs";
 
-interface SearchProps {
-
-}
-
-export default class Search extends Block<SearchProps> {
-  constructor(props: SearchProps) {
+export default class Search extends Block<TBlockProps> {
+  constructor(props: TBlockProps) {
     super(props);
   }
 

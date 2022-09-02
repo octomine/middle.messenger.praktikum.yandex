@@ -1,12 +1,13 @@
-import List from "../../../../../../components/list";
-import LineMessage from "../line-message/LineMessage";
+import List, { ListProps } from "../../../../../../components/list";
+import LineMessage from "../line-message";
+import { TBlockProps } from "../../../../../../components/common/block";
 
 export default class ListMessages extends List {
-  constructor(props) {
+  constructor(props: ListProps) {
     super({ ...props, block: 'chat_sheet' });
   }
 
-  line(field): LineMessage {
+  line(field: TBlockProps): LineMessage {
     return new LineMessage(field);
   }
 }

@@ -1,10 +1,10 @@
-import Block from "../../../../../../components/common/block";
+import Block, { TBlockProps } from "../../../../../../components/common/block";
 import Input from "../../../../../../components/input";
 import Button from "../../../../../../components/button";
 
 import tmpl from './tmpl.hbs';
 
-interface ChatInputProps {
+interface ChatInputProps extends TBlockProps {
   attachClick: () => void,
 }
 
@@ -44,7 +44,7 @@ export default class ChatInput extends Block<ChatInputProps> {
   }
 
   send() {
-    const { value } = this.children.input;
+    const { value } = this.children.input as Input;
     if (value && value.length > 0) {
       console.log('SEND!!1');
       console.log(value);

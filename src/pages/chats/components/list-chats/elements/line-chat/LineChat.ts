@@ -1,9 +1,10 @@
 import { getTime } from "../../../../../../utils/time";
-import Block from "../../../../../../components/common/block";
-import tmpl from './tmpl.hbs';
+import Block, { TBlockProps } from "../../../../../../components/common/block";
 import Avatar from "../../../../../../components/avatar/Avatar";
 
-interface LineChatProps {
+import tmpl from './tmpl.hbs';
+
+export interface LineChatProps extends TBlockProps {
   id: string,
   title: string,
   unread_count: number,
@@ -23,7 +24,7 @@ export default class LineChat extends Block<LineChatProps> {
 
   set isSelected(val: boolean) {
     this._isSelected = val;
-    this._element.querySelector('.chat').classList.toggle('chat-selected', val);
+    this._element?.querySelector('.chat').classList.toggle('chat-selected', val);
   }
 
   get isSelected(): boolean {

@@ -1,11 +1,12 @@
-import Block from "../../../../../../components/common/block";
+import Block, { TBlockProps } from "../../../../../../components/common/block";
 import Input from "../../../../../../components/input/Input";
+
 import '../../../../../../components/label'
 import '../../../../../../components/common/styles'
 
 import tmpl from './tmpl.hbs';
 
-interface LineFormProps {
+export interface LineFormProps extends TBlockProps {
   name: string,
   title: string,
   value?: string,
@@ -43,7 +44,7 @@ export default class LineForm extends Block<LineFormProps> {
   }
 
   get value(): string {
-    return this.children.input.value;
+    return (this.children.input as Input).value;
   }
 
   onFocus() {
@@ -51,7 +52,7 @@ export default class LineForm extends Block<LineFormProps> {
   }
 
   onBlur() {
-    const { value } = this.children.input;
+    const { value } = this.children.input as Input;
     this.title.classList.toggle('disguise', !(value && value.length > 0));
   }
 

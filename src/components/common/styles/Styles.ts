@@ -14,4 +14,3 @@ Handlebars.registerHelper("concat", (...args) =>
         .filter((item) => typeof item === "string" && item.length > 0)
         .reduce((res, curr) => `${res},${curr}`)
 );
-// TODO: подумать ещё, нет ли тут где дыры с типами или ещё какой

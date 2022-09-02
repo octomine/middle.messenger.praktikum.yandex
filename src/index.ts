@@ -1,6 +1,5 @@
 import { render } from './utils/render'
 
-import LineForm from './wrappers/form-wrapper/components/list-form/elements/line-form/LineForm';
 import Button from './components/button';
 
 const ctx = {

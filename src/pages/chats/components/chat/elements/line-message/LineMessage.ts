@@ -1,13 +1,9 @@
-import Block from "../../../../../../components/common/block";
+import Block, { TBlockProps } from "../../../../../../components/common/block";
 
 import tmpl from './tmpl.hbs';
 
-interface LineMessageProps {
-
-}
-
-export default class LineMessage extends Block<LineMessageProps> {
-  constructor(props: LineMessageProps) {
+export default class LineMessage extends Block<TBlockProps> {
+  constructor(props: TBlockProps) {
     super(props);
   }
 

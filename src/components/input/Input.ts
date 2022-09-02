@@ -1,9 +1,9 @@
-import Block from "../common/block";
+import Block, { TBlockProps } from "../common/block";
 import '../common/styles'
 
 import tmpl from "./tmpl.hbs";
 
-interface InputProps {
+interface InputProps extends TBlockProps {
   value?: string,
   placeholder?: string,
   isPassword?: boolean,
@@ -15,7 +15,7 @@ export default class Input extends Block<InputProps> {
   }
 
   get value(): string {
-    return this._element.value;
+    return (this._element as HTMLInputElement).value;
   }
 
   render() {

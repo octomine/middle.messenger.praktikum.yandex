@@ -1,20 +1,17 @@
-import Block from "../../../../components/common/block";
+import Block, { TBlockProps } from "../../../../components/common/block";
 
 import ChatInput from "./elements/chat-input/ChatInput";
+
 import ChatHeader from "./elements/chat-header/ChatHeader";
 
 import tmpl from './tmpl.hbs';
 import ListMessages from "./elements/list-messages/ListMessages";
 import Popover from "./elements/popover/Popover";
 
-interface ChatProps {
-
-}
-
-export default class Chat extends Block<ChatProps> {
+export default class Chat extends Block<TBlockProps> {
   needToHidePopover: boolean = false;
 
-  constructor(props: ChatProps) {
+  constructor(props: TBlockProps) {
     super(props);
   }
 
@@ -28,7 +25,7 @@ export default class Chat extends Block<ChatProps> {
       modifiers: "options",
       styles: "hide",
       fields: [
-        { type: 'add', label: 'Добавить пользователя', events: { click: () => console.log('it works!!1') } },
+        { type: 'add', label: 'Добавить пользователя' },
         { type: 'remove', label: 'Удалить пользователя' },
       ],
       events: popoverEents
@@ -61,7 +58,7 @@ export default class Chat extends Block<ChatProps> {
   }
 
   showPopover(name: string): void {
-    const popover = this.children[`popover${name}`];
+    const popover = this.children[`popover${name}`] as Popover;
     if (popover) {
       popover.show();
       this.needToHidePopover = true;
@@ -73,7 +70,7 @@ export default class Chat extends Block<ChatProps> {
       this.needToHidePopover = false;
       Object.entries(this.children).forEach(([key, value]) => {
         if (key.includes('popover')) {
-          value.show(false);
+          (value as Popover).show(false);
         }
       });
     }

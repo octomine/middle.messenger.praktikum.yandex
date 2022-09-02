@@ -1,8 +1,9 @@
-import List from "../../../../../../components/list";
-import LinePopover from "../line-popover/LinePopver";
+import { TBlockProps } from "../../../../../../components/common/block";
+import List, { ListProps } from "../../../../../../components/list";
+import LinePopover from "../line-popover";
 
-interface PopoverProps {
-
+interface PopoverProps extends ListProps, TBlockProps {
+  show?: () => void,
 }
 
 export default class Popover extends List {
@@ -13,7 +14,7 @@ export default class Popover extends List {
     super({ ...props, modifiers });
   }
 
-  line(field): LinePopover {
+  line(field: TBlockProps): LinePopover {
     return new LinePopover(field);
   }
 

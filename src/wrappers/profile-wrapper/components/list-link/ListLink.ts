@@ -1,16 +1,12 @@
-import List from "../../../../components/list";
-import LineLink from './elements/line-link';
-
-interface ListLinkProps {
-
-}
+import List, { ListProps } from "../../../../components/list";
+import LineLink, { LineLinkProps } from './elements/line-link';
 
 export default class ListLink extends List {
-  constructor(props: ListLinkProps) {
+  constructor(props: ListProps) {
     super(props);
   }
 
-  line(field): LineLink {
+  line(field: LineLinkProps): LineLink {
     return new LineLink(field);
   }
 }

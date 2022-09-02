@@ -1,12 +1,12 @@
-import List from "../../../../components/list";
-import LineForm from "./elements/line-form/LineForm";
+import List, { ListProps } from "../../../../components/list";
+import LineForm, { LineFormProps } from "./elements/line-form/LineForm";
 
 export default class ListForm extends List {
-  constructor(props) {
+  constructor(props: ListProps) {
     super(props);
   }
 
-  line(field: object): LineForm {
+  line(field: LineFormProps): LineForm {
     const { title: placeholder } = field;
     return new LineForm({ ...field, placeholder });
   }

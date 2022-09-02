@@ -1,15 +1,15 @@
-import Block from "../../../../../../components/common/block";
+import Block, { TBlockProps } from "../../../../../../components/common/block";
 import Avatar from "../../../../../../components/avatar";
 import Button from "../../../../../../components/button";
 
 import tmpl from './tmpl.hbs';
 
-interface ChaHeaderProps {
+interface ChatHeaderProps extends TBlockProps {
   optionsClick: () => void,
 }
 
-export default class ChatHeader extends Block<ChaHeaderProps> {
-  constructor(props: ChaHeaderProps) {
+export default class ChatHeader extends Block<ChatHeaderProps> {
+  constructor(props: ChatHeaderProps) {
     super(props);
   }
 

@@ -1,10 +1,10 @@
-import Block from "../../components/common/block";
+import Block, { TBlockProps } from "../../components/common/block";
 import Button from "../../components/button";
 import "../../components/label"
 
 import tmpl from "./tmpl.hbs";
 
-interface PopupProps {
+interface PopupProps extends TBlockProps {
   button: string,
 }
 

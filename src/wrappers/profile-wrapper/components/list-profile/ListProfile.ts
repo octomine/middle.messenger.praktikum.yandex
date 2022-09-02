@@ -1,7 +1,6 @@
-import Block from "../../../../components/base";
 import '../../../../components/common/styles'
 
-import Line from "./elements/line";
+import Line, { LineProps } from "./elements/line";
 import List, { ListProps } from "../../../../components/list";
 
 export default class ListProfile extends List {
@@ -9,7 +8,7 @@ export default class ListProfile extends List {
     super(props);
   }
 
-  line(field): Block<unknown> {
+  line(field: LineProps): Line {
     return new Line(field);
   }
 }

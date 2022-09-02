@@ -1,9 +1,9 @@
-import Block from "../common/block";
+import Block, { TBlockProps } from "../common/block";
 import "../common/styles";
 
 import tmpl from "./tmpl.hbs";
 
-export interface ListProps {
+export interface ListProps extends TBlockProps {
   fields: Record<string, string>[],
 }
 
@@ -14,10 +14,10 @@ export default class List extends Block<ListProps> {
 
   init() {
     const { fields } = this.props;
-    this.children.fields = fields.map((field) => this.line(field));
+    this.children.fields = fields.map((field: unknown) => this.line(field));
   }
 
-  line(field): Block<unknown> {
+  line(field: unknown): Block<unknown> | null {
     return null;
   }
 

@@ -1,10 +1,11 @@
-import Block from "../common/block";
+import Block, { TBlockProps } from "../common/block";
+
 import "../common/styles";
 
 import tmpl from "./tmpl.hbs";
 
-interface ButtonProps {
-  label: string;
+interface ButtonProps extends TBlockProps {
+  label?: string;
 }
 
 export default class Button extends Block<ButtonProps> {

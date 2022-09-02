@@ -1,14 +1,13 @@
-import Block from '../../components/common/block';
+import Block, { TBlockProps } from '../../components/common/block';
 
 import Avatar from './components/avatar';
 import tmpl from "./tmpl.hbs";
 
-interface ProfileProps {
+interface ProfileProps extends TBlockProps {
   title?: string,
-  fields: [],
 }
 
-export default class profile_wrapper extends Block<ProfileProps> {
+export default class ProfileWrapper extends Block<ProfileProps> {
   constructor(props: ProfileProps) {
     super(props);
   }

@@ -1,12 +1,8 @@
-import List from "../../../../components/list";
-import LineInput from './elements/line-input';
-
-interface ListInputProps {
-
-}
+import List, { ListProps } from "../../../../components/list";
+import LineInput, { LineInputProps } from './elements/line-input';
 
 export default class ListInput extends List {
-  constructor(props: ListInputProps) {
+  constructor(props: ListProps) {
     super(props);
   }
 
@@ -19,7 +15,7 @@ export default class ListInput extends List {
     });
   }
 
-  line(field): LineInput {
+  line(field: LineInputProps): LineInput {
     return new LineInput(field);
   }
 }

@@ -1,9 +1,10 @@
-import Block from "../../../../../../components/common/block";
+import Block, { TBlockProps } from "../../../../../../components/common/block";
+
 import Button from "../../../../../../components/button";
 
 import tmpl from "./tmpl.hbs";
 
-interface LineLinkProps {
+export interface LineLinkProps extends TBlockProps {
   label: string,
   modifiers: string,
 }

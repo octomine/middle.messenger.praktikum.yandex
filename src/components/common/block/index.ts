@@ -1,1 +1,1 @@
-export { default } from './Block';
+export { default, TBlockProps } from './Block';

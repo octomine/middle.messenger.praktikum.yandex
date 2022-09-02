@@ -1,7 +1,7 @@
-import { v4 as makeID } from 'uuid'
+import { v4 as makeID } from 'uuid';
+import { TemplateDelegate } from 'handlebars/runtime';
 
 import EventBus from '../../../utils/event-bus';
-import { TBlockProps } from './types';
 
 const ERROR_NO_RIGHTS = new Error('Нет прав');
 const checkPrivate = (prp: string): void => {
@@ -10,9 +10,19 @@ const checkPrivate = (prp: string): void => {
   };
 }
 
+export type TBlockProps = Record<string, unknown> & {
+  block?: string,
+  modifiers?: string,
+  styles?: string,
+  events?: Record<string, () => void>,
+  children?: Record<string, Block<unknown>>
+  setProps?: (newProps: object) => void,
+};
+
+
 export default class Block<P> {
   eventBus: () => EventBus;
-  props: P;
+  props: any;
   children: Record<string, Block<any> | Array<Record<string, Block<any>>>>;
 
   static EVENTS = {
@@ -22,10 +32,10 @@ export default class Block<P> {
     FLOW_RENDER: "flow:render"
   }
 
-  _element = null;
-  id = null;
+  _element: HTMLElement | null = null;
+  id: string | null = null;
 
-  constructor(propsAndChildren: P) {
+  constructor(propsAndChildren: P & TBlockProps) {
     const eventBus = new EventBus();
 
     const { props, children } = this._getChildrenAndProps(propsAndChildren);
@@ -44,7 +54,7 @@ export default class Block<P> {
     return this._element;
   }
 
-  _getChildrenAndProps(childrenAndProps: TBlockProps) {
+  _getChildrenAndProps(childrenAndProps: P & TBlockProps) {
     const children = {};
     const props = {};
 
@@ -69,7 +79,7 @@ export default class Block<P> {
         const value = target[prop];
         return typeof value === 'function' ? value.bind(target) : value;
       },
-      set(target: object, prop: string, value) {
+      set(target: object, prop: string, value: unknown) {
         checkPrivate(prop);
 
         const old = { ...target };
@@ -91,14 +101,12 @@ export default class Block<P> {
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  _createDocumentElement(tagName: string): HTMLElement {
-    const el = document.createElement(tagName);
+  _createDocumentElement(tagName: string): HTMLTemplateElement {
+    const el = document.createElement(tagName) as HTMLTemplateElement;
     return el;
   }
 
   _init() {
-    // this._element = this._createDocumentElement('div');
-    // this._element.setAttribute('data-id', this.id);
     this.init();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
@@ -139,7 +147,7 @@ export default class Block<P> {
   }
 
   _render() {
-    const newElement = this.render().firstElementChild;
+    const newElement: HTMLElement = this.render().firstElementChild;
     newElement.setAttribute('data-id', this.id);
 
     this._removeEvents();
@@ -177,7 +185,7 @@ export default class Block<P> {
 
   compile(tmpl: TemplateDelegate, props: P) {
     const stub = (id: string): string => `<div data-id="${id}"></div>`;
-    const replaceStub = (el: HTMLElement, block: Block): void => {
+    const replaceStub = (el: DocumentFragment, block: Block<unknown>): void => {
       const { id } = block;
       const stub = el.querySelector(`[data-id="${id}"]`);
       if (stub) {

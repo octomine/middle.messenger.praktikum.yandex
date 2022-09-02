@@ -1,4 +1,5 @@
-import Block from "../../components/common/block";
+import Block, { TBlockProps } from "../../components/common/block";
+
 import Button from "../../components/button";
 import '../../components/label';
 
@@ -6,7 +7,7 @@ import ListForm from './components/list-form';
 
 import tmpl from "./tmpl.hbs";
 
-interface FormProps {
+interface FormProps extends TBlockProps {
   title: string,
   block: string,
   fields: object[],

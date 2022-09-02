@@ -1,13 +1,9 @@
-import Block from "../../../../../../components/common/block"
+import Block, { TBlockProps } from "../../../../../../components/common/block"
 
 import tmpl from './tmpl.hbs';
 
-interface LinePopoverProps {
-
-}
-
-export default class LinePopover extends Block<LinePopoverProps> {
-  constructor(props: LinePopoverProps) {
+export default class LinePopover extends Block<TBlockProps> {
+  constructor(props: TBlockProps) {
     super(props);
   }
 

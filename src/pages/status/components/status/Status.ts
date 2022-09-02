@@ -1,4 +1,4 @@
-import Block from "../../../../components/common/block";
+import Block, { TBlockProps } from "../../../../components/common/block";
 
 import '../../../../components/label';
 import '../../../../components/common/styles';
@@ -6,7 +6,7 @@ import '../../../../components/common/styles';
 import tmpl from './tmpl.hbs';
 import Button from "../../../../components/button";
 
-interface StatusProps {
+interface StatusProps extends TBlockProps {
   title: string,
   subtitle: string,
 }

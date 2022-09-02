@@ -1,12 +1,13 @@
-import Block from "../../../../../../components/common/block";
+import Block, { TBlockProps } from "../../../../../../components/common/block";
 import Input from "../../../../../../components/input";
 
 import tmpl from "./tmpl.hbs";
 
-interface LineInputProps {
+export interface LineInputProps extends TBlockProps {
   name: string,
   key: string,
   value: string,
+  isPassword?: boolean,
 }
 
 export default class LineInput extends Block<LineInputProps> {
@@ -26,7 +27,7 @@ export default class LineInput extends Block<LineInputProps> {
   }
 
   get input() {
-    return this.element.querySelector('.line__input');
+    return this.element?.querySelector('.line__input') as HTMLInputElement;
   }
 
   get name(): string {
@@ -34,7 +35,7 @@ export default class LineInput extends Block<LineInputProps> {
   }
 
   get value(): string {
-    return this.input.value;
+    return this.input?.value;
   }
 
   render() {
