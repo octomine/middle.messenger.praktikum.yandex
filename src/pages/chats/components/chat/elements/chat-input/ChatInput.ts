@@ -1,9 +1,8 @@
 import Block from "../../../../../../components/base";
+import Input from "../../../../../../components/input";
+import Button from "../../../../../../components/button";
 
 import tmpl from './tmpl.hbs';
-import ButtonArrow from "../../../../../../components/button-arrow";
-import ButtonAttach from "../button-attach/ButtonAttach";
-import Input from "../../../../../../components/input";
 
 interface ChatInputProps {
 
@@ -15,7 +14,8 @@ export default class ChatInput extends Block<ChatInputProps> {
   }
 
   init() {
-    this.children.attach = new ButtonAttach({
+    this.children.attach = new Button({
+      modifiers: 'attach',
       events: {
         click: () => console.log('ATTACH!!1')
       }
@@ -32,7 +32,8 @@ export default class ChatInput extends Block<ChatInputProps> {
       }
     });
 
-    this.children.button = new ButtonArrow({
+    this.children.button = new Button({
+      modifiers: 'arrow_right',
       events: {
         click: () => this.send()
       }
@@ -43,7 +44,7 @@ export default class ChatInput extends Block<ChatInputProps> {
     const { value } = this.children.input;
     if (value && value.length > 0) {
       console.log('SEND!!1');
-      console.log(this.children.input.value);
+      console.log(value);
       this.children.input.setProps({ value: '' });
     }
   }

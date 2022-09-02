@@ -1,6 +1,7 @@
 import { getTime } from "../../../../../../utils/time";
 import Block from "../../../../../../components/base";
 import tmpl from './tmpl.hbs';
+import Avatar from "../../../../../../components/avatar/Avatar";
 
 interface LineChatProps {
   id: string,
@@ -27,6 +28,10 @@ export default class LineChat extends Block<LineChatProps> {
 
   get isSelected(): boolean {
     return this._isSelected;
+  }
+
+  init() {
+    this.children.avatar = new Avatar({ block: 'chat' });
   }
 
   render() {
