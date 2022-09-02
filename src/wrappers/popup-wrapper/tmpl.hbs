@@ -1,16 +1,16 @@
-<div class="plate plate-popup fv">
+<div class='fv ac jc popup_cover'>
+  <div class="fv ac {{> styles element='plate' modifiers='popup'}}">
     {{> label title modifiers=(concat title.modifiers "popup")}}
-    <div class="fv cent popup__content">
-        {{#if custom}}
-        {{> (custom) customCtx}}
-        {{else}}
-        {{contentText}}
-        {{/if}}
+    <div class="fv ac jc popup__content">
+      {{#if custom}}
+      {{{custom}}}
+      {{else}}
+      {{message}}
+      {{/if}}
     </div>
-    {{> button button}}
+    {{{button}}}
     {{#if footer}}
-    <div class="footer">
-        {{> (footer) footerCtx}}
-    </div>
+    {{> label txt=footer modifiers="s,error" styles="footer"}}
     {{/if}}
+  </div>
 </div>

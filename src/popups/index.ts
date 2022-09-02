@@ -1,98 +1,79 @@
-import "../components/common/styles";
-import "../components/label";
-import "../components/button";
-import "../components/input";
-import "../wrappers/popup-wrapper";
+import PopupWrapper from '../wrappers/popup-wrapper'
 
-import tmpl from "./tmpl.hbs";
+import { render } from '../utils/render';
+import Button from '../components/button';
+import LineForm from '../wrappers/form-wrapper/components/list-form/elements/line-form/LineForm';
 
 const ctx = {
   1: {
     title: {
       txt: "Загрузите файл",
     },
-    custom: () => "button",
-    customCtx: {
+    custom: new Button({
       label: "Выбрать файл на компьютере",
       modifiers: "link",
-    },
-    button: {
-      label: "Поменять",
-    },
+    }),
+    button: "Поменять",
   },
   2: {
     title: {
       txt: "Загрузите файл",
     },
-    custom: () => "button",
-    customCtx: {
+    custom: new Button({
       label: "Выбрать файл на компьютере",
       modifiers: "link",
-    },
-    button: {
-      label: "Поменять",
-    },
-    footer: () => "label",
-    footerCtx: {
-      txt: "Нужно выбрать файл",
-      modifiers: "s,error",
-    },
+    }),
+    button: "Поменять",
+    footer: "Нужно выбрать файл",
   },
   3: {
     title: {
       txt: "Ошибка, попробуйте ещё раз",
       modifiers: "error",
     },
-    custom: () => "button",
-    customCtx: {
+    custom: new Button({
       label: "Выбрать файл на компьютере",
       modifiers: "link",
-    }, // TODO: скорее всего надо запилить более другую кнопку или делать не через кнопку вовсе
-    button: {
-      label: "Поменять",
-    },
+    }),
+    button: "Поменять",
   },
   4: {
     title: {
       txt: "Файл загружен",
     },
-    contentText: "pic11.jpg",
-    button: {
-      label: "Поменять",
-    },
+    message: "pic11.jpg",
+    button: "Поменять",
   },
   5: {
     title: {
       txt: "Добавить пользователя",
     },
-    custom: () => "input",
-    customCtx: {
+    custom: new LineForm({
+      name: "login",
       title: "Логин",
-    },
-    button: {
-      label: "Добавить",
-    },
+      placeholder: "Логин",
+    }),
+    button: "Добавить",
   },
   6: {
     title: {
       txt: "Удалить пользователя",
     },
-    custom: () => "input",
-    customCtx: {
+    custom: new LineForm({
+      name: "login",
       title: "Логин",
+      placeholder: "Логин",
       value: "VoPup",
-    },
-    button: {
-      label: "Удалить",
-    },
+    }),
+    button: "Удалить",
   },
 };
 
 window.addEventListener("DOMContentLoaded", () => {
   let n = location.hash.replace("#", "");
-  n = ctx[n] ? n : 1;
-  const main = document.getElementsByClassName("main")[0];
-  const el = tmpl(ctx[n]);
+  n = ctx[n] ? n : '1';
 
-  main.innerHTML = el;
+  const popup = new PopupWrapper(ctx[n]);
+
+  render('.main', popup);
 });
