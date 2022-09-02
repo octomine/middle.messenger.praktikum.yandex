@@ -10,12 +10,16 @@ window.addEventListener("DOMContentLoaded", () => {
     fields: mock,
     events: {
       click: () => {
-        console.log(chats.selected)
+        console.log(chats.selected);
       }
     }
   });
 
-  const chat = new Chat({});
+  const chat = new Chat({
+    events: {
+      mousedown: () => chat.hidePopovers()
+    }
+  });
 
   render('.main', chats);
   render('.main', chat);

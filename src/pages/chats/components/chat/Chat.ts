@@ -5,18 +5,48 @@ import ChatHeader from "./elements/chat-header/ChatHeader";
 
 import tmpl from './tmpl.hbs';
 import ListMessages from "./elements/list-messages/ListMessages";
+import Popover from "./elements/popover/Popover";
 
 interface ChatProps {
 
 }
 
 export default class Chat extends Block<ChatProps> {
+  needToHidePopover: boolean = false;
+
   constructor(props: ChatProps) {
     super(props);
   }
 
   init() {
-    this.children.header = new ChatHeader({});
+    const popoverEents = {
+      mouseover: () => this.needToHidePopover = false,
+      mouseout: () => this.needToHidePopover = true,
+    }
+
+    this.children.popoverOptions = new Popover({
+      modifiers: "options",
+      styles: "hide",
+      fields: [
+        { type: 'add', label: 'Добавить пользователя', events: { click: () => console.log('it works!!1') } },
+        { type: 'remove', label: 'Удалить пользователя' },
+      ],
+      events: popoverEents
+    });
+    this.children.popoverAttach = new Popover({
+      modifiers: "attach",
+      styles: "hide",
+      fields: [
+        { type: 'media', label: 'Фото или Видео' },
+        { type: 'file', label: 'Файл' },
+        { type: 'location', label: 'Удалить пользователя' },
+      ],
+      events: popoverEents
+    });
+
+    this.children.header = new ChatHeader({
+      optionsClick: () => this.showPopover('Options')
+    });
     this.children.messages = new ListMessages({
       fields: [
         {
@@ -25,7 +55,28 @@ export default class Chat extends Block<ChatProps> {
         { message: "Прикольно ))", modifiers: "my" }
       ]
     });
-    this.children.input = new ChatInput({});
+    this.children.input = new ChatInput({
+      attachClick: () => this.showPopover('Attach')
+    });
+  }
+
+  showPopover(name: string): void {
+    const popover = this.children[`popover${name}`];
+    if (popover) {
+      popover.show();
+      this.needToHidePopover = true;
+    }
+  }
+
+  hidePopovers(): void {
+    if (this.needToHidePopover) {
+      this.needToHidePopover = false;
+      Object.entries(this.children).forEach(([key, value]) => {
+        if (key.includes('popover')) {
+          value.show(false);
+        }
+      });
+    }
   }
 
   render() {

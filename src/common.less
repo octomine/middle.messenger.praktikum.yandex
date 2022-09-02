@@ -32,6 +32,7 @@
 @fontSizeM: 13px;
 @fontSizeL: 20px;
 @fontSizeXL: 40px;
+@fontSizeMsg: 12px;
 
 @shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
 
@@ -40,10 +41,15 @@
 
 @arrowRight: url("./assets/arrow-right.svg") center no-repeat;
 @arrowLeft: url("./assets/arrow-left.svg") center no-repeat;
-@blankImage: url("./assets/blank-image.svg") center no-repeat;
-@magnifierImage: url("./assets/magnifier.svg") 5px center no-repeat;
-@attachImage: url("./assets/attach.svg") center no-repeat;
-@optionsImage: url("./assets/options.svg") center no-repeat;
+@imageBlank: url("./assets/blank-image.svg") center no-repeat;
+@imageMagnifier: url("./assets/magnifier.svg") 5px center no-repeat;
+@imageAttach: url("./assets/attach.svg") center no-repeat;
+@imageOptions: url("./assets/options.svg") center no-repeat;
+@imageAdd: url("./assets/add.svg") center no-repeat;
+@imageRemove: url("./assets/remove.svg") center no-repeat;
+@imageMedia: url("./assets/media.svg") center no-repeat;
+@imageFile: url("./assets/file.svg") center no-repeat;
+@imageLocation: url("./assets/location.svg") center no-repeat;
 
 // TAGS
 body {
@@ -123,8 +129,12 @@ a {
   margin-top: 14px;
 }
 
-.hide {
+.disguise {
   opacity: 0;
+}
+
+.hide {
+  display: none;
 }
 
 :focus {

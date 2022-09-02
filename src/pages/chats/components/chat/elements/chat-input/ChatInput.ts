@@ -5,7 +5,7 @@ import Button from "../../../../../../components/button";
 import tmpl from './tmpl.hbs';
 
 interface ChatInputProps {
-
+  attachClick: () => void,
 }
 
 export default class ChatInput extends Block<ChatInputProps> {
@@ -14,15 +14,18 @@ export default class ChatInput extends Block<ChatInputProps> {
   }
 
   init() {
+    const { attachClick } = this.props;
+
     this.children.attach = new Button({
       modifiers: 'attach',
       events: {
-        click: () => console.log('ATTACH!!1')
+        click: attachClick
       }
     });
 
     this.children.input = new Input({
-      placeholder: 'Сообщение', modifiers: 'chat',
+      placeholder: 'Сообщение',
+      modifiers: 'chat',
       events: {
         keyup: (evt: KeyboardEvent) => {
           if (evt.key === 'Enter') {

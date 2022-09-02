@@ -5,7 +5,7 @@ import Button from "../../../../../../components/button";
 import tmpl from './tmpl.hbs';
 
 interface ChaHeaderProps {
-
+  optionsClick: () => void,
 }
 
 export default class ChatHeader extends Block<ChaHeaderProps> {
@@ -14,8 +14,15 @@ export default class ChatHeader extends Block<ChaHeaderProps> {
   }
 
   init() {
+    const { optionsClick } = this.props;
+
     this.children.avatar = new Avatar({ block: 'chat_header', modifiers: 's' });
-    this.children.options = new Button({ modifiers: "options" })
+    this.children.options = new Button({
+      modifiers: "options",
+      events: {
+        click: optionsClick
+      }
+    })
   }
 
   render() {

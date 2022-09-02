@@ -47,12 +47,12 @@ export default class LineForm extends Block<LineFormProps> {
   }
 
   onFocus() {
-    this.title.classList.toggle('hide', false);
+    this.title.classList.toggle('disguise', false);
   }
 
   onBlur() {
     const { value } = this.children.input;
-    this.title.classList.toggle('hide', !(value && value.length > 0));
+    this.title.classList.toggle('disguise', !(value && value.length > 0));
   }
 
   render() {

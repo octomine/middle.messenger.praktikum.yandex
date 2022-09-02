@@ -1,6 +1,7 @@
 @import "./elements/chat-header/styles.less";
 @import "./elements/chat-input/styles.less";
 @import "./elements/line-message/styles.less";
+@import "./elements/line-popover/styles.less";
 
 .chat_sheet {
   justify-content: space-between;
@@ -12,4 +13,25 @@
   .fv();
   .je();
   height: 100%;
+}
+
+.list {
+  &-popover {
+    position: absolute;
+
+    padding: 7px;
+    width: fit-content;
+    border-radius: @radiusContainer;
+    background: @colorInvert;
+    box-shadow: @shadow;
+  }
+  // TODO: подумать, как сделать не таким вот хардкодом
+  &-options {
+    top: 65px;
+    right: 10px;
+  }
+  &-attach {
+    bottom: 65px;
+    left: 321px;
+  }
 }
