@@ -16,9 +16,8 @@ export default class ProfileWrapper extends Block<ProfileProps> {
     this.children.avatar = new Avatar({ click: () => console.log('avatar clicked!!1') });
   }
 
-  check() {
-    // TODO: придумать более правильное название и проверять можно ли так делать
-    this.children.content.collect();
+  submit() {
+    console.log(this.children.content.collect());
   }
 
   render() {

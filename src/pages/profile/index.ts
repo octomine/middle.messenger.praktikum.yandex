@@ -52,7 +52,7 @@ window.addEventListener('DOMContentLoaded', () => {
       label: "Сохранить",
       block: "footer",
       events: {
-        click: () => profile.check()
+        click: () => profile.submit()
       }
     }),
   }
@@ -70,7 +70,7 @@ window.addEventListener('DOMContentLoaded', () => {
       label: "Сохранить",
       block: "footer",
       events: {
-        click: () => profile.check()
+        click: () => profile.submit()
       }
     })
   };

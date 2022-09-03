@@ -10,7 +10,6 @@ import tmpl from "./tmpl.hbs";
 interface FormProps extends TBlockProps {
   title: string,
   block: string,
-  fields: object[],
   button: string,
   link: string,
   submit: () => void,
@@ -38,7 +37,7 @@ export default class FormWrapper extends Block<FormProps> {
   }
 
   collect() {
-    this.children.list.collect();
+    console.log(this.children.list.collect());
   }
 
   render() {

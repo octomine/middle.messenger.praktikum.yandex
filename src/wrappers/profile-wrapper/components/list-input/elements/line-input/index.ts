@@ -1,1 +1,1 @@
-export { default, LineInputProps } from "./LineInput";
+export { default } from "./LineInput";

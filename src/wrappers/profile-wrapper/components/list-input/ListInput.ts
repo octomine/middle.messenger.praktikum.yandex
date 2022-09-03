@@ -1,21 +1,14 @@
-import List, { ListProps } from "../../../../components/list";
-import LineInput, { LineInputProps } from './elements/line-input';
+import { ListProps } from "../../../../components/list";
+import ListCollector from "../../../../components/list-collector";
+import { InputWrappedProps } from "../../../../components/input-wrapped";
+import LineInput from './elements/line-input';
 
-export default class ListInput extends List {
+export default class ListInput extends ListCollector {
   constructor(props: ListProps) {
     super(props);
   }
 
-  collect() {
-    // TODO: валидация?
-    this.children.fields.map(({ name, value }) => {
-      if (name) {
-        console.log(`${name}: ${value}`);
-      }
-    });
-  }
-
-  line(field: LineInputProps): LineInput {
+  line(field: InputWrappedProps): LineInput {
     return new LineInput(field);
   }
 }

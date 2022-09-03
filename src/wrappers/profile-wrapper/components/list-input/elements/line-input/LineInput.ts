@@ -1,17 +1,10 @@
-import Block, { TBlockProps } from "../../../../../../components/common/block";
+import InputWrapped, { InputWrappedProps } from "../../../../../../components/input-wrapped";
 import Input from "../../../../../../components/input";
 
 import tmpl from "./tmpl.hbs";
 
-export interface LineInputProps extends TBlockProps {
-  name: string,
-  key: string,
-  value: string,
-  isPassword?: boolean,
-}
-
-export default class LineInput extends Block<LineInputProps> {
-  constructor(props: LineInputProps) {
+export default class LineInput extends InputWrapped {
+  constructor(props: InputWrappedProps) {
     super(props);
   }
 

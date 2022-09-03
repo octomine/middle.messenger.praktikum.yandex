@@ -1,18 +1,15 @@
-import List, { ListProps } from "../../../../components/list";
-import LineForm, { LineFormProps } from "./elements/line-form/LineForm";
+import ListCollector from "../../../../components/list-collector";
+import { ListProps } from "../../../../components/list";
+import { InputWrappedProps } from "../../../../components/input-wrapped";
+import LineForm from "./elements/line-form";
 
-export default class ListForm extends List {
+export default class ListForm extends ListCollector {
   constructor(props: ListProps) {
     super(props);
   }
 
-  line(field: LineFormProps): LineForm {
+  line(field: InputWrappedProps): LineForm {
     const { title: placeholder } = field;
     return new LineForm({ ...field, placeholder });
-  }
-
-  collect() {
-    const { fields } = this.children;
-    fields.forEach(({ name, value }) => console.log(`${name}: ${value}`))
   }
 }

@@ -1,14 +1,6 @@
 import { v4 as makeID } from 'uuid';
 import { TemplateDelegate } from 'handlebars/runtime';
-
 import EventBus from '../../../utils/event-bus';
-
-const ERROR_NO_RIGHTS = new Error('Нет прав');
-const checkPrivate = (prp: string): void => {
-  if (prp.indexOf('_') === 0) {
-    throw ERROR_NO_RIGHTS;
-  };
-}
 
 export type TBlockProps = Record<string, unknown> & {
   block?: string,
@@ -23,7 +15,7 @@ export type TBlockProps = Record<string, unknown> & {
 export default class Block<P> {
   eventBus: () => EventBus;
   props: any;
-  children: Record<string, Block<any> | Array<Record<string, Block<any>>>>;
+  children: Record<string, Block<unknown> | Array<Record<string, Block<unknown>>>>;
 
   static EVENTS = {
     INIT: "init",
@@ -74,14 +66,10 @@ export default class Block<P> {
 
     return new Proxy(props, {
       get(target: object, prop: string) {
-        checkPrivate(prop);
-
         const value = target[prop];
         return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target: object, prop: string, value: unknown) {
-        checkPrivate(prop);
-
         const old = { ...target };
         target[prop] = value;
 
@@ -89,7 +77,7 @@ export default class Block<P> {
         return true;
       },
       deleteProperty() {
-        throw ERROR_NO_RIGHTS;
+        throw 'Нет прав';
       }
     });
   }
@@ -179,12 +167,11 @@ export default class Block<P> {
   componentDidMount() { }
 
   componentDidUpdate(oldProps: object, newProps: object) {
-    // TODO: вот тут ОЧ прям внимательно подумать, как сравнивать
     return oldProps !== newProps;
   }
 
   compile(tmpl: TemplateDelegate, props: P) {
-    const stub = (id: string): string => `<div data-id="${id}"></div>`;
+    const stub = (id: string | null): string => `<div data-id="${id}"></div>`;
     const replaceStub = (el: DocumentFragment, block: Block<unknown>): void => {
       const { id } = block;
       const stub = el.querySelector(`[data-id="${id}"]`);

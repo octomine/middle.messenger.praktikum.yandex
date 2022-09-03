@@ -1,4 +1,4 @@
-import Block, { TBlockProps } from "../../../../../../components/common/block";
+import InputWrapped, { InputWrappedProps } from "../../../../../../components/input-wrapped";
 import Input from "../../../../../../components/input/Input";
 
 import '../../../../../../components/label'
@@ -6,16 +6,8 @@ import '../../../../../../components/common/styles'
 
 import tmpl from './tmpl.hbs';
 
-export interface LineFormProps extends TBlockProps {
-  name: string,
-  title: string,
-  value?: string,
-  placeholder?: string,
-  isPassword?: boolean,
-}
-
-export default class LineForm extends Block<LineFormProps> {
-  constructor(props: LineFormProps) {
+export default class LineForm extends InputWrapped {
+  constructor(props: InputWrappedProps) {
     super(props)
   }
 
@@ -31,20 +23,8 @@ export default class LineForm extends Block<LineFormProps> {
     });
   }
 
-  componentDidMount() {
-    this.onBlur();
-  }
-
   get title(): HTMLElement {
     return this._element.querySelector('.input__label');
-  }
-
-  get name(): string {
-    return this.props.name;
-  }
-
-  get value(): string {
-    return (this.children.input as Input).value;
   }
 
   onFocus() {
@@ -54,6 +34,8 @@ export default class LineForm extends Block<LineFormProps> {
   onBlur() {
     const { value } = this.children.input as Input;
     this.title.classList.toggle('disguise', !(value && value.length > 0));
+
+    super.onBlur();
   }
 
   render() {
