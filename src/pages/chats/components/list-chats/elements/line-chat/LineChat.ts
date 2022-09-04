@@ -1,6 +1,6 @@
-import { getTime } from "../../../../../../utils/time";
-import Block, { TBlockProps } from "../../../../../../components/common/block";
-import Avatar from "../../../../../../components/avatar/Avatar";
+import { getTime } from '../../../../../../utils/time';
+import Block, { TBlockProps } from '../../../../../../components/common/block';
+import Avatar from '../../../../../../components/avatar/Avatar';
 
 import tmpl from './tmpl.hbs';
 

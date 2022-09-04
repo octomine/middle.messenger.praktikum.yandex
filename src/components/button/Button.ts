@@ -1,8 +1,8 @@
-import Block, { TBlockProps } from "../common/block";
+import Block, { TBlockProps } from '../common/block';
 
-import "../common/styles";
+import '../common/styles';
 
-import tmpl from "./tmpl.hbs";
+import tmpl from './tmpl.hbs';
 
 interface ButtonProps extends TBlockProps {
   label?: string;

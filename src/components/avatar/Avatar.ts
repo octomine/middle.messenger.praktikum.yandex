@@ -1,4 +1,4 @@
-import Block, { TBlockProps } from "../common/block";
+import Block, { TBlockProps } from '../common/block';
 
 import '../common/styles';
 

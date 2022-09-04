@@ -1,10 +1,10 @@
-import Block, { TBlockProps } from "../common/block";
-import "../common/styles";
+import Block, { TBlockProps } from '../common/block';
+import '../common/styles';
 
-import tmpl from "./tmpl.hbs";
+import tmpl from './tmpl.hbs';
 
 export interface ListProps extends TBlockProps {
-  fields: Record<string, string>[],
+  fields: Record<string, string | boolean>[],
 }
 
 export default class List extends Block<ListProps> {

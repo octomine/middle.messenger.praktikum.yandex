@@ -1,1 +1,1 @@
-export { default, LineProps } from "./Line";
+export { default, LineProps } from './Line';

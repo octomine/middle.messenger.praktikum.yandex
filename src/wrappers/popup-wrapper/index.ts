@@ -1,1 +1,1 @@
-export { default } from "./PopupWrapper";
+export { default } from './PopupWrapper';

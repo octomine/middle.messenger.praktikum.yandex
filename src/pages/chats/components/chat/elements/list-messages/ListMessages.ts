@@ -1,6 +1,6 @@
-import List, { ListProps } from "../../../../../../components/list";
-import LineMessage from "../line-message";
-import { TBlockProps } from "../../../../../../components/common/block";
+import List, { ListProps } from '../../../../../../components/list';
+import LineMessage from '../line-message';
+import { TBlockProps } from '../../../../../../components/common/block';
 
 export default class ListMessages extends List {
   constructor(props: ListProps) {

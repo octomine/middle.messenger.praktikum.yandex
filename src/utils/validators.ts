@@ -1,4 +1,4 @@
-import { INPUT_ERRORS } from "./input-errors";
+import { INPUT_ERRORS } from './input-errors';
 
 export type ValidType = {
   error?: string

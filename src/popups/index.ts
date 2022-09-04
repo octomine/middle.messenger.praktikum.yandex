@@ -7,70 +7,70 @@ import LineForm from '../wrappers/form-wrapper/components/list-form/elements/lin
 const ctx = {
   1: {
     title: {
-      txt: "Загрузите файл",
+      txt: 'Загрузите файл',
     },
     custom: new Button({
-      label: "Выбрать файл на компьютере",
-      modifiers: "link",
+      label: 'Выбрать файл на компьютере',
+      modifiers: 'link',
     }),
-    button: "Поменять",
+    button: 'Поменять',
   },
   2: {
     title: {
-      txt: "Загрузите файл",
+      txt: 'Загрузите файл',
     },
     custom: new Button({
-      label: "Выбрать файл на компьютере",
-      modifiers: "link",
+      label: 'Выбрать файл на компьютере',
+      modifiers: 'link',
     }),
-    button: "Поменять",
-    footer: "Нужно выбрать файл",
+    button: 'Поменять',
+    footer: 'Нужно выбрать файл',
   },
   3: {
     title: {
-      txt: "Ошибка, попробуйте ещё раз",
-      modifiers: "error",
+      txt: 'Ошибка, попробуйте ещё раз',
+      modifiers: 'error',
     },
     custom: new Button({
-      label: "Выбрать файл на компьютере",
-      modifiers: "link",
+      label: 'Выбрать файл на компьютере',
+      modifiers: 'link',
     }),
-    button: "Поменять",
+    button: 'Поменять',
   },
   4: {
     title: {
-      txt: "Файл загружен",
+      txt: 'Файл загружен',
     },
-    message: "pic11.jpg",
-    button: "Поменять",
+    message: 'pic11.jpg',
+    button: 'Поменять',
   },
   5: {
     title: {
-      txt: "Добавить пользователя",
+      txt: 'Добавить пользователя',
     },
     custom: new LineForm({
-      name: "login",
-      title: "Логин",
-      placeholder: "Логин",
+      name: 'login',
+      title: 'Логин',
+      placeholder: 'Логин',
     }),
-    button: "Добавить",
+    button: 'Добавить',
   },
   6: {
     title: {
-      txt: "Удалить пользователя",
+      txt: 'Удалить пользователя',
     },
     custom: new LineForm({
-      name: "login",
-      title: "Логин",
-      placeholder: "Логин",
-      value: "VoPup",
+      name: 'login',
+      title: 'Логин',
+      placeholder: 'Логин',
+      value: 'VoPup',
     }),
-    button: "Удалить",
+    button: 'Удалить',
   },
 };
 
-window.addEventListener("DOMContentLoaded", () => {
-  let n = location.hash.replace("#", "");
+window.addEventListener('DOMContentLoaded', () => {
+  let n = location.hash.replace('#', '');
   n = ctx[n] ? n : '1';
 
   const popup = new PopupWrapper(ctx[n]);

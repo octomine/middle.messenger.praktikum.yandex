@@ -1,7 +1,7 @@
-import InputWrapped, { InputWrappedProps } from "../../../../../../components/input-wrapped";
-import Input from "../../../../../../components/input";
+import InputWrapped, { InputWrappedProps } from '../../../../../../components/input-wrapped';
+import Input from '../../../../../../components/input';
 
-import tmpl from "./tmpl.hbs";
+import tmpl from './tmpl.hbs';
 
 export default class LineInput extends InputWrapped {
   constructor(props: InputWrappedProps) {
@@ -11,8 +11,8 @@ export default class LineInput extends InputWrapped {
   init() {
     const { value, title: placeholder, isPassword } = this.props;
     this.children.input = new Input({
-      block: "line",
-      modifiers: "profile",
+      block: 'line',
+      modifiers: 'profile',
       value,
       placeholder,
       isPassword,

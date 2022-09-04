@@ -7,50 +7,50 @@ import ListLink from '../../wrappers/profile-wrapper/components/list-link';
 import Button from '../../components/button';
 
 const title = {
-  profile: "Профиль",
-  change: "Изменить профиль",
-  changePassword: "Сменить пароль",
+  profile: 'Профиль',
+  change: 'Изменить профиль',
+  changePassword: 'Сменить пароль',
 };
 
 window.addEventListener('DOMContentLoaded', () => {
   const ctxProfile = {
-    title: "Восилей",
+    title: 'Восилей',
     content: new ListProfile({
-      modifiers: "titled",
+      modifiers: 'titled',
       fields: [
-        { title: "Почта", value: "adf@mail.ru" },
-        { title: "Логин", value: "adf" },
-        { title: "Имя", value: "Восилей" },
-        { title: "Фамилия", value: "Пупкен" },
-        { title: "Имя в чате", value: "VoPup" },
-        { title: "Телефон", value: "+7 (321) 987-45-33" },
+        { title: 'Почта', value: 'adf@mail.ru' },
+        { title: 'Логин', value: 'adf' },
+        { title: 'Имя', value: 'Восилей' },
+        { title: 'Фамилия', value: 'Пупкен' },
+        { title: 'Имя в чате', value: 'VoPup' },
+        { title: 'Телефон', value: '+7 (321) 987-45-33' },
       ]
     }),
     footer: new ListLink({
-      block: "footer",
+      block: 'footer',
       fields: [
-        { label: "Изменить данные" },
-        { label: "Изменить пароль" },
-        { label: "Выйти", modifiers: "alert" },
+        { label: 'Изменить данные' },
+        { label: 'Изменить пароль' },
+        { label: 'Выйти', modifiers: 'alert' },
       ]
     }),
   };
 
   const ctxChange = {
     content: new ListInput({
-      block: "profile",
+      block: 'profile',
       fields: [
-        { name: "email", title: "Почта", value: "adf@mail.ru" },
-        { name: "login", title: "Логин", value: "adf" },
-        { name: "first_name", title: "Имя", value: "Восилей" },
-        { name: "second_name", title: "Фамилия", value: "Пупкен" },
-        { name: "display_name", title: "Имя в чате", value: "VoPup" },
-        { name: "phone", title: "Телефон", value: "+7 (321) 987-45-33" },
+        { name: 'email', title: 'Почта', value: 'adf@mail.ru' },
+        { name: 'login', title: 'Логин', value: 'adf' },
+        { name: 'first_name', title: 'Имя', value: 'Восилей' },
+        { name: 'second_name', title: 'Фамилия', value: 'Пупкен' },
+        { name: 'display_name', title: 'Имя в чате', value: 'VoPup' },
+        { name: 'phone', title: 'Телефон', value: '+7 (321) 987-45-33' },
       ]
     }),
     footer: new Button({
-      label: "Сохранить",
-      block: "footer",
+      label: 'Сохранить',
+      block: 'footer',
       events: {
         click: () => profile.submit()
       }
@@ -59,16 +59,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const ctxPassword = {
     content: new ListInput({
-      block: "profile",
+      block: 'profile',
       fields: [
-        { name: "oldPassword", title: "Старый пароль", value: "asdasdfasdf", isPassword: true },
-        { name: "newPassword", title: "Новый пароль", value: "adf", isPassword: true },
-        { title: "Повторите новый пароль", isPassword: true, isEqual: "newPassword" },
+        { name: 'oldPassword', title: 'Старый пароль', value: 'asdasdfasdf', isPassword: true },
+        { name: 'newPassword', title: 'Новый пароль', value: 'adf', isPassword: true },
+        { title: 'Повторите новый пароль', isPassword: true, isEqual: 'newPassword' },
       ],
     }),
     footer: new Button({
-      label: "Сохранить",
-      block: "footer",
+      label: 'Сохранить',
+      block: 'footer',
       events: {
         click: () => profile.submit()
       }
@@ -76,13 +76,13 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 
   let ctx = ctxProfile;
-  let type = location.hash.replace("#", "");
+  let type = location.hash.replace('#', '');
   switch (type) {
-    case "change":
+    case 'change':
       ctx = ctxChange;
       document.title = title.change;
       break;
-    case "changePassword":
+    case 'changePassword':
       ctx = ctxPassword;
       document.title = title.changePassword;
       break;
@@ -91,7 +91,7 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   const btn = new Button({
-    modifiers: "arrow_left",
+    modifiers: 'arrow_left',
     events: {
       click: () => console.log('BACK!!1')
     }

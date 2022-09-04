@@ -18,10 +18,10 @@ export default class Block<P> {
   children: Record<string, Block<unknown> | Array<Record<string, Block<unknown>>>>;
 
   static EVENTS = {
-    INIT: "init",
-    FLOW_CDM: "flow:component-did-mount",
-    FLOW_CDU: "flow:component-did-update",
-    FLOW_RENDER: "flow:render"
+    INIT: 'init',
+    FLOW_CDM: 'flow:component-did-mount',
+    FLOW_CDU: 'flow:component-did-update',
+    FLOW_RENDER: 'flow:render'
   }
 
   _element: HTMLElement | null = null;
@@ -171,10 +171,10 @@ export default class Block<P> {
   }
 
   compile(tmpl: TemplateDelegate, props: P) {
-    const stub = (id: string | null): string => `<div data-id="${id}"></div>`;
+    const stub = (id: string | null): string => `<div data-id='${id}'></div>`;
     const replaceStub = (el: DocumentFragment, block: Block<unknown>): void => {
       const { id } = block;
-      const stub = el.querySelector(`[data-id="${id}"]`);
+      const stub = el.querySelector(`[data-id='${id}']`);
       if (stub) {
         stub.replaceWith(block.getContent());
       }

@@ -1,5 +1,5 @@
-import InputWrapped, { InputWrappedProps } from "../../../../../../components/input-wrapped";
-import Input from "../../../../../../components/input/Input";
+import InputWrapped, { InputWrappedProps } from '../../../../../../components/input-wrapped';
+import Input from '../../../../../../components/input/Input';
 
 import '../../../../../../components/label'
 import '../../../../../../components/common/styles'
@@ -15,7 +15,7 @@ export default class LineForm extends InputWrapped {
     const { value, placeholder, isPassword } = this.props;
     this.children.input = new Input({
       value, placeholder, isPassword,
-      block: "form",
+      block: 'form',
       events: {
         focus: () => this.onFocus(),
         blur: () => this.onBlur()

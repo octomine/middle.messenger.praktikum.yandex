@@ -1,10 +1,10 @@
-import Block, { TBlockProps } from "../../../../components/common/block";
+import Block, { TBlockProps } from '../../../../components/common/block';
 
 import '../../../../components/label';
 import '../../../../components/common/styles';
 
 import tmpl from './tmpl.hbs';
-import Button from "../../../../components/button";
+import Button from '../../../../components/button';
 
 interface StatusProps extends TBlockProps {
   title: string,
@@ -18,8 +18,8 @@ export default class Status extends Block<StatusProps> {
 
   init() {
     this.children.button = new Button({
-      label: "Назад к чатам",
-      modifiers: "link",
+      label: 'Назад к чатам',
+      modifiers: 'link',
       events: {
         click: () => console.log('back to chats clicked!!1')
       }

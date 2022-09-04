@@ -1,4 +1,4 @@
-declare module "*.hbs" {
+declare module '*.hbs' {
   import { TemplateDelegate } from 'handlebars';
 
   const tmpl: TemplateDelegate;

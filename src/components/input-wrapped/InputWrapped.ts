@@ -1,6 +1,6 @@
-import Block, { TBlockProps } from "../common/block";
-import { ValidType as ValidationType } from "../../utils/validators";
-import Input from "../input/Input";
+import Block, { TBlockProps } from '../common/block';
+import { ValidType as ValidationType } from '../../utils/validators';
+import Input from '../input/Input';
 
 export interface InputWrappedProps extends TBlockProps {
   name: string,

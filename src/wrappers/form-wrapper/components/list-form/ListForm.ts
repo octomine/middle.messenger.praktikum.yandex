@@ -1,7 +1,7 @@
-import ListCollector from "../../../../components/list-collector";
-import { ListProps } from "../../../../components/list";
-import { InputWrappedProps } from "../../../../components/input-wrapped";
-import LineForm from "./elements/line-form";
+import ListCollector from '../../../../components/list-collector';
+import { ListProps } from '../../../../components/list';
+import { InputWrappedProps } from '../../../../components/input-wrapped';
+import LineForm from './elements/line-form';
 
 export default class ListForm extends ListCollector {
   constructor(props: ListProps) {

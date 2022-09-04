@@ -1,6 +1,6 @@
-import Block, { TBlockProps } from "../../../../../../components/common/block";
-import Input from "../../../../../../components/input";
-import Button from "../../../../../../components/button";
+import Block, { TBlockProps } from '../../../../../../components/common/block';
+import Input from '../../../../../../components/input';
+import Button from '../../../../../../components/button';
 
 import tmpl from './tmpl.hbs';
 

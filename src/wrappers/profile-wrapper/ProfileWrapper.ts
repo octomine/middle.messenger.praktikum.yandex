@@ -1,7 +1,7 @@
 import Block, { TBlockProps } from '../../components/common/block';
 
 import Avatar from './components/avatar';
-import tmpl from "./tmpl.hbs";
+import tmpl from './tmpl.hbs';
 
 interface ProfileProps extends TBlockProps {
   title?: string,

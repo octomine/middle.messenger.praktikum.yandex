@@ -1,11 +1,11 @@
-import { render } from "../../utils/render";
-import ListChats from "./components/list-chats/ListChats";
+import { render } from '../../utils/render';
+import ListChats from './components/list-chats/ListChats';
 import mock from './mock.js';
-import Chat from "./components/chat/Chat";
+import Chat from './components/chat/Chat';
 
 import '../../components/label'
 
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener('DOMContentLoaded', () => {
   const chats = new ListChats({
     fields: mock,
     events: {

@@ -1,11 +1,11 @@
-import Block, { TBlockProps } from "../../components/common/block";
+import Block, { TBlockProps } from '../../components/common/block';
 
-import Button from "../../components/button";
+import Button from '../../components/button';
 import '../../components/label';
 
 import ListForm from './components/list-form';
 
-import tmpl from "./tmpl.hbs";
+import tmpl from './tmpl.hbs';
 
 interface FormProps extends TBlockProps {
   title: string,
@@ -32,7 +32,7 @@ export default class FormWrapper extends Block<FormProps> {
     });
     this.children.link = new Button({
       label: link,
-      modifiers: "link",
+      modifiers: 'link',
     });
   }
 

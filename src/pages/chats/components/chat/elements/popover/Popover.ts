@@ -1,6 +1,6 @@
-import { TBlockProps } from "../../../../../../components/common/block";
-import List, { ListProps } from "../../../../../../components/list";
-import LinePopover from "../line-popover";
+import { TBlockProps } from '../../../../../../components/common/block';
+import List, { ListProps } from '../../../../../../components/list';
+import LinePopover from '../line-popover';
 
 interface PopoverProps extends ListProps, TBlockProps {
   show?: () => void,

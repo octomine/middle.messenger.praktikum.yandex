@@ -1,6 +1,6 @@
-import List, { ListProps } from "../list/List";
-import InputWrapped from "../input-wrapped";
-import { INPUT_ERRORS } from "../../utils/input-errors";
+import List, { ListProps } from '../list/List';
+import InputWrapped from '../input-wrapped';
+import { INPUT_ERRORS } from '../../utils/input-errors';
 
 export default class ListCollector extends List {
   constructor(props: ListProps) {

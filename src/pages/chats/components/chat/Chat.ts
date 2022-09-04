@@ -1,12 +1,12 @@
-import Block, { TBlockProps } from "../../../../components/common/block";
+import Block, { TBlockProps } from '../../../../components/common/block';
 
-import ChatInput from "./elements/chat-input/ChatInput";
+import ChatInput from './elements/chat-input/ChatInput';
 
-import ChatHeader from "./elements/chat-header/ChatHeader";
+import ChatHeader from './elements/chat-header/ChatHeader';
 
 import tmpl from './tmpl.hbs';
-import ListMessages from "./elements/list-messages/ListMessages";
-import Popover from "./elements/popover/Popover";
+import ListMessages from './elements/list-messages/ListMessages';
+import Popover from './elements/popover/Popover';
 
 export default class Chat extends Block<TBlockProps> {
   needToHidePopover: boolean = false;
@@ -22,8 +22,8 @@ export default class Chat extends Block<TBlockProps> {
     }
 
     this.children.popoverOptions = new Popover({
-      modifiers: "options",
-      styles: "hide",
+      modifiers: 'options',
+      styles: 'hide',
       fields: [
         { type: 'add', label: 'Добавить пользователя' },
         { type: 'remove', label: 'Удалить пользователя' },
@@ -31,12 +31,12 @@ export default class Chat extends Block<TBlockProps> {
       events: popoverEents
     });
     this.children.popoverAttach = new Popover({
-      modifiers: "attach",
-      styles: "hide",
+      modifiers: 'attach',
+      styles: 'hide',
       fields: [
         { type: 'media', label: 'Фото или Видео' },
         { type: 'file', label: 'Файл' },
-        { type: 'location', label: 'Удалить пользователя' },
+        { type: 'location', label: 'Локация' },
       ],
       events: popoverEents
     });
@@ -47,9 +47,9 @@ export default class Chat extends Block<TBlockProps> {
     this.children.messages = new ListMessages({
       fields: [
         {
-          message: "Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.Хассельблад в итоге адаптировал SWC для космоса, но что- то пошло не так и на ракету они так никогда и не попали.Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро."
+          message: 'Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.Хассельблад в итоге адаптировал SWC для космоса, но что- то пошло не так и на ракету они так никогда и не попали.Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.'
         },
-        { message: "Прикольно ))", modifiers: "my" }
+        { message: 'Прикольно ))', modifiers: 'my' }
       ]
     });
     this.children.input = new ChatInput({

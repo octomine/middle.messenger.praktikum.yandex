@@ -1,15 +1,15 @@
-import { render } from "../../utils/render";
-import FormWrapper from "../../wrappers/form-wrapper/FormWrapper";
+import { render } from '../../utils/render';
+import FormWrapper from '../../wrappers/form-wrapper/FormWrapper';
 
 const ctx = {
-  title: "Вход",
-  block: "login",
+  title: 'Вход',
+  block: 'login',
   fields: [
-    { name: "login", title: "Логин", isRequired: true },
-    { name: "password", title: "Пароль", isPassword: true, isRequired: true },
+    { name: 'login', title: 'Логин', isRequired: true },
+    { name: 'password', title: 'Пароль', isPassword: true, isRequired: true },
   ],
-  button: "Авторизоваться",
-  link: "Нет аккаунта?",
+  button: 'Авторизоваться',
+  link: 'Нет аккаунта?',
   submit: () => {
     form.collect();
   },
@@ -17,4 +17,4 @@ const ctx = {
 
 const form = new FormWrapper(ctx);
 
-render(".main", form);
+render('.main', form);

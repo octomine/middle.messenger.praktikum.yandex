@@ -1,7 +1,7 @@
 <div class='fv ac jc popup_cover'>
-  <div class="fv ac {{> styles element='plate' modifiers='popup'}}">
-    {{> label title modifiers=(concat title.modifiers "popup")}}
-    <div class="fv ac jc popup__content">
+  <div class='fv ac {{> styles element='plate' modifiers='popup'}}'>
+    {{> label title modifiers=(concat title.modifiers 'popup')}}
+    <div class='fv ac jc popup__content'>
       {{#if custom}}
       {{{custom}}}
       {{else}}
@@ -10,7 +10,7 @@
     </div>
     {{{button}}}
     {{#if footer}}
-    {{> label txt=footer modifiers="s,error" styles="footer"}}
+    {{> label txt=footer modifiers='s,error' styles='footer'}}
     {{/if}}
   </div>
 </div>

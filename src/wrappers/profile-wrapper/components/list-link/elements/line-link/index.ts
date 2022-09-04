@@ -1,1 +1,1 @@
-export { default, LineLinkProps } from "./LineLink";
+export { default, LineLinkProps } from './LineLink';
