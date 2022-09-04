@@ -1,13 +1,18 @@
-import Block from "../base/Block";
-import "../common/styles";
+import Block, { TBlockProps } from '../common/block';
 
-import tmpl from "./tmpl.hbs";
+import '../common/styles';
 
-export default class Button extends Block {
-  constructor(props) {
+import tmpl from './tmpl.hbs';
+
+interface ButtonProps extends TBlockProps {
+  label?: string;
+}
+
+export default class Button extends Block<ButtonProps> {
+  constructor(props: ButtonProps) {
     super(props);
   }
-  
+
   render() {
     return this.compile(tmpl, this.props);
   }

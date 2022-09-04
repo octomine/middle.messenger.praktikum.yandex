@@ -1,19 +1,29 @@
-import Block from "../../components/base/Block";
-import Button from "../../components/button";
-import Input from "../../components/input";
+import Block, { TBlockProps } from '../../components/common/block';
 
-import tmpl from "./tmpl.hbs";
+import Button from '../../components/button';
+import '../../components/label';
 
-export default class FormWrapper extends Block {
-  constructor(props) {
+import ListForm from './components/list-form';
+
+import tmpl from './tmpl.hbs';
+
+interface FormProps extends TBlockProps {
+  title: string,
+  block: string,
+  button: string,
+  link: string,
+  submit: () => void,
+}
+
+export default class FormWrapper extends Block<FormProps> {
+  constructor(props: FormProps) {
     super(props);
   }
 
   init() {
-    const { fields, button, link, submit } = this.props;
+    const { fields, block, button, link, submit } = this.props;
 
-    fields.map((field: object) => this.children[field.name] = new Input(field));
-
+    this.children.list = new ListForm({ fields, block });
     this.children.button = new Button({
       label: button,
       events: {
@@ -22,33 +32,17 @@ export default class FormWrapper extends Block {
     });
     this.children.link = new Button({
       label: link,
-      modifiers: "link",
+      modifiers: 'link',
     });
   }
 
-  collect(): Record<string, string> {
-    // TODO: сделать как-то более лучше 
-    const { fields } = this.props;
-    const errors = fields.map(({ name }) => {
-      this.children[name].setProps({ error: null, value: this.children[name].value.value });
-      return this.children[name].value
-    }).filter(({ error }) => error);
-    if (errors.length > 0) {
-      errors.map(({ name, error }) => this.children[name].setProps({ error }));
-      return {};
-    }
-    return fields.reduce((res: object, { name }) => {
-      const { name: propName, value } = this.children[name].value
-      return { ...res, [propName]: value };
-    }, {});
+  collect() {
+    console.log(this.children.list.collect());
   }
 
   render() {
     const { title: txt, block } = this.props;
-    const fields = this.props.fields.map(
-      ({ name }) => `<div data-id="${this.children[name]._id}"></div>`
-    );
 
-    return this.compile(tmpl, { title: { txt }, block, fields });
+    return this.compile(tmpl, { title: { txt }, block });
   }
 }

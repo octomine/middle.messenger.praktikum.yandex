@@ -1,4 +1,24 @@
-import Handlebars from "handlebars/dist/handlebars.runtime";
-import tmpl from "./tmpl.hbs";
+import Block, { TBlockProps } from '../../components/common/block';
+import Button from '../../components/button';
+import '../../components/label'
 
-Handlebars.registerPartial("popupWrapper", tmpl);
+import tmpl from './tmpl.hbs';
+
+interface PopupProps extends TBlockProps {
+  button: string,
+}
+
+export default class PopupWrapper extends Block<PopupProps> {
+  constructor(props: PopupProps) {
+    super(props);
+  }
+
+  init() {
+    const { button: label } = this.props;
+    this.children.button = new Button({ label });
+  }
+
+  render() {
+    return this.compile(tmpl, this.props);
+  }
+}

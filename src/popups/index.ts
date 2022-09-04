@@ -1,98 +1,79 @@
-import "../components/common/styles";
-import "../components/label";
-import "../components/button";
-import "../components/input";
-import "../wrappers/popup-wrapper";
+import PopupWrapper from '../wrappers/popup-wrapper'
 
-import tmpl from "./tmpl.hbs";
+import { render } from '../utils/render';
+import Button from '../components/button';
+import LineForm from '../wrappers/form-wrapper/components/list-form/elements/line-form/LineForm';
 
 const ctx = {
   1: {
     title: {
-      txt: "Загрузите файл",
+      txt: 'Загрузите файл',
     },
-    custom: () => "button",
-    customCtx: {
-      label: "Выбрать файл на компьютере",
-      modifiers: "link",
-    },
-    button: {
-      label: "Поменять",
-    },
+    custom: new Button({
+      label: 'Выбрать файл на компьютере',
+      modifiers: 'link',
+    }),
+    button: 'Поменять',
   },
   2: {
     title: {
-      txt: "Загрузите файл",
+      txt: 'Загрузите файл',
     },
-    custom: () => "button",
-    customCtx: {
-      label: "Выбрать файл на компьютере",
-      modifiers: "link",
-    },
-    button: {
-      label: "Поменять",
-    },
-    footer: () => "label",
-    footerCtx: {
-      txt: "Нужно выбрать файл",
-      modifiers: "s,error",
-    },
+    custom: new Button({
+      label: 'Выбрать файл на компьютере',
+      modifiers: 'link',
+    }),
+    button: 'Поменять',
+    footer: 'Нужно выбрать файл',
   },
   3: {
     title: {
-      txt: "Ошибка, попробуйте ещё раз",
-      modifiers: "error",
+      txt: 'Ошибка, попробуйте ещё раз',
+      modifiers: 'error',
     },
-    custom: () => "button",
-    customCtx: {
-      label: "Выбрать файл на компьютере",
-      modifiers: "link",
-    }, // TODO: скорее всего надо запилить более другую кнопку или делать не через кнопку вовсе
-    button: {
-      label: "Поменять",
-    },
+    custom: new Button({
+      label: 'Выбрать файл на компьютере',
+      modifiers: 'link',
+    }),
+    button: 'Поменять',
   },
   4: {
     title: {
-      txt: "Файл загружен",
+      txt: 'Файл загружен',
     },
-    contentText: "pic11.jpg",
-    button: {
-      label: "Поменять",
-    },
+    message: 'pic11.jpg',
+    button: 'Поменять',
   },
   5: {
     title: {
-      txt: "Добавить пользователя",
+      txt: 'Добавить пользователя',
     },
-    custom: () => "input",
-    customCtx: {
-      title: "Логин",
-    },
-    button: {
-      label: "Добавить",
-    },
+    custom: new LineForm({
+      name: 'login',
+      title: 'Логин',
+      placeholder: 'Логин',
+    }),
+    button: 'Добавить',
   },
   6: {
     title: {
-      txt: "Удалить пользователя",
+      txt: 'Удалить пользователя',
     },
-    custom: () => "input",
-    customCtx: {
-      title: "Логин",
-      value: "VoPup",
-    },
-    button: {
-      label: "Удалить",
-    },
+    custom: new LineForm({
+      name: 'login',
+      title: 'Логин',
+      placeholder: 'Логин',
+      value: 'VoPup',
+    }),
+    button: 'Удалить',
   },
 };
 
-window.addEventListener("DOMContentLoaded", () => {
-  let n = location.hash.replace("#", "");
-  n = ctx[n] ? n : 1;
-  const main = document.getElementsByClassName("main")[0];
-  const el = tmpl(ctx[n]);
+window.addEventListener('DOMContentLoaded', () => {
+  let n = location.hash.replace('#', '');
+  n = ctx[n] ? n : '1';
 
-  main.innerHTML = el;
+  const popup = new PopupWrapper(ctx[n]);
+
+  render('.main', popup);
 });

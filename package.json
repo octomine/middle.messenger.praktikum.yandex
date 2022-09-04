@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "parcel --port 3000",
     "build": "parcel build",
-    "start": "npm run build && PORT=3000 node ./src/server.js"
+    "start": "npm run build && PORT=3000 node ./src/server.js",
+    "eslint": "node_modules/.bin/eslint ."
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
     "@anikin/parcel-transformer-handlebars-precompile": "1.0.1",
     "@parcel/transformer-less": "2.7.0",
     "eslint": "^8.22.0",
+    "eslint-config-airbnb": "^19.0.4",
     "parcel": "2.7.0"
   },
   "dependencies": {
