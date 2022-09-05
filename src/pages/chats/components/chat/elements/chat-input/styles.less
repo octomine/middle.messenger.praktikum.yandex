@@ -1,0 +1,27 @@
+.chat_input {
+  height: 54px;
+  border-top: 1px solid @colorSecondaryLighter;
+}
+
+.input {
+  &-chat {
+    margin: 0 10px;
+    padding: 0 16px;
+    width: calc(100% - 70px);
+    height: 32px;
+    border: none;
+    border-radius: 16px;
+    background: @colorSecondaryLighter;
+
+    &:focus {
+      &::placeholder {
+        color: transparent;
+      }
+    }
+
+    &::placeholder {
+      font-size: 12px;
+      color: @colorSecondaryLight;
+    }
+  }
+}

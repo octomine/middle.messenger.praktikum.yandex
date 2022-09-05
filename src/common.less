@@ -1,17 +1,21 @@
 // IMPORTS
 // COMPONENTS
-@import "./components/input/styles.less";
-@import "./components/button/styles.less";
-@import "./components/button-arrow/styles.less";
-@import "./components/label/styles.less";
-@import "./wrappers/popup-wrapper/styles.less";
+@import './components/avatar/styles.less';
+@import './components/input/styles.less';
+@import './components/button/styles.less';
+@import './components/label/styles.less';
+// wrappers
+@import './wrappers/form-wrapper/styles.less';
+@import './wrappers/popup-wrapper/styles.less';
+@import './wrappers/profile-wrapper/styles.less';
 
 // PAGES
-@import "./pages/login/styles.less";
-@import "./pages/registration/styles.less";
-@import "./pages/profile/styles.less";
-@import "./pages/status/styles.less";
-@import "./popups/styles.less";
+@import './pages/login/styles.less';
+@import './pages/registration/styles.less';
+@import './pages/profile/styles.less';
+@import './pages/chats/styles.less';
+@import './pages/status/styles.less';
+@import './popups/styles.less';
 
 // VARS
 @colorPrimary: #3369f3;
@@ -28,15 +32,24 @@
 @fontSizeM: 13px;
 @fontSizeL: 20px;
 @fontSizeXL: 40px;
+@fontSizeMsg: 12px;
 
 @shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
 
 @radiusContainer: 12px;
 @radiusButton: 8px;
 
-@arrowRight: url("./assets/arrow-right.svg") center no-repeat;
-@arrowLeft: url("./assets/arrow-left.svg") center no-repeat;
-@blankImage: url("./assets/blank-image.svg") center no-repeat;
+@arrowRight: url('./assets/arrow-right.svg') center no-repeat;
+@arrowLeft: url('./assets/arrow-left.svg') center no-repeat;
+@imageBlank: url('./assets/blank-image.svg') center no-repeat;
+@imageMagnifier: url('./assets/magnifier.svg') 5px center no-repeat;
+@imageAttach: url('./assets/attach.svg') center no-repeat;
+@imageOptions: url('./assets/options.svg') center no-repeat;
+@imageAdd: url('./assets/add.svg') center no-repeat;
+@imageRemove: url('./assets/remove.svg') center no-repeat;
+@imageMedia: url('./assets/media.svg') center no-repeat;
+@imageFile: url('./assets/file.svg') center no-repeat;
+@imageLocation: url('./assets/location.svg') center no-repeat;
 
 // TAGS
 body {
@@ -51,25 +64,52 @@ ul {
   list-style-type: none;
 }
 
+li {
+  list-style-type: none;
+}
+
 a {
   text-decoration: none;
 }
 
 // CLASSES
+
+// FLEX
+// flex horizontal
 .fh {
   display: flex;
   flex-direction: row;
-  align-items: center;
 }
-
+// flex vertical
 .fv {
   display: flex;
   flex-direction: column;
+}
+// ALIGN
+// align start
+.as {
+  align-items: start;
+}
+// align center
+.ac {
   align-items: center;
 }
-
-.cent {
+// align end
+.ae {
+  align-items: end;
+}
+// JUSTIFY
+// justify start
+.js {
+  justify-content: start;
+}
+// justify center
+.jc {
   justify-content: center;
+}
+// justify end
+.je {
+  justify-content: end;
 }
 
 .main {
@@ -91,6 +131,20 @@ a {
 
 .footer {
   margin-top: 14px;
+}
+
+.popup_cover {
+  background: rgba(0, 0, 0, 0.4);
+  width: 100vw;
+  height: 100vh;
+}
+
+.disguise {
+  opacity: 0;
+}
+
+.hide {
+  display: none;
 }
 
 :focus {

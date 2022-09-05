@@ -1,3 +1,9 @@
+.round {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+
 .button {
   padding: 0;
   width: 280px;
@@ -28,5 +34,26 @@
   }
   &-alert {
     color: @colorAlarm;
+  }
+
+  &-arrow_right {
+    .round();
+    background: @arrowRight, @colorPrimary;
+  }
+  &-arrow_left {
+    .round();
+    background: @arrowLeft, @colorPrimary;
+  }
+
+  &-attach {
+    width: 32px;
+    height: 32px;
+    background: @imageAttach;
+  }
+
+  &-options {
+    width: 32px;
+    height: 32px;
+    background: @imageOptions;
   }
 }
