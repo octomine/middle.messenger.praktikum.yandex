@@ -13,19 +13,20 @@ export type TBlockProps = Record<string, unknown> & {
 
 
 export default class Block<P> {
-  eventBus: () => EventBus;
-  props: any;
-  children: Record<string, Block<unknown> | Array<Record<string, Block<unknown>>>>;
-
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
     FLOW_RENDER: 'flow:render'
-  }
+  };
 
-  _element: HTMLElement | null = null;
-  id: string | null = null;
+  public id: string | null = null;
+
+  protected props: any;
+  protected children: Record<string, Block<unknown> | Array<Record<string, Block<unknown>>>>;
+  
+  private eventBus: () => EventBus;
+  private _element: HTMLElement | null = null;
 
   constructor(propsAndChildren: P & TBlockProps) {
     const eventBus = new EventBus();
@@ -46,7 +47,7 @@ export default class Block<P> {
     return this._element;
   }
 
-  _getChildrenAndProps(childrenAndProps: P & TBlockProps) {
+  private _getChildrenAndProps(childrenAndProps: P & TBlockProps) {
     const children = {};
     const props = {};
 
@@ -61,59 +62,57 @@ export default class Block<P> {
     return { props, children }
   }
 
-  _makePropsProxy(props: TBlockProps) {
-    const self = this;
-
+  private _makePropsProxy(props: TBlockProps) {
     return new Proxy(props, {
-      get(target: object, prop: string) {
+      get: (target: object, prop: string) => {
         const value = target[prop];
         return typeof value === 'function' ? value.bind(target) : value;
       },
-      set(target: object, prop: string, value: unknown) {
+      set: (target: object, prop: string, value: unknown) => {
         const old = { ...target };
         target[prop] = value;
 
-        self.eventBus().emit(Block.EVENTS.FLOW_CDU, old, { ...target });
+        this.eventBus().emit(Block.EVENTS.FLOW_CDU, old, { ...target });
         return true;
       },
-      deleteProperty() {
+      deleteProperty: () => {
         throw 'Нет прав';
       }
     });
   }
 
-  _registerEvents(eventBus: EventBus) {
+  private _registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  _createDocumentElement(tagName: string): HTMLTemplateElement {
+  private _createDocumentElement(tagName: string): HTMLTemplateElement {
     const el = document.createElement(tagName) as HTMLTemplateElement;
     return el;
   }
 
-  _init() {
+  private _init() {
     this.init();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  _addEvents() {
+  private _addEvents() {
     const { events = {} } = this.props;
     Object.keys(events).forEach((evtName) => {
       this._element?.addEventListener(evtName, events[evtName]);
     });
   }
 
-  _removeEvents() {
+  private _removeEvents() {
     const { events = {} } = this.props;
     Object.keys(events).forEach((evtName) => {
       this._element?.removeEventListener(evtName, events[evtName]);
     });
   }
 
-  _componentDidMount() {
+  private _componentDidMount() {
     this.componentDidMount();
 
     const dispatchCDMInner = (children: Block<unknown>[]): void => {
@@ -128,13 +127,13 @@ export default class Block<P> {
     dispatchCDMInner(Object.values(this.children));
   }
 
-  _componentDidUpdate(oldProps: object, newProps: object) {
+  private _componentDidUpdate(oldProps: object, newProps: object) {
     if (this.componentDidUpdate(oldProps, newProps)) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
-  _render() {
+  private _render() {
     const newElement: HTMLElement = this.render().firstElementChild;
     newElement.setAttribute('data-id', this.id);
 
@@ -146,31 +145,31 @@ export default class Block<P> {
     this._addEvents();
   }
 
-  setProps = (newProps: object) => {
+  public setProps = (newProps: object) => {
     if (!newProps) {
       return;
     }
     Object.assign(this.props, newProps);
   }
 
-  getContent() {
+  public getContent() {
     return this.element;
   }
 
-  init() { }
-
-  dispatchComponentDidMount() {
+  public dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
   // переопределяется в наследниках
-  componentDidMount() { }
+  protected init() { }
 
-  componentDidUpdate(oldProps: object, newProps: object) {
+  protected componentDidMount() { }
+
+  protected componentDidUpdate(oldProps: object, newProps: object) {
     return oldProps !== newProps;
   }
 
-  compile(tmpl: TemplateDelegate, props: P) {
+  protected compile(tmpl: TemplateDelegate, props: P) {
     const stub = (id: string | null): string => `<div data-id='${id}'></div>`;
     const replaceStub = (el: DocumentFragment, block: Block<unknown>): void => {
       const { id } = block;
@@ -202,7 +201,7 @@ export default class Block<P> {
     return el;
   }
 
-  render(): DocumentFragment {
+  protected render(): DocumentFragment {
     return new DocumentFragment();
   }
 }

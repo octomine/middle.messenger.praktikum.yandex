@@ -49,11 +49,11 @@ export default class InputWrapped extends Block<InputWrappedProps> {
     return this.props.isEqual;
   }
 
-  onFocus() {
+  protected onFocus() {
     // TODO: хорошо бы тут скрывать ошибку, но что-то идёт не так
   }
 
-  onBlur() {
+  protected onBlur() {
     const { value } = this.children.input as Input;
 
     if (value) {
