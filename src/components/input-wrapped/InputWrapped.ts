@@ -21,11 +21,13 @@ export default class InputWrapped extends Block<InputWrappedProps> {
   init() {
     const { value, placeholder, isPassword } = this.props;
     this.children.input = new Input({
-      value, placeholder, isPassword,
+      value,
+      placeholder,
+      isPassword,
       events: {
         onFocus: () => this.onFocus(),
-        blur: () => this.onBlur()
-      }
+        blur: () => this.onBlur(),
+      },
     });
   }
 

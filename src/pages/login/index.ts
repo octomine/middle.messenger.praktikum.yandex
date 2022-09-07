@@ -6,14 +6,16 @@ const ctx = {
   block: 'login',
   fields: [
     { name: 'login', title: 'Логин', isRequired: true },
-    { name: 'password', title: 'Пароль', isPassword: true, isRequired: true },
+    {
+      name: 'password', title: 'Пароль', isPassword: true, isRequired: true,
+    },
   ],
   button: 'Авторизоваться',
   link: 'Нет аккаунта?',
   submit: () => {
     form.collect();
   },
-}
+};
 
 const form = new FormWrapper(ctx);
 

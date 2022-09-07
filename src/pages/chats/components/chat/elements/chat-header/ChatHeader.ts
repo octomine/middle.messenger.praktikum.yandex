@@ -20,9 +20,9 @@ export default class ChatHeader extends Block<ChatHeaderProps> {
     this.children.options = new Button({
       modifiers: 'options',
       events: {
-        click: optionsClick
-      }
-    })
+        click: optionsClick,
+      },
+    });
   }
 
   render() {

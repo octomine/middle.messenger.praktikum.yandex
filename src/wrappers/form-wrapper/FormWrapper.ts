@@ -21,14 +21,16 @@ export default class FormWrapper extends Block<FormProps> {
   }
 
   init() {
-    const { fields, block, button, link, submit } = this.props;
+    const {
+      fields, block, button, link, submit,
+    } = this.props;
 
     this.children.list = new ListForm({ fields, block });
     this.children.button = new Button({
       label: button,
       events: {
-        click: () => submit()
-      }
+        click: () => submit(),
+      },
     });
     this.children.link = new Button({
       label: link,

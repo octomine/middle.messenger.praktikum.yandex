@@ -17,9 +17,9 @@ export default class Chat extends Block<TBlockProps> {
 
   init() {
     const popoverEents = {
-      mouseover: () => this.needToHidePopover = false,
-      mouseout: () => this.needToHidePopover = true,
-    }
+      mouseover: () => { this.needToHidePopover = false; },
+      mouseout: () => { this.needToHidePopover = true; },
+    };
 
     this.children.popoverOptions = new Popover({
       modifiers: 'options',
@@ -28,7 +28,7 @@ export default class Chat extends Block<TBlockProps> {
         { type: 'add', label: 'Добавить пользователя' },
         { type: 'remove', label: 'Удалить пользователя' },
       ],
-      events: popoverEents
+      events: popoverEents,
     });
     this.children.popoverAttach = new Popover({
       modifiers: 'attach',
@@ -38,22 +38,22 @@ export default class Chat extends Block<TBlockProps> {
         { type: 'file', label: 'Файл' },
         { type: 'location', label: 'Локация' },
       ],
-      events: popoverEents
+      events: popoverEents,
     });
 
     this.children.header = new ChatHeader({
-      optionsClick: () => this.showPopover('Options')
+      optionsClick: () => this.showPopover('Options'),
     });
     this.children.messages = new ListMessages({
       fields: [
         {
-          message: 'Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.Хассельблад в итоге адаптировал SWC для космоса, но что- то пошло не так и на ракету они так никогда и не попали.Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.'
+          message: 'Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.Хассельблад в итоге адаптировал SWC для космоса, но что- то пошло не так и на ракету они так никогда и не попали.Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.',
         },
-        { message: 'Прикольно ))', modifiers: 'my' }
-      ]
+        { message: 'Прикольно ))', modifiers: 'my' },
+      ],
     });
     this.children.input = new ChatInput({
-      attachClick: () => this.showPopover('Attach')
+      attachClick: () => this.showPopover('Attach'),
     });
   }
 

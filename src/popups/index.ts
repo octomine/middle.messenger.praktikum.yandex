@@ -1,4 +1,4 @@
-import PopupWrapper from '../wrappers/popup-wrapper'
+import PopupWrapper from '../wrappers/popup-wrapper';
 
 import { render } from '../utils/render';
 import Button from '../components/button';

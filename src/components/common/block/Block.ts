@@ -11,21 +11,22 @@ export type TBlockProps = Record<string, unknown> & {
   setProps?: (newProps: object) => void,
 };
 
-
 export default class Block<P> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
-    FLOW_RENDER: 'flow:render'
+    FLOW_RENDER: 'flow:render',
   };
 
   public id: string | null = null;
 
   protected props: any;
+
   protected children: Record<string, Block<unknown> | Array<Record<string, Block<unknown>>>>;
-  
+
   private eventBus: () => EventBus;
+
   private _element: HTMLElement | null = null;
 
   constructor(propsAndChildren: P & TBlockProps) {
@@ -57,9 +58,9 @@ export default class Block<P> {
       } else {
         props[key] = value;
       }
-    })
+    });
 
-    return { props, children }
+    return { props, children };
   }
 
   private _makePropsProxy(props: TBlockProps) {
@@ -77,7 +78,7 @@ export default class Block<P> {
       },
       deleteProperty: () => {
         throw 'Нет прав';
-      }
+      },
     });
   }
 
@@ -122,8 +123,8 @@ export default class Block<P> {
         } else {
           child.dispatchComponentDidMount();
         }
-      })
-    }
+      });
+    };
     dispatchCDMInner(Object.values(this.children));
   }
 
@@ -150,7 +151,7 @@ export default class Block<P> {
       return;
     }
     Object.assign(this.props, newProps);
-  }
+  };
 
   public getContent() {
     return this.element;
@@ -177,7 +178,7 @@ export default class Block<P> {
       if (stub) {
         stub.replaceWith(block.getContent());
       }
-    }
+    };
 
     const propsAndStubs = { ...props };
     Object.entries(this.children).forEach(([key, value]) => {
@@ -193,10 +194,10 @@ export default class Block<P> {
     const el = fragment.content;
     Object.values(this.children).forEach((child) => {
       if (Array.isArray(child)) {
-        child.forEach((inner) => replaceStub(el, inner))
+        child.forEach((inner) => replaceStub(el, inner));
       }
       replaceStub(el, child);
-    })
+    });
 
     return el;
   }

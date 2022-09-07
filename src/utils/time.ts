@@ -3,4 +3,4 @@ export const getTime = (time: string): string => {
   const date = new Date(time);
 
   return `${date.getHours()}:${date.getMinutes()}`;
-}
+};
