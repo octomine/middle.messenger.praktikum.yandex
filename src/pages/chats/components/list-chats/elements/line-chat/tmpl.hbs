@@ -1,19 +1,19 @@
-<li class='fv ac line_chat'>
-  <div class='fh ac chat'>
+<li class='flex_vertical align_center line_chat'>
+  <div class='flex_horizontal align_center chat'>
     {{{avatar}}}
-    <div class='fv as'>
-      <div class='fh ac row'>
+    <div class='flex_vertical align_start'>
+      <div class='flex_horizontal align_center row'>
         {{> label txt=title modifiers='m'}}
         <div class='time'>
           {{time}}
         </div>
       </div>
-      <div class='fh ac row'>
+      <div class='flex_horizontal align_center row'>
         <div class='message_preview'>
           {{msg}}
         </div>
         {{#if unread}}
-        <div class='fh ac unread'>
+        <div class='flex_horizontal align_center unread'>
           {{unread}}
         </div>
         {{/if}}
