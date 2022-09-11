@@ -1,4 +1,4 @@
-import Block, { TBlockProps } from '../../../../components/common/block';
+import Block from '../../../../components/common/block';
 
 import List, { ListProps } from '../../../../components/list';
 
@@ -8,7 +8,7 @@ import Search from './elements/search';
 import tmpl from './tmpl.hbs';
 
 export default class ListChats extends List {
-  _selected: string | null = null;
+  private _selected: string | null = null;
 
   constructor(props: ListProps) {
     super(props);
@@ -29,9 +29,9 @@ export default class ListChats extends List {
 
   line(field: LineChatProps): Block<unknown> {
     const events = {
-      click: () => this.select(line.id)
+      click: () => this.select(line.id),
     };
-    const line = new LineChat({ ...field, events })
+    const line = new LineChat({ ...field, events });
     return line;
   }
 

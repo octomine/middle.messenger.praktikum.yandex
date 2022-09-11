@@ -21,11 +21,13 @@ export default class InputWrapped extends Block<InputWrappedProps> {
   init() {
     const { value, placeholder, isPassword } = this.props;
     this.children.input = new Input({
-      value, placeholder, isPassword,
+      value,
+      placeholder,
+      isPassword,
       events: {
         onFocus: () => this.onFocus(),
-        blur: () => this.onBlur()
-      }
+        blur: () => this.onBlur(),
+      },
     });
   }
 
@@ -49,11 +51,11 @@ export default class InputWrapped extends Block<InputWrappedProps> {
     return this.props.isEqual;
   }
 
-  onFocus() {
+  protected onFocus() {
     // TODO: хорошо бы тут скрывать ошибку, но что-то идёт не так
   }
 
-  onBlur() {
+  protected onBlur() {
     const { value } = this.children.input as Input;
 
     if (value) {

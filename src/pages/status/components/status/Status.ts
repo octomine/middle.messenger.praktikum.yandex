@@ -13,7 +13,7 @@ interface StatusProps extends TBlockProps {
 
 export default class Status extends Block<StatusProps> {
   constructor(props: StatusProps) {
-    super(props)
+    super(props);
   }
 
   init() {
@@ -21,8 +21,8 @@ export default class Status extends Block<StatusProps> {
       label: 'Назад к чатам',
       modifiers: 'link',
       events: {
-        click: () => console.log('back to chats clicked!!1')
-      }
+        click: () => console.log('back to chats clicked!!1'),
+      },
     });
   }
 

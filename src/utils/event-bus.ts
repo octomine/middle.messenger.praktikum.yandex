@@ -1,29 +1,29 @@
 class EventBus {
-  listeners: object;
+  listeners: Record<string, Array<() => void>>;
 
   constructor() {
-    this.listeners = {}
+    this.listeners = {};
   }
 
-  on(event: string, callback) {
+  on(event: string, callback: () => void) {
     if (!this.listeners[event]) {
       this.listeners[event] = [];
     }
-    this.listeners[event].push(callback)
+    this.listeners[event].push(callback);
   }
 
-  off(event: string, callback) {
+  off(event: string, callback: () => void) {
     if (!this.listeners[event]) {
       throw new Error(`Отсутствует событие ${event}`);
     }
-    this.listeners[event] = this.listeners[event].filter((listener) => listener !== callback)
+    this.listeners[event] = this.listeners[event].filter((listener) => listener !== callback);
   }
 
   emit(event: string, ...args) {
     if (!this.listeners[event]) {
       throw new Error(`Отсутствует событие ${event}`);
     }
-    this.listeners[event].forEach((listener) => listener(...args))
+    this.listeners[event].forEach((listener) => listener(...args));
   }
 }
 

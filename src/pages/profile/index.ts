@@ -1,7 +1,7 @@
 import { render } from '../../utils/render';
 
 import ProfileWrapper from '../../wrappers/profile-wrapper';
-import ListProfile from '../../wrappers/profile-wrapper/components/list-profile'
+import ListProfile from '../../wrappers/profile-wrapper/components/list-profile';
 import ListInput from '../../wrappers/profile-wrapper/components/list-input';
 import ListLink from '../../wrappers/profile-wrapper/components/list-link';
 import Button from '../../components/button';
@@ -24,7 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
         { title: 'Фамилия', value: 'Пупкен' },
         { title: 'Имя в чате', value: 'VoPup' },
         { title: 'Телефон', value: '+7 (321) 987-45-33' },
-      ]
+      ],
     }),
     footer: new ListLink({
       block: 'footer',
@@ -32,7 +32,7 @@ window.addEventListener('DOMContentLoaded', () => {
         { label: 'Изменить данные' },
         { label: 'Изменить пароль' },
         { label: 'Выйти', modifiers: 'alert' },
-      ]
+      ],
     }),
   };
 
@@ -46,23 +46,27 @@ window.addEventListener('DOMContentLoaded', () => {
         { name: 'second_name', title: 'Фамилия', value: 'Пупкен' },
         { name: 'display_name', title: 'Имя в чате', value: 'VoPup' },
         { name: 'phone', title: 'Телефон', value: '+7 (321) 987-45-33' },
-      ]
+      ],
     }),
     footer: new Button({
       label: 'Сохранить',
       block: 'footer',
       events: {
-        click: () => profile.submit()
-      }
+        click: () => profile.submit(),
+      },
     }),
-  }
+  };
 
   const ctxPassword = {
     content: new ListInput({
       block: 'profile',
       fields: [
-        { name: 'oldPassword', title: 'Старый пароль', value: 'asdasdfasdf', isPassword: true },
-        { name: 'newPassword', title: 'Новый пароль', value: 'adf', isPassword: true },
+        {
+          name: 'oldPassword', title: 'Старый пароль', value: 'asdasdfasdf', isPassword: true,
+        },
+        {
+          name: 'newPassword', title: 'Новый пароль', value: 'adf', isPassword: true,
+        },
         { title: 'Повторите новый пароль', isPassword: true, isEqual: 'newPassword' },
       ],
     }),
@@ -70,13 +74,13 @@ window.addEventListener('DOMContentLoaded', () => {
       label: 'Сохранить',
       block: 'footer',
       events: {
-        click: () => profile.submit()
-      }
-    })
+        click: () => profile.submit(),
+      },
+    }),
   };
 
   let ctx = ctxProfile;
-  let type = location.hash.replace('#', '');
+  const type = location.hash.replace('#', '');
   switch (type) {
     case 'change':
       ctx = ctxChange;
@@ -93,8 +97,8 @@ window.addEventListener('DOMContentLoaded', () => {
   const btn = new Button({
     modifiers: 'arrow_left',
     events: {
-      click: () => console.log('BACK!!1')
-    }
+      click: () => console.log('BACK!!1'),
+    },
   });
   const profile = new ProfileWrapper(ctx);
 

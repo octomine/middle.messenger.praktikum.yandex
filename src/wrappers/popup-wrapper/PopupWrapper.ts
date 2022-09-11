@@ -1,6 +1,6 @@
 import Block, { TBlockProps } from '../../components/common/block';
 import Button from '../../components/button';
-import '../../components/label'
+import '../../components/label';
 
 import tmpl from './tmpl.hbs';
 

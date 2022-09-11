@@ -19,8 +19,8 @@ export default class ChatInput extends Block<ChatInputProps> {
     this.children.attach = new Button({
       modifiers: 'attach',
       events: {
-        click: attachClick
-      }
+        click: attachClick,
+      },
     });
 
     this.children.input = new Input({
@@ -31,16 +31,16 @@ export default class ChatInput extends Block<ChatInputProps> {
           if (evt.key === 'Enter') {
             this.send();
           }
-        }
-      }
+        },
+      },
     });
 
     this.children.button = new Button({
       modifiers: 'arrow_right',
       events: {
-        click: () => this.send()
-      }
-    })
+        click: () => this.send(),
+      },
+    });
   }
 
   send() {

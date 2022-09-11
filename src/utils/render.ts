@@ -1,4 +1,4 @@
-import Block from '../components/common/block'
+import Block from '../components/common/block';
 
 export const render = (query: string, block: Block<unknown>) => {
   const root = document.querySelector(query);
@@ -6,4 +6,4 @@ export const render = (query: string, block: Block<unknown>) => {
   block.dispatchComponentDidMount();
 
   return root;
-}
+};

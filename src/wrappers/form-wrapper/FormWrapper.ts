@@ -6,6 +6,7 @@ import '../../components/label';
 import ListForm from './components/list-form';
 
 import tmpl from './tmpl.hbs';
+import Router from '../../router/Router';
 
 interface FormProps extends TBlockProps {
   title: string,
@@ -21,22 +22,27 @@ export default class FormWrapper extends Block<FormProps> {
   }
 
   init() {
-    const { fields, block, button, link, submit } = this.props;
+    const {
+      fields, block, button, link, submit, linkPath
+    } = this.props;
 
     this.children.list = new ListForm({ fields, block });
     this.children.button = new Button({
       label: button,
       events: {
-        click: () => submit()
-      }
+        click: () => submit(),
+      },
     });
     this.children.link = new Button({
       label: link,
       modifiers: 'link',
+      events: {
+        click: () => Router.go(linkPath)
+      }
     });
   }
 
-  collect() {
+  submit() {
     console.log(this.children.list.collect());
   }
 

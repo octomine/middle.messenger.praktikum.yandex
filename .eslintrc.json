@@ -1,8 +1,16 @@
 {
   "extends": [
-    "airbnb"
+    "airbnb",
+    "airbnb-typescript"
   ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "rules": {
+    "import/prefer-default-export": "off",
+    "no-useless-constructor": "off",
+    "@typescript-eslint/no-useless-constructor": "off",
+    "class-methods-use-this": "off",
     "no-unused-vars": 2,
     "max-len": [
       1,

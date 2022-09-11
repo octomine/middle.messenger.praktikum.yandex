@@ -15,9 +15,11 @@ export default class ListCollector extends List {
   collect(): object {
     let error = false;
     const { fields } = this.children;
-    const res = fields.reduce((res: object, field: InputWrapped) => {
+    const result = fields.reduce((res: object, field: InputWrapped) => {
       field.setProps({ error: null });
-      const { name, value, isRequired, isEqual, validate } = field;
+      const {
+        name, value, isRequired, isEqual, validate,
+      } = field;
       if (!value && isRequired) {
         field.setProps({ error: INPUT_ERRORS.IS_REQUIRED });
         error = true;
@@ -35,6 +37,6 @@ export default class ListCollector extends List {
       }
       return value ? { ...res, [name]: value } : res;
     }, {});
-    return error ? {} : res;
+    return error ? {} : result;
   }
 }

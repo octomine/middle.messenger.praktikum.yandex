@@ -10,7 +10,7 @@ export type Options = {
   method: METHOD;
   headers?: object;
   data?: any;
-}
+};
 
 type OptionsWithoutMethod = Omit<Options, 'method'>;
 
@@ -47,7 +47,7 @@ class HTTP {
       xhr.onload = function () {
         console.log(xhr);
         resolve(xhr);
-      }
+      };
 
       xhr.onabort = reject;
       xhr.onerror = reject;
