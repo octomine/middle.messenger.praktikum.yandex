@@ -161,6 +161,14 @@ export default class Block<P> {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
+  public show() {
+    this.getContent().style.display = 'flex';
+  }
+
+  public hide() {
+    this.getContent().style.display = 'none';
+  }
+
   // переопределяется в наследниках
   protected init() { }
 
