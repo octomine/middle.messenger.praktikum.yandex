@@ -10,11 +10,11 @@ const apiAuth = new APIAuth();
 export default class ControllerUserLogin {
   public async login(data: LoginFormModel) {
     try {
-      const res = await apiAuth.request('/signin', JSON.stringify(data));
-      console.log(res);
+      await apiAuth.request('/signin', JSON.stringify(data));
     } catch (err) {
       console.log('CATCHED!!1');
       console.log(err);
+      // TODO: обрабатывать ошибки по-настоящему
     }
   }
 }
