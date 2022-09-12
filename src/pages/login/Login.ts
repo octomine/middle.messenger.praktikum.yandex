@@ -3,7 +3,7 @@ import FormWrapper from "../../wrappers/form-wrapper";
 import tmpl from './tmpl.hbs';
 import ControllerUserLogin from "../../controllers/user-login";
 
-export default class Login extends Block<TBlockProps> {
+class Login extends Block<TBlockProps> {
   controller: ControllerUserLogin;
 
   constructor(props: TBlockProps = {}) {
@@ -19,16 +19,13 @@ export default class Login extends Block<TBlockProps> {
     const ctx = {
       title: 'Вход',
       block: 'login',
-      fields: [
-        { name: 'login', title: 'Логин', isRequired: true },
-        {
-          name: 'password', title: 'Пароль', isPassword: true, isRequired: true,
-        },
-      ],
       button: 'Авторизоваться',
       submit: this.submit.bind(this),
       link: 'Нет аккаунта?',
       linkPath: '/sign-up',
+      mapStateToProps: (state: object) => ({
+        fields: state.login?.fields
+      })
     };
 
     this.children.form = new FormWrapper(ctx);
@@ -42,3 +39,5 @@ export default class Login extends Block<TBlockProps> {
     return this.compile(tmpl, this.props);
   }
 }
+
+export default Login;

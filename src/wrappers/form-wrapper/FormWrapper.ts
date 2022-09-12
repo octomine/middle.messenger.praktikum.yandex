@@ -8,6 +8,7 @@ import ListForm from './components/list-form';
 import tmpl from './tmpl.hbs';
 import Router from '../../router/Router';
 import ListCollector from '../../components/list-collector';
+import { connect } from '../../store';
 
 interface FormProps extends TBlockProps {
   title: string,
@@ -28,10 +29,10 @@ export default class FormWrapper extends Block<FormProps> {
 
   init() {
     const {
-      fields, block, button, link, submit, linkPath
+      block, button, link, submit, linkPath, mapStateToProps
     } = this.props;
 
-    this.children.list = new ListForm({ fields, block });
+    this.children.list = new (connect(ListForm, mapStateToProps))({ block });
     this.children.button = new Button({
       label: button,
       events: {

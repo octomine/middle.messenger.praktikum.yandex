@@ -1,4 +1,5 @@
 import { APIAuth } from '../api/auth'
+import Store from '../store';
 
 interface LoginFormModel {
   login: string;
@@ -14,7 +15,7 @@ export default class ControllerUserLogin {
     } catch (err) {
       console.log('CATCHED!!1');
       console.log(err);
-      // TODO: обрабатывать ошибки по-настоящему
+      Store.set('login.errors', '!!!');
     }
   }
 }

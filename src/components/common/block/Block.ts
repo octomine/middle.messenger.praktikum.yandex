@@ -6,7 +6,7 @@ export type TBlockProps = Record<string, unknown> & {
   block?: string,
   modifiers?: string,
   styles?: string,
-  events?: Record<string, () => void>,
+  events?: Record<string, (...args: unknown[]) => void>,
   children?: Record<string, Block<unknown>>
   setProps?: (newProps: object) => void,
 };
