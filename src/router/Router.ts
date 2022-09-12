@@ -1,21 +1,14 @@
 import Route from "./Route";
 
 class Router {
-  __instance: Router;
   routes: Array<Route>;
   history: History;
   _currentRoute: Route | null;
 
   constructor() {
-    if (Router.__instance) {
-      return Router.__instance;
-    }
-
     this.routes = [];
     this.history = window.history;
     this._currentRoute = null;
-
-    Router.__instance = this;
   }
 
   use(pathname: string, block: unknown) {
@@ -33,7 +26,6 @@ class Router {
   }
 
   go(pathname: string) {
-    console.log('GO!!1')
     this.history.pushState({}, "", pathname);
     this._onRoute(pathname);
   }
