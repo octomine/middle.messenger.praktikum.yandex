@@ -5,8 +5,12 @@ import tmpl from './tmpl.hbs';
 import FormWrapper from "../../wrappers/form-wrapper";
 
 export default class SignUp extends Block<TBlockProps> {
-  constructor(props: TBlockProps) {
-    super({});
+  constructor(props: TBlockProps = {}) {
+    super(props);
+  }
+
+  get form(): FormWrapper {
+    return this.children.form as FormWrapper;
   }
 
   init() {
@@ -36,7 +40,7 @@ export default class SignUp extends Block<TBlockProps> {
   }
 
   submit() {
-    this.children.form.submit()
+    this.form.submit()
   }
 
   render() {

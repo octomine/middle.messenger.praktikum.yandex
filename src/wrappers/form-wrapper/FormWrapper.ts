@@ -7,6 +7,7 @@ import ListForm from './components/list-form';
 
 import tmpl from './tmpl.hbs';
 import Router from '../../router/Router';
+import ListCollector from '../../components/list-collector';
 
 interface FormProps extends TBlockProps {
   title: string,
@@ -19,6 +20,10 @@ interface FormProps extends TBlockProps {
 export default class FormWrapper extends Block<FormProps> {
   constructor(props: FormProps) {
     super(props);
+  }
+
+  get list(): ListCollector {
+    return this.children.list as ListCollector;
   }
 
   init() {
@@ -42,8 +47,8 @@ export default class FormWrapper extends Block<FormProps> {
     });
   }
 
-  submit() {
-    console.log(this.children.list.collect());
+  submit(): object {
+    return this.list.collect();
   }
 
   render() {
