@@ -1,11 +1,14 @@
 import Block, { TBlockProps } from "../../components/common/block";
 import FormWrapper from "../../wrappers/form-wrapper";
 import tmpl from './tmpl.hbs';
-import { APIAuth } from "../../api/api-auth";
+import ControllerUserLogin from "../../controllers/user-login";
 
 export default class Login extends Block<TBlockProps> {
+  controller: ControllerUserLogin;
+
   constructor(props: TBlockProps = {}) {
     super(props);
+    this.controller = new ControllerUserLogin();
   }
 
   get form(): FormWrapper {
@@ -32,8 +35,7 @@ export default class Login extends Block<TBlockProps> {
   }
 
   submit() {
-    console.log(this.form.submit());
-    new APIAuth().signin(JSON.stringify(this.form.submit()));
+    this.controller.login(this.form.submit());
   }
 
   render() {
