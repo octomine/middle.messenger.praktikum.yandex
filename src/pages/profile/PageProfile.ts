@@ -8,7 +8,7 @@ import ListLink from '../../wrappers/profile-wrapper/components/list-link';
 
 const ctx = {
   title: 'Восилей',
-  content: new ListProfile({
+  list: new ListProfile({
     modifiers: 'titled',
     fields: [
       { title: 'Почта', value: 'adf@mail.ru' },
@@ -28,7 +28,14 @@ export default class PageProfile extends Block<TBlockProps> {
 
   init() {
     this.children.back = new Button({ modifiers: 'arrow_left' });
-    this.children.profile = new ProfileWrapper({ ...ctx, footer: this.getButtons(this.change.bind(this), this.changePassword) });
+
+    const buttons = this.getButtons(this.changeSettings.bind(this), this.changePassword);
+    const button = new Button({ label: 'Сохранить', block: 'footer' });
+    this.children.profile = new ProfileWrapper({ ...ctx, buttons, button });
+  }
+
+  set editMode(val: boolean) {
+    this.children.profile.setProps({ edit: val });
   }
 
   getButtons(change, changePassword) {
@@ -48,12 +55,25 @@ export default class PageProfile extends Block<TBlockProps> {
     })
   }
 
-  change() {
-    this.children.profile.footer = new Button({ label: 'Сохранить', block: 'footer' });
+  changeSettings() {
+    console.log(this.children);
+    this.children.button.setProps({ events: { click: () => this.saveSettings() } });
+    this.editMode = true;
   }
 
   changePassword() {
-    console.log('change password!!1');
+    this.children.button.setProps({ events: { click: () => this.savePassword() } });
+    this.editMode = true;
+  }
+
+  saveSettings() {
+    console.log('settings');
+    this.children.profile.setProps({ edit: false });
+  }
+
+  savePassword() {
+    console.log('password');
+    this.children.profile.setProps({ edit: false });
   }
 
   render() {

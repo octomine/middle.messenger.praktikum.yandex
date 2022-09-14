@@ -192,10 +192,7 @@ export default class Block<P> {
     };
 
     const propsAndStubs = { ...props };
-    console.log(propsAndStubs);
     Object.entries(this.children).forEach(([key, value]) => {
-      console.log(key);
-      console.log(value);
       if (Array.isArray(value)) {
         propsAndStubs[key] = value.map(({ id }) => stub(id));
       } else {

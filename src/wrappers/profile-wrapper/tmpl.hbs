@@ -3,8 +3,12 @@
   {{#if title}}
   {{> label txt=title block='list' modifiers='list'}}
   {{/if}}
+  {{#unless edit}}
+  {{{list}}}
+  {{{buttons}}}
+  {{/unless}}
+  {{#if edit}}
   {{{content}}}
-  {{#if footer}}
-  {{{footer}}}
+  {{{button}}}
   {{/if}}
 </div>
