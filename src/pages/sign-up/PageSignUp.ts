@@ -1,10 +1,12 @@
-import Block, { TBlockProps } from "../../components/common/block";
-import { email, login, phone, password, name } from "../../utils/validators";
+import Block, { TBlockProps } from '../../components/common/block';
+import {
+  email, login, phone, password, name,
+} from '../../utils/validators';
 
 import tmpl from './tmpl.hbs';
-import FormWrapper from "../../wrappers/form-wrapper";
+import FormWrapper from '../../wrappers/form-wrapper';
 
-export default class SignUp extends Block<TBlockProps> {
+export default class PageSignUp extends Block<TBlockProps> {
   constructor(props: TBlockProps = {}) {
     super(props);
   }
@@ -17,8 +19,12 @@ export default class SignUp extends Block<TBlockProps> {
     const ctx = {
       title: 'Регистрация',
       fields: [
-        { name: 'email', title: 'Почта', isRequired: true, validator: email },
-        { name: 'login', title: 'Логин', isRequired: true, validator: login },
+        {
+          name: 'email', title: 'Почта', isRequired: true, validator: email,
+        },
+        {
+          name: 'login', title: 'Логин', isRequired: true, validator: login,
+        },
         { name: 'first_name', title: 'Имя', validator: name },
         { name: 'second_name', title: 'Фамилия', validator: name },
         { name: 'phone', title: 'Телефон', validator: phone },
@@ -40,7 +46,7 @@ export default class SignUp extends Block<TBlockProps> {
   }
 
   submit() {
-    this.form.submit()
+    this.form.submit();
   }
 
   render() {

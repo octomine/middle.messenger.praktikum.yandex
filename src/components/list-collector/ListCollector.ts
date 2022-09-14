@@ -7,11 +7,6 @@ export default class ListCollector extends List {
     super(props);
   }
 
-  getField(fieldName: string): InputWrapped {
-    const { fields } = this.children;
-    return fields.filter(({ name }) => name === fieldName)[0]; // name у всех уникальный
-  }
-
   collect(): object {
     let error = false;
     const { fields } = this.children;

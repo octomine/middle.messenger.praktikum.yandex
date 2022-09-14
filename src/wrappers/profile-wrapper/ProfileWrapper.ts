@@ -21,7 +21,7 @@ export default class ProfileWrapper extends Block<ProfileProps> {
   }
 
   render() {
-    const { title } = this.props;
-    return this.compile(tmpl, { title });
+    // const { title } = this.props;
+    return this.compile(tmpl, this.props);
   }
 }

@@ -1,2 +1,2 @@
-export { default, StoreEvents } from './Store';
+export { default, StoreEvents, Indexed } from './Store';
 export { connect } from './connect';

@@ -15,9 +15,9 @@ export default class LineLink extends Block<LineLinkProps> {
   }
 
   init() {
-    const { modifiers: mods } = this.props;
+    const { modifiers: mods, click } = this.props;
     const modifiers = mods ? `${mods},link` : 'link';
-    this.children.button = new Button({ ...this.props, modifiers });
+    this.children.button = new Button({ ...this.props, modifiers, events: { click } });
   }
 
   render() {

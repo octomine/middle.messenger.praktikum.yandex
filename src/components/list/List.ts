@@ -1,4 +1,5 @@
 import Block, { TBlockProps } from '../common/block';
+import { Indexed } from '../../store/Store';
 import '../common/styles';
 
 import tmpl from './tmpl.hbs';
@@ -19,6 +20,20 @@ export default class List extends Block<ListProps> {
 
   line(field: unknown): Block<unknown> | null {
     return null;
+  }
+
+  getField(fieldName: string): Block<unknown> {
+    const { fields } = this.children;
+    return fields.filter(({ name }) => name === fieldName)[0]; // name у всех уникальный
+  }
+
+  update(fields: Indexed) {
+    Object.keys(fields).forEach((name) => {
+      const field = this.getField(name);
+      if (field) {
+        field.setProps(fields[name] as Indexed);
+      }
+    });
   }
 
   render() {

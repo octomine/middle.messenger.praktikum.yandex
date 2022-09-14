@@ -1,5 +1,5 @@
-import Block from "../components/common/block";
-import { render } from "../utils/render";
+import Block from '../components/common/block';
+import { render } from '../utils/render';
 
 export interface RouteProps {
   rootQuery: string;
@@ -7,8 +7,11 @@ export interface RouteProps {
 
 export default class Route {
   _pathname: string;
+
   _blockClass: any;
+
   _block: Block<unknown> | null;
+
   _props: RouteProps;
 
   constructor(pathname: string, view: unknown, props: RouteProps) {

@@ -1,8 +1,10 @@
-import Route from "./Route";
+import Route from './Route';
 
 class Router {
   routes: Array<Route>;
+
   history: History;
+
   _currentRoute: Route | null;
 
   constructor() {
@@ -20,13 +22,13 @@ class Router {
   start() {
     window.onpopstate = (evt) => {
       this._onRoute(evt.currentTarget.location.pathname);
-    }
+    };
 
     this._onRoute(window.location.pathname);
   }
 
   go(pathname: string) {
-    this.history.pushState({}, "", pathname);
+    this.history.pushState({}, '', pathname);
     this._onRoute(pathname);
   }
 
@@ -45,7 +47,7 @@ class Router {
   }
 
   getRoute(pathname: string): Route | undefined {
-    return this.routes.find((route) => route.match(pathname))
+    return this.routes.find((route) => route.match(pathname));
   }
 }
 

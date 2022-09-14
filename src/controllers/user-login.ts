@@ -1,4 +1,4 @@
-import { APIAuth } from '../api/auth'
+import { APIAuth } from '../api/auth';
 import Store from '../store';
 
 interface LoginFormModel {
@@ -15,7 +15,10 @@ export default class ControllerUserLogin {
     } catch (err) {
       console.log('CATCHED!!1');
       console.log(err);
-      Store.set('login.errors', '!!!');
+      Store.set([
+        { path: 'login.errors.login.error', value: '!!!' },
+        { path: 'login.errors.password.error', value: '!!!' },
+      ]);
     }
   }
 }

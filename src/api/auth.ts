@@ -1,5 +1,5 @@
-import { APIBase } from "./base";
-import { HTTP } from "../services/network";
+import { APIBase } from './base';
+import { HTTP } from '../services/network';
 
 const inst = new HTTP('/auth');
 
