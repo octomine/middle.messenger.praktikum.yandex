@@ -21,7 +21,12 @@ export class APIAuth extends APIBase {
   get(url: string) {
     return inst.get(url)
       .then(({ response }) => {
-        console.log(response);
+        const resp = JSON.parse(response);
+        const { reason } = resp;
+        if (reason) {
+          throw new Error(reason);
+        };
+        return resp;
       });
   }
 }

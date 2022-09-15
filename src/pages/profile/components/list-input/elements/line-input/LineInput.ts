@@ -2,6 +2,7 @@ import InputWrapped, { InputWrappedProps } from '../../../../../../components/in
 import Input from '../../../../../../components/input';
 
 import tmpl from './tmpl.hbs';
+import { Indexed } from '../../../../../../store';
 
 export default class LineInput extends InputWrapped {
   constructor(props: InputWrappedProps) {
@@ -29,6 +30,12 @@ export default class LineInput extends InputWrapped {
 
   get value(): string {
     return this.input?.value;
+  }
+
+  update(newLine: Indexed) {
+    this.setProps(newLine);
+    const { value } = newLine;
+    this.children.input.setProps({ value });
   }
 
   render() {

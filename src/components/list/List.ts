@@ -31,7 +31,7 @@ export default class List extends Block<ListProps> {
     Object.keys(fields).forEach((name) => {
       const field = this.getField(name);
       if (field) {
-        field.setProps(fields[name] as Indexed);
+        field.update(fields[name] as Indexed);
       }
     });
   }

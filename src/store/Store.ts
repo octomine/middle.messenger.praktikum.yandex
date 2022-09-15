@@ -22,7 +22,6 @@ class Store extends EventBus {
 
   public set(newState: Indexed[]) {
     newState.forEach(({ path, value }) => set(this.state, path, value));
-    // set(this.state, path, value);
     this.emit(StoreEvents.Updated);
   }
 }

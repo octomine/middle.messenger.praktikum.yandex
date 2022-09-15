@@ -23,7 +23,8 @@ export default class ControllerUserAuth {
     try {
       const resp = await apiAuth.request('/signin', JSON.stringify(data));
       if (resp === 'OK') { // TODO: надо ли?
-        await apiAuth.get('/user');
+        const user = await apiAuth.get('/user');
+        Store.set([{ path: 'user', value: user }]);
         Router.go('/messenger');
       }
     } catch (err) {

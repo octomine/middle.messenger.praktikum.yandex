@@ -7,18 +7,35 @@ import ListProfile from './components/list-profile';
 import ListInput from './components/list-input';
 import Avatar from './components/avatar';
 import Router from '../../router/Router';
+import { connect } from '../../store';
+import ControllerUser from '../../controllers/user';
+
+const FIELDS = [
+  { name: 'email', title: 'Почта' },
+  { name: 'login', title: 'Логин' },
+  { name: 'first_name', title: 'Имя' },
+  { name: 'second_name', title: 'Фамилия' },
+  { name: 'display_name', title: 'Имя в чате' },
+  { name: 'phone', title: 'Телефон' },
+];
 
 interface SettingsProps extends TBlockProps {
   edit: boolean;
   password: boolean;
 }
 
-export default class PageProfile extends Block<SettingsProps> {
+class PageProfile extends Block<SettingsProps> {
+  controller: ControllerUser;
+
   constructor(props: SettingsProps = { edit: false, password: false }) {
     super(props);
+    this.controller = new ControllerUser();
   }
 
-  init() {
+  async init() {
+    if (!this.props.user) {
+      // TODO: дёргать auth/user!!1
+    }
     this.children.back = new Button({
       modifiers: 'arrow_left',
       events: {
@@ -30,28 +47,16 @@ export default class PageProfile extends Block<SettingsProps> {
 
     this.children.list = new ListProfile({
       modifiers: 'titled',
-      fields: [
-        { title: 'Почта', value: 'adf@mail.ru' },
-        { title: 'Логин', value: 'adf' },
-        { title: 'Имя', value: 'Восилей' },
-        { title: 'Фамилия', value: 'Пупкен' },
-        { title: 'Имя в чате', value: 'VoPup' },
-        { title: 'Телефон', value: '+7 (321) 987-45-33' },
-      ],
+      fields: FIELDS,
     });
+    this.children.list.update(this.props.user);
     this.children.buttons = this.getButtons(this.changeSettings.bind(this), this.changePassword.bind(this));
 
     this.children.chageSettings = new ListInput({
       block: 'profile',
-      fields: [
-        { name: 'email', title: 'Почта', value: 'adf@mail.ru' },
-        { name: 'login', title: 'Логин', value: 'adf' },
-        { name: 'first_name', title: 'Имя', value: 'Восилей' },
-        { name: 'second_name', title: 'Фамилия', value: 'Пупкен' },
-        { name: 'display_name', title: 'Имя в чате', value: 'VoPup' },
-        { name: 'phone', title: 'Телефон', value: '+7 (321) 987-45-33' },
-      ],
+      fields: FIELDS,
     });
+    this.children.chageSettings.update(this.props.user);
     this.children.changePassword = new ListInput({
       block: 'profile',
       fields: [
@@ -100,7 +105,7 @@ export default class PageProfile extends Block<SettingsProps> {
     if (this.isPassword) {
       console.log(this.children.changePassword.collect());
     } else {
-      console.log(this.children.chageSettings.collect());
+      this.controller.changeProfile(this.children.chageSettings.collect());
     }
     this.editMode = false;
   }
@@ -109,3 +114,10 @@ export default class PageProfile extends Block<SettingsProps> {
     return this.compile(tmpl, this.props);
   }
 }
+
+const mapUserToProps = (state: Indexed) => {
+  const user = Object.entries(state.user).reduce((res, [key, value]) => ({ ...res, [key]: { value } }), {})
+  return { user };
+};
+
+export default connect(PageProfile, mapUserToProps)
