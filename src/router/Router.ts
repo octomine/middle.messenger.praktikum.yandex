@@ -1,21 +1,26 @@
 import Route from './Route';
 
 class Router {
-  routes: Array<Route>;
+  routes: Array<Route> = [];
 
   history: History;
 
-  _currentRoute: Route | null;
+  _currentRoute: Route | null = null;
+
+  _notFoundRoute: Route | null = null;
 
   constructor() {
-    this.routes = [];
     this.history = window.history;
-    this._currentRoute = null;
   }
 
   use(pathname: string, block: unknown) {
     const route = new Route(pathname, block, { rootQuery: 'main' });
     this.routes.push(route);
+    return this;
+  }
+
+  notFound(block: unknown) {
+    this._notFoundRoute = new Route('', block, { rootQuery: 'main' });
     return this;
   }
 
@@ -33,9 +38,12 @@ class Router {
   }
 
   _onRoute(pathname: string) {
-    const route = this.getRoute(pathname);
+    let route = this.getRoute(pathname);
     if (!route) {
-      return;
+      if (!this._notFoundRoute) {
+        return;
+      }
+      route = this._notFoundRoute;
     }
 
     if (this._currentRoute) {

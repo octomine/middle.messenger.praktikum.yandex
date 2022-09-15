@@ -6,6 +6,7 @@ import ListLink from './components/list-link';
 import ListProfile from './components/list-profile';
 import ListInput from './components/list-input';
 import Avatar from './components/avatar';
+import Router from '../../router/Router';
 
 interface SettingsProps extends TBlockProps {
   edit: boolean;
@@ -18,7 +19,12 @@ export default class PageProfile extends Block<SettingsProps> {
   }
 
   init() {
-    this.children.back = new Button({ modifiers: 'arrow_left' });
+    this.children.back = new Button({
+      modifiers: 'arrow_left',
+      events: {
+        click: () => Router.go('/messenger'), // лучше back, но разве можно попасть сюда не с /messenger?
+      },
+    });
 
     this.children.avatar = new Avatar({});
 
@@ -32,7 +38,7 @@ export default class PageProfile extends Block<SettingsProps> {
         { title: 'Имя в чате', value: 'VoPup' },
         { title: 'Телефон', value: '+7 (321) 987-45-33' },
       ],
-    })
+    });
     this.children.buttons = this.getButtons(this.changeSettings.bind(this), this.changePassword.bind(this));
 
     this.children.chageSettings = new ListInput({
@@ -53,7 +59,7 @@ export default class PageProfile extends Block<SettingsProps> {
         { name: 'newPassword', title: 'Новый пароль', isPassword: true },
         { title: 'Повторите новый пароль', isPassword: true, isEqual: 'newPassword' },
       ],
-    })
+    });
     this.children.button = new Button({ label: 'Сохранить', block: 'footer', events: { click: this.saveChanges.bind(this) } });
   }
 
@@ -77,7 +83,7 @@ export default class PageProfile extends Block<SettingsProps> {
         { label: 'Изменить пароль', click: changePassword },
         { label: 'Выйти', modifiers: 'alert' },
       ],
-    })
+    });
   }
 
   changeSettings() {

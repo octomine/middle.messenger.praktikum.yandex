@@ -1,25 +1,27 @@
-import { render } from '../../utils/render';
-import Status from './components/status';
+export { default } from './PageStatus';
 
-const ctx = {
-  404: {
-    title: { txt: '404' },
-    subtitle: { txt: 'Не туда попали', block: 'status' },
-    link: { label: 'Назад к чатам' },
-  },
-  500: {
-    title: { txt: '500' },
-    subtitle: { txt: 'Мы уже фиксим', block: 'status' },
-    link: { label: 'Назад к чатам' },
-  },
-};
+// import { render } from '../../utils/render';
+// import Status from './components/status';
 
-window.addEventListener('DOMContentLoaded', () => {
-  let sts = location.hash.replace('#', '');
-  sts = ctx[sts] ? sts : '404';
-  document.title = sts;
+// const ctx = {
+//   404: {
+//     title: { txt: '404' },
+//     subtitle: { txt: 'Не туда попали', block: 'status' },
+//     link: { label: 'Назад к чатам' },
+//   },
+//   500: {
+//     title: { txt: '500' },
+//     subtitle: { txt: 'Мы уже фиксим', block: 'status' },
+//     link: { label: 'Назад к чатам' },
+//   },
+// };
 
-  const status = new Status(ctx[sts]);
+// window.addEventListener('DOMContentLoaded', () => {
+//   let sts = location.hash.replace('#', '');
+//   sts = ctx[sts] ? sts : '404';
+//   document.title = sts;
 
-  render('.main', status);
-});
+//   const status = new Status(ctx[sts]);
+
+//   render('.main', status);
+// });
