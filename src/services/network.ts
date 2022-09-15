@@ -7,10 +7,6 @@ enum Method {
 }
 
 const BASE_URL = 'https://ya-praktikum.tech/api/v2';
-const COMMON_OPTS = {
-  credentials: 'include',
-  mode: 'cors',
-};
 
 export type Options = {
   method: Method;
@@ -28,23 +24,23 @@ class HTTP {
   }
 
   get(url: string, opts: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...opts, ...COMMON_OPTS, method: Method.GET });
+    return this.request(url, { ...opts, method: Method.GET });
   }
 
   post(url: string, opts: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...opts, ...COMMON_OPTS, method: Method.POST });
+    return this.request(url, { ...opts, method: Method.POST });
   }
 
   put(url: string, opts: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...opts, ...COMMON_OPTS, method: Method.PUT });
+    return this.request(url, { ...opts, method: Method.PUT });
   }
 
   patch(url: string, opts: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...opts, ...COMMON_OPTS, method: Method.PATCH });
+    return this.request(url, { ...opts, method: Method.PATCH });
   }
 
   delete(url: string, opts: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...opts, ...COMMON_OPTS, method: Method.DELETE });
+    return this.request(url, { ...opts, method: Method.DELETE });
   }
 
   request(url: string, opts: Options = { method: Method.GET }): Promise<XMLHttpRequest> {
@@ -54,6 +50,7 @@ class HTTP {
       const xhr = new XMLHttpRequest();
 
       xhr.open(method, `${this.url}${url}`);
+      xhr.withCredentials = true;
       Object.keys(headers).forEach((key) => xhr.setRequestHeader(key, headers[key]));
 
       xhr.onload = function () {

@@ -5,10 +5,14 @@ import {
 
 import tmpl from './tmpl.hbs';
 import FormWrapper from '../../wrappers/form-wrapper';
+import ControllerUserAuth from '../../controllers/user-auth';
 
 export default class PageSignUp extends Block<TBlockProps> {
+  controller: ControllerUserAuth;
+
   constructor(props: TBlockProps = {}) {
     super(props);
+    this.controller = new ControllerUserAuth();
   }
 
   get form(): FormWrapper {
@@ -25,9 +29,15 @@ export default class PageSignUp extends Block<TBlockProps> {
         {
           name: 'login', title: 'Логин', isRequired: true, validator: login,
         },
-        { name: 'first_name', title: 'Имя', validator: name },
-        { name: 'second_name', title: 'Фамилия', validator: name },
-        { name: 'phone', title: 'Телефон', validator: phone },
+        {
+          name: 'first_name', title: 'Имя', isRequired: true, validator: name,
+        },
+        {
+          name: 'second_name', title: 'Фамилия', isRequired: true, validator: name,
+        },
+        {
+          name: 'phone', title: 'Телефон', isRequired: true, validator: phone,
+        },
         {
           name: 'password', title: 'Пароль', isRequired: true, validator: password, isPassword: true,
         },
@@ -46,7 +56,10 @@ export default class PageSignUp extends Block<TBlockProps> {
   }
 
   submit() {
-    this.form.submit();
+    const req = this.form.submit();
+    if (Object.keys(req).length > 0) {
+      this.controller.signup(req);
+    }
   }
 
   render() {

@@ -17,4 +17,11 @@ export class APIAuth extends APIBase {
         return response;
       });
   }
+
+  get(url: string) {
+    return inst.get(url)
+      .then(({ response }) => {
+        console.log(response);
+      });
+  }
 }
