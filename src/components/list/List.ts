@@ -5,7 +5,7 @@ import '../common/styles';
 import tmpl from './tmpl.hbs';
 
 export interface ListProps extends TBlockProps {
-  fields: Record<string, string | boolean>[],
+  fields?: Record<string, string | boolean>[],
 }
 
 export default class List extends Block<ListProps> {

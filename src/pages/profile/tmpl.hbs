@@ -1,4 +1,20 @@
 <div class="flex_horizontal align_center">
   {{{back}}}
-  {{{profile}}}
+  <div class='flex_vertical align_center profile_wrapper'>
+    {{{avatar}}}
+    {{#if title}}
+    {{> label txt=title block='list' modifiers='list'}}
+    {{/if}}
+    {{#if edit}}
+    {{#if password}}
+    {{{changePassword}}}
+    {{else}}
+    {{{chageSettings}}}
+    {{/if}}
+    {{{button}}}
+    {{else}}
+    {{{list}}}
+    {{{buttons}}}
+    {{/if}}
+  </div>
 </div>
