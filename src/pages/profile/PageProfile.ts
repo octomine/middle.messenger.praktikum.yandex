@@ -21,7 +21,7 @@ export default class PageProfile extends Block<SettingsProps> {
     this.children.back = new Button({ modifiers: 'arrow_left' });
 
     this.children.avatar = new Avatar({});
-    
+
     this.children.list = new ListProfile({
       modifiers: 'titled',
       fields: [

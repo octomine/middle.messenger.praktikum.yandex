@@ -4,10 +4,10 @@ import tmpl from './tmpl.hbs';
 
 export default class Avatar extends Block<TBlockProps> {
   constructor(events: Record<string, () => void>) {
-    super({ events });
+    super({ events, modifiers: 'l' });
   }
 
   render() {
-    return this.compile(tmpl, {});
+    return this.compile(tmpl, this.props);
   }
 }
