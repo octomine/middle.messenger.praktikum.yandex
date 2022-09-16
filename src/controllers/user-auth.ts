@@ -19,12 +19,21 @@ interface SignupFormModel {
 const apiAuth = new APIAuth();
 
 export default class ControllerUserAuth {
+  public async getProfile() {
+    return apiAuth.get('/user').then((user) => {
+      Store.set([{ path: 'user', value: user }]);
+    }).catch((err) => {
+      // TODO: отслеживать статус, наверно здесь
+      console.log(`controller CATCHED ${err}`);
+      throw new Error(err);
+    })
+  }
+
   public async login(data: LoginFormModel) {
     try {
       const resp = await apiAuth.request('/signin', JSON.stringify(data));
       if (resp === 'OK') { // TODO: надо ли?
-        const user = await apiAuth.get('/user');
-        Store.set([{ path: 'user', value: user }]);
+        this.getProfile();
         Router.go('/messenger');
       }
     } catch (err) {
@@ -41,7 +50,7 @@ export default class ControllerUserAuth {
     try {
       const resp = await apiAuth.request('/signup', JSON.stringify(data));
       console.log(resp);
-      await apiAuth.get('/user');
+      this.getProfile();
       Router.go('/messenger');
     } catch (err) {
       console.log('CATCHED!!1');

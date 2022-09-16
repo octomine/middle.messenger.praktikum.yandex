@@ -38,7 +38,7 @@ class PageLogin extends Block<TBlockProps> {
       linkPath: '/sign-up',
     };
 
-    this.children.form = new (connect(FormWrapper, mapStateToProps))(ctx);
+    this.children.form = new FormWrapper(ctx);
   }
 
   submit() {

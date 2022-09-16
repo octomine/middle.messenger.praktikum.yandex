@@ -7,8 +7,17 @@ import ListProfile from './components/list-profile';
 import ListInput from './components/list-input';
 import Avatar from './components/avatar';
 import Router from '../../router/Router';
-import { connect } from '../../store';
+import { connect, Indexed } from '../../store';
 import ControllerUser from '../../controllers/user';
+import { PROFILE_FIELDS } from '../../consts';
+
+const withUser = connect((state: Indexed) => {
+  const { user } = state;
+  const fields = Object.keys(PROFILE_FIELDS).reduce<Indexed>((res: Indexed, key) => {
+    return user[key] ? { ...res, [key]: user[key] } : res;
+  }, {});
+  return { fields };
+});
 
 const FIELDS = [
   { name: 'email', title: 'Почта' },
@@ -33,9 +42,6 @@ class PageProfile extends Block<SettingsProps> {
   }
 
   async init() {
-    if (!this.props.user) {
-      // TODO: дёргать auth/user!!1
-    }
     this.children.back = new Button({
       modifiers: 'arrow_left',
       events: {
@@ -45,18 +51,10 @@ class PageProfile extends Block<SettingsProps> {
 
     this.children.avatar = new Avatar({});
 
-    this.children.list = new ListProfile({
-      modifiers: 'titled',
-      fields: FIELDS,
-    });
-    this.children.list.update(this.props.user);
+    this.children.list = new (withUser(ListProfile))({ modifiers: 'titled' });
     this.children.buttons = this.getButtons(this.changeSettings.bind(this), this.changePassword.bind(this));
 
-    this.children.chageSettings = new ListInput({
-      block: 'profile',
-      fields: FIELDS,
-    });
-    this.children.chageSettings.update(this.props.user);
+    this.children.chageSettings = new (withUser(ListInput))({ block: 'profile' });
     this.children.changePassword = new ListInput({
       block: 'profile',
       fields: [
@@ -115,9 +113,4 @@ class PageProfile extends Block<SettingsProps> {
   }
 }
 
-const mapUserToProps = (state: Indexed) => {
-  const user = Object.entries(state.user).reduce((res, [key, value]) => ({ ...res, [key]: { value } }), {})
-  return { user };
-};
-
-export default connect(PageProfile, mapUserToProps)
+export default PageProfile;

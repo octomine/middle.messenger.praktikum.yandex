@@ -21,7 +21,10 @@ class EventBus {
 
   emit(event: string, ...args: unknown[]) {
     if (!this.listeners[event]) {
-      throw new Error(`Отсутствует событие ${event}`);
+      // TODO: разобраться, как лучше
+      // throw new Error(`Отсутствует событие ${event}`);
+      console.log(`Отсутствует событие ${event}`);
+      return;
     }
     this.listeners[event].forEach((listener) => listener(...args));
   }

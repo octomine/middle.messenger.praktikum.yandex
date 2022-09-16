@@ -14,6 +14,7 @@ class Store extends EventBus {
     login: {
       errors: {},
     },
+    user: {}
   };
 
   public getState(): Indexed {
