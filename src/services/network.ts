@@ -1,73 +1,74 @@
 enum Method {
-  GET = 'GET',
-  POST = 'POST',
-  PUT = 'PUT',
-  PATCH = 'PATCH',
-  DELETE = 'DELETE',
+  Get = 'Get',
+  Post = 'Post',
+  Put = 'Put',
+  Patch = 'Patch',
+  Delete = 'Delete',
 }
-
-const BASE_URL = 'https://ya-praktikum.tech/api/v2';
 
 export type Options = {
   method: Method;
-  headers?: object;
   data?: any;
 };
 
-type OptionsWithoutMethod = Omit<Options, 'method'>;
+export class HTTPTransport {
+  static API_URL = 'https://ya-praktikum.tech/api/v2'
+  protected endpoint: string;
 
-class HTTP {
-  url: string;
-
-  constructor(url: string) {
-    this.url = `${BASE_URL}${url}`;
+  constructor(endpoint: string) {
+    this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
   }
 
-  get(url: string, opts: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...opts, method: Method.GET });
+  public get<Response>(path = '/'): Promise<Response> {
+    return this.request<Response>(`${this.endpoint}${path}`, { method: Method.Get });
   }
 
-  post(url: string, opts: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...opts, method: Method.POST });
+  public post<Response = void>(path: string, data?: unknown): Promise<Response> {
+    return this.request<Response>(`${this.endpoint}${path}`, { data, method: Method.Post });
   }
 
-  put(url: string, opts: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...opts, method: Method.PUT });
+  public put<Response = void>(path: string, data: unknown): Promise<Response> {
+    return this.request<Response>(`${this.endpoint}${path}`, { data, method: Method.Put });
   }
 
-  patch(url: string, opts: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...opts, method: Method.PATCH });
+  public patch<Response = void>(path: string, data: unknown): Promise<Response> {
+    return this.request<Response>(`${this.endpoint}${path}`, { data, method: Method.Patch });
   }
 
-  delete(url: string, opts: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...opts, method: Method.DELETE });
+  public delete<Response = void>(path: string, data: unknown): Promise<Response> {
+    return this.request<Response>(`${this.endpoint}${path}`, { data, method: Method.Delete });
   }
 
-  request(url: string, opts: Options = { method: Method.GET }): Promise<XMLHttpRequest> {
-    const { method, data, headers = {} } = opts;
+  request<Response>(url: string, opts: Options = { method: Method.Get }): Promise<Response> {
+    const { method, data } = opts;
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
 
-      xhr.open(method, `${this.url}${url}`);
+      xhr.open(method, url);
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status < 400) {
+            resolve(xhr.response);
+          } else {
+            reject(xhr.response);
+          }
+        }
+      }
+
+      xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.withCredentials = true;
-      Object.keys(headers).forEach((key) => xhr.setRequestHeader(key, headers[key]));
+      xhr.responseType = 'json';
 
-      xhr.onload = function () {
-        resolve(xhr);
-      };
+      xhr.onabort = () => reject({ reason: 'abort' });
+      xhr.onerror = () => reject({ reason: 'network error' });
+      xhr.ontimeout = () => reject({ reason: 'timeout' });
 
-      xhr.onabort = reject;
-      xhr.onerror = reject;
-      xhr.ontimeout = reject;
-
-      if (method === Method.GET || !data) {
+      if (method === Method.Get || !data) {
         xhr.send();
       } else {
-        xhr.send(data);
+        xhr.send(JSON.stringify(data));
       }
     });
   }
 }
-
-export { HTTP };

@@ -1,17 +1,16 @@
 import Block, { TBlockProps } from '../../components/common/block';
-
-import tmpl from './tmpl.hbs';
 import Button from '../../components/button';
+import Router from '../../router/Router';
+
+import { connect, Indexed } from '../../store';
+import { PROFILE_FIELDS } from '../../consts';
+
 import ListLink from './components/list-link';
 import ListProfile from './components/list-profile';
 import ListInput from './components/list-input';
 import Avatar from './components/avatar';
-import Router from '../../router/Router';
-import { connect, Indexed } from '../../store';
-import ControllerUser from '../../controllers/user';
-import { PROFILE_FIELDS } from '../../consts';
-import ListCollector from '../../components/list-collector';
-import ListChats from '../messenger/components/list-chats';
+
+import tmpl from './tmpl.hbs';
 
 const withUser = connect((state: Indexed) => {
   const { user } = state;
@@ -26,18 +25,18 @@ interface SettingsProps extends TBlockProps {
 }
 
 class PageProfile extends Block<SettingsProps> {
-  controller: ControllerUser;
+  // controller: ControllerUser;
 
-  constructor(props: SettingsProps = { edit: false, password: false }) {
+  constructor(props: SettingsProps = { edit: false, password: false, title: 'aaa' }) {
     super(props);
-    this.controller = new ControllerUser();
+    // this.controller = new ControllerUser();
   }
 
-  async init() {
+  init() {
     this.children.back = new Button({
       modifiers: 'arrow_left',
       events: {
-        click: () => Router.go('/messenger'), // лучше back, но разве можно попасть сюда не с /messenger?
+        click: () => this.onBack(),
       },
     });
 
@@ -55,11 +54,19 @@ class PageProfile extends Block<SettingsProps> {
         { title: 'Повторите новый пароль', isPassword: true, isEqual: 'newPassword' },
       ],
     });
-    this.children.button = new Button({ label: 'Сохранить', block: 'footer', events: { click: this.saveChanges.bind(this) } });
+    this.children.button = new Button({
+      label: 'Сохранить',
+      block: 'footer',
+      events: { click: this.saveChanges.bind(this) }
+    });
   }
 
   set editMode(val: boolean) {
     this.setProps({ edit: val });
+  }
+
+  get editMode(): boolean {
+    return this.props.edit;
   }
 
   set isPassword(val: boolean) {
@@ -81,6 +88,14 @@ class PageProfile extends Block<SettingsProps> {
     });
   }
 
+  onBack() {
+    if (this.editMode) {
+      this.editMode = false;
+    } else {
+      Router.go('/messenger'); // лучше back, но разве можно попасть сюда не с /messenger?
+    }
+  }
+
   changeSettings() {
     this.isPassword = false;
     this.editMode = true;
@@ -95,7 +110,7 @@ class PageProfile extends Block<SettingsProps> {
     if (this.isPassword) {
       console.log(this.children.changePassword.collect());
     } else {
-      this.controller.changeProfile(this.children.chageSettings.collect());
+      // this.controller.changeProfile(this.children.chageSettings.collect());
     }
     this.editMode = false;
   }

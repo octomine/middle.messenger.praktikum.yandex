@@ -4,10 +4,9 @@ import PageSignUp from './pages/sign-up';
 import PageProfile from './pages/profile';
 import PageMessenger from './pages/messenger';
 import PageStatus from './pages/status';
-import ControllerUserAuth from './controllers/user-auth';
+import ControllerAuth from './controllers/user-auth';
 
 
-const controller = new ControllerUserAuth();
 
 window.addEventListener('DOMContentLoaded', () => {
   Router
@@ -17,7 +16,7 @@ window.addEventListener('DOMContentLoaded', () => {
     .use('/messenger', PageMessenger)
     .notFound(PageStatus)
 
-  controller.getProfile()
+  ControllerAuth.fetchUser()
     .then(() => {
       // TODO: вот тут проверять адрес, если логин или регистрация, то идти в чат
     }).catch(() => {

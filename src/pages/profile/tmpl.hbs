@@ -2,9 +2,6 @@
   {{{back}}}
   <div class='flex_vertical align_center profile_wrapper'>
     {{{avatar}}}
-    {{#if title}}
-    {{> label txt=title block='list' modifiers='list'}}
-    {{/if}}
     {{#if edit}}
     {{#if password}}
     {{{changePassword}}}
@@ -13,6 +10,7 @@
     {{/if}}
     {{{button}}}
     {{else}}
+    {{> label txt=title block='list' modifiers='list'}}
     {{{list}}}
     {{{buttons}}}
     {{/if}}

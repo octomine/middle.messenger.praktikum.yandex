@@ -1,21 +1,19 @@
 import Block, { TBlockProps } from '../../components/common/block';
 import { Indexed, connect } from '../../store';
-import ControllerUserAuth from '../../controllers/user-auth';
+import ControllerAuth from '../../controllers/user-auth';
 
 import FormWrapper from '../../wrappers/form-wrapper';
 
 import tmpl from './tmpl.hbs';
+import { SigninData } from '../../api/APIAuth';
 
 const mapStateToProps = (state: Indexed) => ({
   errors: state.login.errors,
 });
 
 class PageLogin extends Block<TBlockProps> {
-  controller: ControllerUserAuth;
-
   constructor(props: TBlockProps = {}) {
     super(props);
-    this.controller = new ControllerUserAuth();
   }
 
   get form(): FormWrapper {
@@ -44,7 +42,7 @@ class PageLogin extends Block<TBlockProps> {
   submit() {
     const req = this.form.submit();
     if (Object.keys(req).length > 0) {
-      this.controller.login(req);
+      ControllerAuth.signin(req as SigninData);
     }
   }
 
