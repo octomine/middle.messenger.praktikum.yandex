@@ -1,4 +1,6 @@
-export const PROFILE_FIELDS = {
+import { Indexed } from "../store";
+
+export const PROFILE_FIELDS: Indexed = {
   email: { title: 'Почта' },
   login: { title: 'Логин' },
   first_name: { title: 'Имя' },

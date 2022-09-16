@@ -10,23 +10,15 @@ import Router from '../../router/Router';
 import { connect, Indexed } from '../../store';
 import ControllerUser from '../../controllers/user';
 import { PROFILE_FIELDS } from '../../consts';
+import ListCollector from '../../components/list-collector';
+import ListChats from '../messenger/components/list-chats';
 
 const withUser = connect((state: Indexed) => {
   const { user } = state;
-  const fields = Object.keys(PROFILE_FIELDS).reduce<Indexed>((res: Indexed, key) => {
-    return user[key] ? { ...res, [key]: user[key] } : res;
-  }, {});
+  const fields = Object.keys(PROFILE_FIELDS)
+    .map<Indexed>((name) => ({ name, value: user[name], ...PROFILE_FIELDS[name] }));
   return { fields };
 });
-
-const FIELDS = [
-  { name: 'email', title: 'Почта' },
-  { name: 'login', title: 'Логин' },
-  { name: 'first_name', title: 'Имя' },
-  { name: 'second_name', title: 'Фамилия' },
-  { name: 'display_name', title: 'Имя в чате' },
-  { name: 'phone', title: 'Телефон' },
-];
 
 interface SettingsProps extends TBlockProps {
   edit: boolean;
