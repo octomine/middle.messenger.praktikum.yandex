@@ -4,7 +4,7 @@ import PageSignUp from './pages/sign-up';
 import PageProfile from './pages/profile';
 import PageMessenger from './pages/messenger';
 import PageStatus from './pages/status';
-import ControllerAuth from './controllers/user-auth';
+import ControllerAuth from './controllers/ControllerAuth';
 
 
 

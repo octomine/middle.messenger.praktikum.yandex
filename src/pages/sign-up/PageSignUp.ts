@@ -5,7 +5,7 @@ import {
 
 import tmpl from './tmpl.hbs';
 import FormWrapper from '../../wrappers/form-wrapper';
-import ControllerUserAuth from '../../controllers/user-auth';
+import ControllerUserAuth from '../../controllers/ControllerAuth';
 
 export default class PageSignUp extends Block<TBlockProps> {
   controller: ControllerUserAuth;

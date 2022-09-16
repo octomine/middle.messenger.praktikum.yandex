@@ -11,6 +11,7 @@ import ListInput from './components/list-input';
 import Avatar from './components/avatar';
 
 import tmpl from './tmpl.hbs';
+import ControllerAuth from '../../controllers/ControllerAuth';
 
 const withUser = connect((state: Indexed) => {
   const { user } = state;
@@ -25,11 +26,8 @@ interface SettingsProps extends TBlockProps {
 }
 
 class PageProfile extends Block<SettingsProps> {
-  // controller: ControllerUser;
-
   constructor(props: SettingsProps = { edit: false, password: false, title: 'aaa' }) {
     super(props);
-    // this.controller = new ControllerUser();
   }
 
   init() {
@@ -43,7 +41,10 @@ class PageProfile extends Block<SettingsProps> {
     this.children.avatar = new Avatar({});
 
     this.children.list = new (withUser(ListProfile))({ modifiers: 'titled' });
-    this.children.buttons = this.getButtons(this.changeSettings.bind(this), this.changePassword.bind(this));
+    this.children.buttons = this.getButtons(
+      this.changeSettings.bind(this),
+      this.changePassword.bind(this),
+      this.logout.bind(this));
 
     this.children.chageSettings = new (withUser(ListInput))({ block: 'profile' });
     this.children.changePassword = new ListInput({
@@ -77,13 +78,13 @@ class PageProfile extends Block<SettingsProps> {
     return this.props.password;
   }
 
-  getButtons(changeSettings: () => void, changePassword: () => void) {
+  getButtons(changeSettings: () => void, changePassword: () => void, logout: () => void) {
     return new ListLink({
       block: 'footer',
       fields: [
         { label: 'Изменить данные', click: changeSettings },
         { label: 'Изменить пароль', click: changePassword },
-        { label: 'Выйти', modifiers: 'alert' },
+        { label: 'Выйти', modifiers: 'alert', click: logout },
       ],
     });
   }
@@ -104,6 +105,10 @@ class PageProfile extends Block<SettingsProps> {
   changePassword() {
     this.isPassword = true;
     this.editMode = true;
+  }
+
+  logout() {
+    ControllerAuth.logout();
   }
 
   saveChanges() {
