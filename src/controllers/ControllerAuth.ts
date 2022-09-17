@@ -16,7 +16,7 @@ class ControllerAuth {
       .catch((err) => console.error(err));
   }
 
-  siginup(data: SignupData) {
+  signup(data: SignupData) {
     return this.api.signup(data)
       .then(() => this.fetchUser())
       .then(() => Router.go('/settings'))

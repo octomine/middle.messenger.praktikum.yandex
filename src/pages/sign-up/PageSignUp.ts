@@ -5,14 +5,13 @@ import {
 
 import tmpl from './tmpl.hbs';
 import FormWrapper from '../../wrappers/form-wrapper';
-import ControllerUserAuth from '../../controllers/ControllerAuth';
+import ControllerAuth from '../../controllers/ControllerAuth';
+import { SignupData } from '../../api/APIAuth';
 
 export default class PageSignUp extends Block<TBlockProps> {
-  controller: ControllerUserAuth;
 
   constructor(props: TBlockProps = {}) {
     super(props);
-    this.controller = new ControllerUserAuth();
   }
 
   get form(): FormWrapper {
@@ -23,27 +22,13 @@ export default class PageSignUp extends Block<TBlockProps> {
     const ctx = {
       title: 'Регистрация',
       fields: [
-        {
-          name: 'email', title: 'Почта', isRequired: true, validator: email,
-        },
-        {
-          name: 'login', title: 'Логин', isRequired: true, validator: login,
-        },
-        {
-          name: 'first_name', title: 'Имя', isRequired: true, validator: name,
-        },
-        {
-          name: 'second_name', title: 'Фамилия', isRequired: true, validator: name,
-        },
-        {
-          name: 'phone', title: 'Телефон', isRequired: true, validator: phone,
-        },
-        {
-          name: 'password', title: 'Пароль', isRequired: true, validator: password, isPassword: true,
-        },
-        {
-          name: 'password_check', title: 'Пароль (ещё раз)', isPassword: true, isEqual: 'password',
-        },
+        { name: 'email', title: 'Почта', isRequired: true, validator: email },
+        { name: 'login', title: 'Логин', isRequired: true, validator: login },
+        { name: 'first_name', title: 'Имя', isRequired: true, validator: name },
+        { name: 'second_name', title: 'Фамилия', isRequired: true, validator: name },
+        { name: 'phone', title: 'Телефон', isRequired: true, validator: phone },
+        { name: 'password', title: 'Пароль', isRequired: true, validator: password, isPassword: true },
+        { name: 'password_check', title: 'Пароль (ещё раз)', isPassword: true, isEqual: 'password' },
       ],
       block: 'registration',
       button: 'Зарегистрироваться',
@@ -58,7 +43,7 @@ export default class PageSignUp extends Block<TBlockProps> {
   submit() {
     const req = this.form.submit();
     if (Object.keys(req).length > 0) {
-      this.controller.signup(req);
+      ControllerAuth.signup(req as SignupData);
     }
   }
 

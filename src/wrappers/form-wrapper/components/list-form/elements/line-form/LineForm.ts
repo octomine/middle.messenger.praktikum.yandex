@@ -5,6 +5,7 @@ import '../../../../../../components/label';
 import '../../../../../../components/common/styles';
 
 import tmpl from './tmpl.hbs';
+import ErrorHolder from '../error-holder/ErrorHolder';
 
 export default class LineForm extends InputWrapped {
   constructor(props: InputWrappedProps) {
@@ -23,6 +24,7 @@ export default class LineForm extends InputWrapped {
         blur: () => this.onBlur(),
       },
     });
+    this.children.error = new ErrorHolder({});
   }
 
   get title(): HTMLElement {
