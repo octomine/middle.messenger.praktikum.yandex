@@ -14,15 +14,22 @@ class Store extends EventBus {
     login: {
       errors: {},
     },
-    user: {}
+    user: {
+      edit: false,
+      password: false,
+      id: null,
+      avatar: null,
+      userName: null,
+      settings: {}
+    }
   };
 
   public getState(): Indexed {
     return this.state;
   }
 
-  public set(newState: Indexed[]) {
-    newState.forEach(({ path, value }) => set(this.state, path, value));
+  public set(path: string, value: unknown) {
+    set(this.state, path, value);
     this.emit(StoreEvents.Updated);
   }
 }

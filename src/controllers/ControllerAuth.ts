@@ -31,7 +31,7 @@ class ControllerAuth {
 
   fetchUser() {
     return this.api.read()
-      .then((user) => Store.set([{ path: 'user', value: user }]));
+      .then((user) => Store.set('user.settings', user));
   }
 }
 
