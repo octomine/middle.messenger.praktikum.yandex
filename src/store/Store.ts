@@ -11,17 +11,15 @@ export enum StoreEvents {
 
 class Store extends EventBus {
   private state: Indexed = {
-    login: {
-      errors: {},
-    },
+    authErrors: {},
     user: {
       edit: false,
       password: false,
       id: null,
       avatar: null,
       userName: null,
-      settings: {}
-    }
+      settings: {},
+    },
   };
 
   public getState(): Indexed {

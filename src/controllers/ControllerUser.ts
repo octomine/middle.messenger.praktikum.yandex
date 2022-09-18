@@ -1,6 +1,6 @@
-import API, { APIUser, PasswordData } from "../api/APIUser";
-import Store from "../store";
-import { SignupData } from "../api/APIAuth";
+import API, { APIUser, PasswordData } from '../api/APIUser';
+import Store from '../store';
+import { SignupData } from '../api/APIAuth';
 
 export class ControllerUser {
   private readonly api: APIUser;

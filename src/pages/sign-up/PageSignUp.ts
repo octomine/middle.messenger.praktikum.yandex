@@ -7,9 +7,20 @@ import tmpl from './tmpl.hbs';
 import FormWrapper from '../../wrappers/form-wrapper';
 import ControllerAuth from '../../controllers/ControllerAuth';
 import { SignupData } from '../../api/APIAuth';
+import { FIELDS_REGISTRATION } from '../../consts';
+import { connect } from '../../store';
+
+const withRegistration = connect((state: Indexed) => {
+  const { authErrors } = state;
+  const fields = Object.keys(FIELDS_REGISTRATION).map<Indexed>((name) => {
+    const field = { name, ...FIELDS_REGISTRATION[name] };
+    const error = authErrors[name];
+    return { ...field, error };
+  });
+  return { fields };
+});
 
 export default class PageSignUp extends Block<TBlockProps> {
-
   constructor(props: TBlockProps = {}) {
     super(props);
   }
@@ -21,15 +32,6 @@ export default class PageSignUp extends Block<TBlockProps> {
   init() {
     const ctx = {
       title: 'Регистрация',
-      fields: [
-        { name: 'email', title: 'Почта', isRequired: true, validator: email },
-        { name: 'login', title: 'Логин', isRequired: true, validator: login },
-        { name: 'first_name', title: 'Имя', isRequired: true, validator: name },
-        { name: 'second_name', title: 'Фамилия', isRequired: true, validator: name },
-        { name: 'phone', title: 'Телефон', isRequired: true, validator: phone },
-        { name: 'password', title: 'Пароль', isRequired: true, validator: password, isPassword: true },
-        { name: 'password_check', title: 'Пароль (ещё раз)', isPassword: true, isEqual: 'password' },
-      ],
       block: 'registration',
       button: 'Зарегистрироваться',
       submit: this.submit.bind(this),
@@ -37,7 +39,7 @@ export default class PageSignUp extends Block<TBlockProps> {
       linkPath: '/',
     };
 
-    this.children.form = new FormWrapper(ctx);
+    this.children.form = new (withRegistration(FormWrapper))(ctx);
   }
 
   submit() {

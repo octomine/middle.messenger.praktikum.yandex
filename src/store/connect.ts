@@ -12,5 +12,5 @@ export function connect(mapStateToProps: (state: Indexed) => Indexed) {
         });
       }
     };
-  }
+  };
 }

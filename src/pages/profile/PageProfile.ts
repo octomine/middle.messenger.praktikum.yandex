@@ -3,7 +3,7 @@ import Button from '../../components/button';
 import Router from '../../router/Router';
 
 import { connect, Indexed } from '../../store';
-import { PROFILE_FIELDS } from '../../consts';
+import { FIELDS_PROFILE } from '../../consts';
 
 import ListLink from './components/list-link';
 import ListProfile from './components/list-profile';
@@ -40,7 +40,8 @@ class PageProfile extends Block<SettingsProps> {
     this.children.buttons = this.getButtons(
       this.changeSettings.bind(this),
       this.changePassword.bind(this),
-      this.logout.bind(this));
+      this.logout.bind(this),
+    );
 
     this.children.chageSettings = new ListInput({ block: 'profile', fields });
     this.children.changePassword = new ListInput({
@@ -54,7 +55,7 @@ class PageProfile extends Block<SettingsProps> {
     this.children.button = new Button({
       label: 'Сохранить',
       block: 'footer',
-      events: { click: this.saveChanges.bind(this) }
+      events: { click: this.saveChanges.bind(this) },
     });
   }
 
@@ -125,15 +126,15 @@ class PageProfile extends Block<SettingsProps> {
 
 const withUser = connect((state: Indexed) => {
   const { user: { edit, password, settings: userSettings } } = state;
-  const settings = Object.keys(PROFILE_FIELDS)
-    .map<Indexed>((name) => ({ name, value: userSettings[name], ...PROFILE_FIELDS[name] }));
+  const settings = Object.keys(FIELDS_PROFILE)
+    .map<Indexed>((name) => ({ name, value: userSettings[name], ...FIELDS_PROFILE[name] }));
   return {
     edit,
     password,
     id: userSettings.id,
     avatar: userSettings.avatar,
     userName: userSettings.first_name,
-    settings
+    settings,
   };
 });
 

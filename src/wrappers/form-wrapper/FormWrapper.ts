@@ -1,5 +1,5 @@
 import Block, { TBlockProps } from '../../components/common/block';
-import Store, { Indexed } from '../../store/Store';
+import { Indexed } from '../../store/Store';
 
 import Button from '../../components/button';
 import '../../components/label';
@@ -9,6 +9,7 @@ import ListForm from './components/list-form';
 import tmpl from './tmpl.hbs';
 import Router from '../../router/Router';
 import ListCollector from '../../components/list-collector';
+import { isEqual } from '../../utils/isEqual';
 
 export interface FormProps extends TBlockProps {
   title: string,
@@ -54,10 +55,10 @@ export default class FormWrapper extends Block<FormProps> {
   }
 
   componentDidUpdate(oldProps: Indexed, newProps: Indexed): boolean {
-    console.log('CDU');
-    const { errors } = newProps;
-    if (errors) {
-      this.list.update(errors as Indexed);
+    const { fields: oldFields } = oldProps;
+    const { fields } = newProps;
+    if (!isEqual(oldFields as Indexed, fields as Indexed)) {
+      this.list.setProps({ fields });
     }
     return true;
   }

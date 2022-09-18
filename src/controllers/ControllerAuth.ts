@@ -9,6 +9,12 @@ class ControllerAuth {
     this.api = API;
   }
 
+  setError(name: string, error: string | null) {
+    console.log('gonna set');
+    console.log(`authErrors.${name}`, error);
+    Store.set(`authErrors.${name}`, error);
+  }
+
   signin(data: SigninData) {
     return this.api.signin(data)
       .then(() => this.fetchUser())

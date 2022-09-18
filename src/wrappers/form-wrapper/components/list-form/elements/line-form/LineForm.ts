@@ -1,8 +1,7 @@
+import { Indexed } from '../../../../../../store';
+import { isEqual } from '../../../../../../utils/isEqual';
 import InputWrapped, { InputWrappedProps } from '../../../../../../components/input-wrapped';
 import Input from '../../../../../../components/input/Input';
-
-import '../../../../../../components/label';
-import '../../../../../../components/common/styles';
 
 import tmpl from './tmpl.hbs';
 import ErrorHolder from '../error-holder/ErrorHolder';
@@ -40,6 +39,17 @@ export default class LineForm extends InputWrapped {
     this.title.classList.toggle('disguise', !(value && value.length > 0));
 
     super.onBlur();
+  }
+
+  componentDidUpdate(oldProps: Indexed, newProps: Indexed): boolean {
+    const { error: oldError } = oldProps;
+    const { error } = newProps;
+    if (error !== oldError) {
+      this.children.error.setProps({ error });
+      return false;
+    }
+
+    return !isEqual(oldProps as Indexed, newProps as Indexed);
   }
 
   render() {

@@ -1,4 +1,4 @@
-import APIBase from "./APIBase";
+import APIBase from './APIBase';
 
 export interface SigninData {
   login: string;
@@ -41,7 +41,9 @@ export class APIAuth extends APIBase {
   }
 
   create = undefined;
+
   update = undefined;
+
   delete = undefined;
 }
 

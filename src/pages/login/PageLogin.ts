@@ -6,9 +6,16 @@ import FormWrapper from '../../wrappers/form-wrapper';
 
 import tmpl from './tmpl.hbs';
 import { SigninData } from '../../api/APIAuth';
+import { FIELDS_LOGIN } from '../../consts';
 
-const mapStateToProps = (state: Indexed) => ({
-  errors: state.login.errors,
+const withLogin = connect((state: Indexed) => {
+  const { authErrors } = state;
+  const fields = Object.keys(FIELDS_LOGIN).map<Indexed>((name) => {
+    const field = { name, ...FIELDS_LOGIN[name] };
+    const error = authErrors[name];
+    return { ...field, error };
+  });
+  return { fields };
 });
 
 class PageLogin extends Block<TBlockProps> {
@@ -24,19 +31,13 @@ class PageLogin extends Block<TBlockProps> {
     const ctx = {
       title: 'Вход',
       block: 'login',
-      fields: [
-        { name: 'login', title: 'Логин', isRequired: true },
-        {
-          name: 'password', title: 'Пароль', isPassword: true, isRequired: true,
-        },
-      ],
       button: 'Авторизоваться',
       submit: this.submit.bind(this),
       link: 'Нет аккаунта?',
       linkPath: '/sign-up',
     };
 
-    this.children.form = new FormWrapper(ctx);
+    this.children.form = new (withLogin(FormWrapper))(ctx);
   }
 
   submit() {

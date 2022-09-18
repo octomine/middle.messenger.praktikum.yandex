@@ -21,7 +21,7 @@ export default class Line extends Block<LineProps> {
   }
 
   update(newValue: Indexed) {
-    this.setProps(newValue)
+    this.setProps(newValue);
   }
 
   render() {

@@ -1,10 +1,10 @@
-import Block, { TBlockProps } from "../../../../../../components/common/block";
+import Block, { TBlockProps } from '../../../../../../components/common/block';
 
-import tmpl from './tmpl.hbs'
+import tmpl from './tmpl.hbs';
 
 export default class ErrorHolder extends Block<TBlockProps> {
   constructor(props: TBlockProps) {
-    super(props)
+    super(props);
   }
 
   render() {

@@ -12,7 +12,8 @@ export type Options = {
 };
 
 export class HTTPTransport {
-  static API_URL = 'https://ya-praktikum.tech/api/v2'
+  static API_URL = 'https://ya-praktikum.tech/api/v2';
+
   protected endpoint: string;
 
   constructor(endpoint: string) {
@@ -54,7 +55,7 @@ export class HTTPTransport {
             reject(xhr.response);
           }
         }
-      }
+      };
 
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.withCredentials = true;

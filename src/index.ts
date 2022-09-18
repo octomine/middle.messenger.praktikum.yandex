@@ -6,15 +6,13 @@ import PageMessenger from './pages/messenger';
 import PageStatus from './pages/status';
 import ControllerAuth from './controllers/ControllerAuth';
 
-
-
 window.addEventListener('DOMContentLoaded', () => {
   Router
     .use('/', PageLogin)
     .use('/sign-up', PageSignUp)
     .use('/settings', PageProfile)
     .use('/messenger', PageMessenger)
-    .notFound(PageStatus)
+    .notFound(PageStatus);
 
   ControllerAuth.fetchUser()
     .then(() => {
@@ -22,6 +20,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }).catch(() => {
       Router.go('/');
     }).finally(() => {
-      Router.start()
+      Router.start();
     });
 });

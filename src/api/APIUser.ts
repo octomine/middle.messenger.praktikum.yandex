@@ -1,5 +1,5 @@
-import APIBase from "./APIBase";
-import { SignupData } from "./APIAuth";
+import APIBase from './APIBase';
+import { SignupData } from './APIAuth';
 
 export interface PasswordData {
   oldPassword: string;
@@ -8,7 +8,7 @@ export interface PasswordData {
 
 export class APIUser extends APIBase {
   constructor() {
-    super('/user')
+    super('/user');
   }
 
   profile(data: SignupData) {
@@ -20,8 +20,11 @@ export class APIUser extends APIBase {
   }
 
   create = undefined;
+
   delete = undefined;
+
   read = undefined;
+
   update = undefined;
 }
 
