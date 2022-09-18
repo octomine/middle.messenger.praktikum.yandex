@@ -1,7 +1,4 @@
 import Block, { TBlockProps } from '../../components/common/block';
-import {
-  email, login, phone, password, name,
-} from '../../utils/validators';
 
 import tmpl from './tmpl.hbs';
 import FormWrapper from '../../wrappers/form-wrapper';
@@ -20,7 +17,7 @@ const withRegistration = connect((state: Indexed) => {
   return { fields };
 });
 
-export default class PageSignUp extends Block<TBlockProps> {
+export default class PageSignup extends Block<TBlockProps> {
   constructor(props: TBlockProps = {}) {
     super(props);
   }

@@ -20,6 +20,7 @@ class Store extends EventBus {
       userName: null,
       settings: {},
     },
+    chats: [],
   };
 
   public getState(): Indexed {

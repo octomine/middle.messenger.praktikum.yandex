@@ -20,8 +20,8 @@ export class HTTPTransport {
     this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
   }
 
-  public get<Response>(path = '/'): Promise<Response> {
-    return this.request<Response>(`${this.endpoint}${path}`, { method: Method.Get });
+  public get<Response>(path = '/', data?: unknown): Promise<Response> {
+    return this.request<Response>(`${this.endpoint}${path}`, { data, method: Method.Get });
   }
 
   public post<Response = void>(path: string, data?: unknown): Promise<Response> {
@@ -46,7 +46,7 @@ export class HTTPTransport {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
 
-      xhr.open(method, url);
+      xhr.open(method, url); // TODO: queryStringify для GET
       xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
           if (xhr.status < 400) {

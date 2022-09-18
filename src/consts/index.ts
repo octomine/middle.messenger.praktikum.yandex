@@ -24,3 +24,13 @@ export const FIELDS_PROFILE: Indexed = {
   display_name: { title: 'Имя в чате' },
   phone: { title: 'Телефон' },
 };
+
+export enum InputErrors {
+  IsRequired = 'Обязательное поле',
+  Wrong = 'Поле заполнено неверно',
+  OneLetter = 'Логин должен содержать хотя бы одну букву',
+  WrongEmail = 'Неверрный формат почты',
+  WrongPhone = 'Неверрный формат телефона',
+  EasyPassword = 'Очень простой пароль',
+  NotEqual = 'Значения не совпадают',
+}

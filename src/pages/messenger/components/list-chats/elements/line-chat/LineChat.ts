@@ -36,8 +36,10 @@ export default class LineChat extends Block<LineChatProps> {
   }
 
   render() {
-    const { title, last_message: { content: msg, time }, unread_count: unread } = this.props;
-
+    const { title, last_message, unread_count: unread } = this.props;
+    console.log(last_message);
+    const msg = 'aaa';
+    const time = '';
     return this.compile(tmpl, {
       title, msg, time: getTime(time), unread,
     });

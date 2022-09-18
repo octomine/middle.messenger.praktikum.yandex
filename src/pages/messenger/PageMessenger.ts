@@ -7,7 +7,7 @@ import Chat from './components/chat';
 
 import tmpl from './tmpl.hbs';
 
-import mock from './mock.js';
+import ControllerChats from '../../controllers/ControllerChats';
 
 export default class PageMessenger extends Block<TBlockProps> {
   constructor(props: TBlockProps = {}) {
@@ -15,6 +15,8 @@ export default class PageMessenger extends Block<TBlockProps> {
   }
 
   init() {
+    ControllerChats.getChats({});
+
     this.children.button = new Button({
       label: 'Профиль',
       modifiers: 'profile',
@@ -22,9 +24,7 @@ export default class PageMessenger extends Block<TBlockProps> {
         click: () => Router.go('/settings'),
       },
     });
-    this.children.chats = new ListChats({
-      fields: mock,
-    });
+    this.children.chats = new ListChats({});
     this.children.chat = new Chat({
       events: {
         mousedown: this.hidePopover.bind(this),
