@@ -21,10 +21,23 @@ class Store extends EventBus {
       settings: {},
     },
     chats: [],
+    currentChat: {
+      messages: [],
+    },
   };
 
   public getState(): Indexed {
     return this.state;
+  }
+
+  public getUserId(): string {
+    const { user: { settings: { id } } } = this.getState();
+    return id;
+  }
+
+  public getChatId(): string {
+    const { currentChat: { id } } = this.getState();
+    return id;
   }
 
   public set(path: string, value: unknown) {

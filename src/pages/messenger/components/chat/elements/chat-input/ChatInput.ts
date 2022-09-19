@@ -3,6 +3,7 @@ import Input from '../../../../../../components/input';
 import Button from '../../../../../../components/button';
 
 import tmpl from './tmpl.hbs';
+import ControllerMessenger from '../../../../../../controllers/ControllerMessenger';
 
 interface ChatInputProps extends TBlockProps {
   attachClick: () => void,
@@ -46,9 +47,8 @@ export default class ChatInput extends Block<ChatInputProps> {
   send() {
     const { value } = this.children.input as Input;
     if (value && value.length > 0) {
-      console.log('SEND!!1');
-      console.log(value);
-      this.children.input.setProps({ value: '' });
+      this.children.input.setProps({ value: '' }); // TODO: наверно делать это через контроллеp
+      ControllerMessenger.sendMessage(value);
     }
   }
 

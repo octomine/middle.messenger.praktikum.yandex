@@ -1,5 +1,9 @@
 import APIBase from './APIBase';
 
+export interface TokenData {
+  token: string;
+}
+
 export interface GetChatsData {
   offset: number;
   limit: number;
@@ -25,6 +29,10 @@ export class APIChats extends APIBase {
 
   delete(chatId: string) {
     return this.http.delete('/', { chatId });
+  }
+
+  getToken(id: string): Promise<TokenData> {
+    return this.http.post(`/token/${id}`);
   }
 
   read = undefined;

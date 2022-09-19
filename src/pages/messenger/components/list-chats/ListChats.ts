@@ -8,6 +8,7 @@ import Search from './elements/search';
 import tmpl from './tmpl.hbs';
 import { connect, Indexed } from '../../../../store';
 import { isEqual } from '../../../../utils/isEqual';
+import ControllerChats from '../../../../controllers/ControllerChats';
 
 export class ListChats extends List {
   private _selected: string | null = null;
@@ -37,7 +38,12 @@ export class ListChats extends List {
     return line;
   }
 
-  select(id: string | null) {
+  getCurrentChat(): Indexed {
+    const { fields } = this.props;
+    return fields.filter(({ id }) => id === this.selected)[0]; // id все уникальные
+  }
+
+  select(id: string) {
     const { fields } = this.children;
     fields.forEach((field: LineChat) => {
       if (field.id === id) {
@@ -47,6 +53,7 @@ export class ListChats extends List {
         field.isSelected = false;
       }
     });
+    ControllerChats.selectChat(this.getCurrentChat());
   }
 
   componentDidUpdate({ fields: oldFields }: Indexed, { fields }: Indexed): boolean {

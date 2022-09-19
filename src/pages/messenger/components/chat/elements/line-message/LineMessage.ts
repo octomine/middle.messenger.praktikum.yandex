@@ -8,6 +8,7 @@ export default class LineMessage extends Block<TBlockProps> {
   }
 
   render() {
+    console.log({ ...this.props });
     return this.compile(tmpl, this.props);
   }
 }
