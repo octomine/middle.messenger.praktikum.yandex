@@ -9,7 +9,6 @@ export class ControllerMessenger {
   }
 
   openChat(token: string) {
-    console.log(Store.getChatId());
     this.socket = new SocketIO(`/${Store.getUserId()}/${Store.getChatId()}/${token}`);
   }
 
@@ -17,12 +16,22 @@ export class ControllerMessenger {
     this.socket?.send(msg, 'message');
   }
 
-  recieveMessage(msg: Indexed[]) {
-    const messages = msg.map(({ user_id, content, time }) => {
-      const modifiers = user_id === Store.getUserId() ? 'my' : '';
-      return { content, time, modifiers };
-    });
-    Store.set('currentChat.messages', messages);
+  recieveMessage(msg: Indexed | Indexed[]) {
+    const { type } = msg;
+    switch (type) {
+      case 'message':
+        break;
+      case 'user connected':
+        break;
+      case 'pong':
+        break;
+      default:
+        const messages = msg.map(({ user_id, content, time }) => {
+          const modifiers = user_id === Store.getUserId() ? 'my' : '';
+          return { content, time, modifiers };
+        }).reverse();
+        Store.set('currentChat.messages', messages);
+    }
   }
 }
 

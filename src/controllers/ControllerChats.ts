@@ -1,4 +1,4 @@
-import API, { APIChats, GetChatsData } from '../api/APIChats';
+import API, { APIChats, GetChatsData, AddUsersData } from '../api/APIChats';
 import Store, { Indexed } from '../store';
 import ControllerMessenger from './ControllerMessenger';
 
@@ -27,6 +27,12 @@ export class ControllerChats {
   getChats(data: GetChatsData) {
     return this.api.getChats(data)
       .then((chats) => Store.set('chats', chats))
+      .catch((err) => console.error(err));
+  }
+
+  addUsers(data: AddUsersData) {
+    return this.api.addUsers(data)
+      .then(() => console.log('DONE!!1'))
       .catch((err) => console.error(err));
   }
 

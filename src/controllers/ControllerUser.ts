@@ -1,4 +1,4 @@
-import API, { APIUser, PasswordData } from '../api/APIUser';
+import API, { APIUser, PasswordData, FindUserData } from '../api/APIUser';
 import Store from '../store';
 import { SignupData } from '../api/APIAuth';
 
@@ -24,6 +24,7 @@ export class ControllerUser {
     Store.set('user', newState);
   }
 
+  // api
   profile(data: SignupData) {
     return this.api.profile(data)
       .then((settings) => Store.set('user', { edit: false, settings }))
@@ -33,6 +34,12 @@ export class ControllerUser {
   password(data: PasswordData) {
     return this.api.password(data)
       .then(() => Store.set('user.edit', false))
+      .catch((err) => console.error(err));
+  }
+
+  search(data: FindUserData) {
+    return this.api.search(data)
+      .then((user) => console.log(user))
       .catch((err) => console.error(err));
   }
 }

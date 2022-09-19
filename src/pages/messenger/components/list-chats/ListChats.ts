@@ -66,7 +66,7 @@ export class ListChats extends List {
       const field = this.children.fields[i];
       if (field) {
         if (fields[i]) {
-          field.setProps(field[i]);
+          field.setProps(fields[i]);
         } else {
           field.hide();
         }

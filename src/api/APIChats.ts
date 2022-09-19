@@ -14,6 +14,11 @@ export interface CreateChatData {
   title: string;
 }
 
+export interface AddUsersData {
+  users: string[];
+  hatId: string;
+}
+
 export class APIChats extends APIBase {
   constructor() {
     super('/chats');
@@ -29,6 +34,10 @@ export class APIChats extends APIBase {
 
   delete(chatId: string) {
     return this.http.delete('/', { chatId });
+  }
+
+  addUsers(data: AddUsersData) {
+    return this.http.put('/users', data);
   }
 
   getToken(id: string): Promise<TokenData> {

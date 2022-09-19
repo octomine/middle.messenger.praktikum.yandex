@@ -11,6 +11,9 @@ export enum StoreEvents {
 
 class Store extends EventBus {
   private state: Indexed = {
+    popup: {
+      isShown: false,
+    },
     authErrors: {},
     user: {
       edit: false,

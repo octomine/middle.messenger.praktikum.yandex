@@ -9,7 +9,7 @@ import ListMessages from './elements/list-messages/ListMessages';
 import Popover from './elements/popover/Popover';
 import { connect, Indexed } from '../../../../store';
 import { isEqual } from '../../../../utils/isEqual';
-import ControllerChats from '../../../../controllers/ControllerChats';
+import ControllerPopup from '../../../../controllers/ControllerPopup';
 
 class Chat extends Block<TBlockProps> {
   needToHidePopover: boolean = false;
@@ -28,8 +28,20 @@ class Chat extends Block<TBlockProps> {
       modifiers: 'options',
       styles: 'hide',
       fields: [
-        { type: 'add', label: 'Добавить пользователя' },
-        { type: 'remove', label: 'Удалить пользователя' },
+        {
+          type: 'add',
+          label: 'Добавить пользователя',
+          events: {
+            click: () => ControllerPopup.addUser(),
+          },
+        },
+        {
+          type: 'remove',
+          label: 'Удалить пользователя',
+          events: {
+            click: () => ControllerPopup.removeUser(),
+          },
+        },
       ],
       events: popoverEents,
     });
