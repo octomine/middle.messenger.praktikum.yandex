@@ -1,15 +1,10 @@
 import List, { ListProps } from '../list/List';
 import InputWrapped from '../input-wrapped';
-import { INPUT_ERRORS } from '../../utils/input-errors';
+import { InputErrors } from '../../consts';
 
 export default class ListCollector extends List {
   constructor(props: ListProps) {
     super(props);
-  }
-
-  getField(fieldName: string): InputWrapped {
-    const { fields } = this.children;
-    return fields.filter(({ name }) => name === fieldName)[0]; // name у всех уникальный
   }
 
   collect(): object {
@@ -21,7 +16,7 @@ export default class ListCollector extends List {
         name, value, isRequired, isEqual, validate,
       } = field;
       if (!value && isRequired) {
-        field.setProps({ error: INPUT_ERRORS.IS_REQUIRED });
+        field.setProps({ error: InputErrors.IsRequired });
         error = true;
       }
       if (value && !validate.bind(field)(value)) {
@@ -30,8 +25,8 @@ export default class ListCollector extends List {
       if (isEqual) {
         const contestee = this.getField(isEqual);
         if (contestee.value !== value) {
-          contestee.setProps({ error: INPUT_ERRORS.NOT_EQUAL });
-          field.setProps({ error: INPUT_ERRORS.NOT_EQUAL });
+          contestee.setProps({ error: InputErrors.NotEqual });
+          field.setProps({ error: InputErrors.NotEqual });
           error = true;
         }
       }

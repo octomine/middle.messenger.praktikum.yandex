@@ -1,5 +1,5 @@
 class EventBus {
-  listeners: Record<string, Array<() => void>>;
+  listeners: Record<string, Array<(...args: unknown[]) => void>>;
 
   constructor() {
     this.listeners = {};
@@ -19,9 +19,12 @@ class EventBus {
     this.listeners[event] = this.listeners[event].filter((listener) => listener !== callback);
   }
 
-  emit(event: string, ...args) {
+  emit(event: string, ...args: unknown[]) {
     if (!this.listeners[event]) {
-      throw new Error(`Отсутствует событие ${event}`);
+      // TODO: разобраться, как лучше
+      // throw new Error(`Отсутствует событие ${event}`);
+      console.log(`Отсутствует событие ${event}`);
+      return;
     }
     this.listeners[event].forEach((listener) => listener(...args));
   }

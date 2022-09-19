@@ -1,1 +1,1 @@
-export { default } from './FormWrapper';
+export { default, FormProps } from './FormWrapper';

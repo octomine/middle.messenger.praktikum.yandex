@@ -1,15 +1,17 @@
 import { v4 as makeID } from 'uuid';
 import { TemplateDelegate } from 'handlebars/runtime';
 import EventBus from '../../../utils/event-bus';
+import { merge } from '../../../utils/merge';
+import { Indexed } from '../../../store/Store';
 
-export type TBlockProps = Record<string, unknown> & {
+export interface TBlockProps extends Record<string, unknown> {
   block?: string,
   modifiers?: string,
   styles?: string,
-  events?: Record<string, () => void>,
+  events?: Record<string, (...args: unknown[]) => void>,
   children?: Record<string, Block<unknown>>
   setProps?: (newProps: object) => void,
-};
+}
 
 export default class Block<P> {
   static EVENTS = {
@@ -146,11 +148,12 @@ export default class Block<P> {
     this._addEvents();
   }
 
-  public setProps = (newProps: object) => {
+  public setProps = (newProps: Indexed) => {
     if (!newProps) {
       return;
     }
-    Object.assign(this.props, newProps);
+
+    merge(this.props, newProps);
   };
 
   public getContent() {

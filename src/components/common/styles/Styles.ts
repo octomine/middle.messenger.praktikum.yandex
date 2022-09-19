@@ -10,3 +10,4 @@ Handlebars.registerHelper('concat', (...args: string[]) => (args.length === 0
   : args
     .filter((item) => typeof item === 'string' && item.length > 0)
     .reduce((res, curr) => `${res},${curr}`)));
+Handlebars.registerHelper('removeSpaces', (data: string) => data.replace(/ +/g, ' '));

@@ -1,21 +1,16 @@
-import Route from "./Route";
+import Route from './Route';
 
 class Router {
-  __instance: Router;
-  routes: Array<Route>;
+  routes: Array<Route> = [];
+
   history: History;
-  _currentRoute: Route | null;
+
+  _currentRoute: Route | null = null;
+
+  _notFoundRoute: Route | null = null;
 
   constructor() {
-    if (Router.__instance) {
-      return Router.__instance;
-    }
-
-    this.routes = [];
     this.history = window.history;
-    this._currentRoute = null;
-
-    Router.__instance = this;
   }
 
   use(pathname: string, block: unknown) {
@@ -24,24 +19,31 @@ class Router {
     return this;
   }
 
+  notFound(block: unknown) {
+    this._notFoundRoute = new Route('', block, { rootQuery: 'main' });
+    return this;
+  }
+
   start() {
     window.onpopstate = (evt) => {
       this._onRoute(evt.currentTarget.location.pathname);
-    }
+    };
 
     this._onRoute(window.location.pathname);
   }
 
   go(pathname: string) {
-    console.log('GO!!1')
-    this.history.pushState({}, "", pathname);
+    this.history.pushState({}, '', pathname);
     this._onRoute(pathname);
   }
 
   _onRoute(pathname: string) {
-    const route = this.getRoute(pathname);
+    let route = this.getRoute(pathname);
     if (!route) {
-      return;
+      if (!this._notFoundRoute) {
+        return;
+      }
+      route = this._notFoundRoute;
     }
 
     if (this._currentRoute) {
@@ -53,7 +55,7 @@ class Router {
   }
 
   getRoute(pathname: string): Route | undefined {
-    return this.routes.find((route) => route.match(pathname))
+    return this.routes.find((route) => route.match(pathname));
   }
 }
 
