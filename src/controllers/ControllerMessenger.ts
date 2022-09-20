@@ -1,14 +1,6 @@
 import { SocketIO } from '../services/socket-io';
 import Store, { Indexed } from '../store';
 
-export interface Message {
-  chat_id: string,
-  time: string,
-  type: string,
-  user_id: string,
-  content: string,
-}
-
 export class ControllerMessenger {
   private socket?: SocketIO;
 
@@ -18,6 +10,10 @@ export class ControllerMessenger {
 
   openChat(token: string) {
     this.socket = new SocketIO(`/${Store.getUserId()}/${Store.getChatId()}/${token}`);
+  }
+
+  close() {
+    this.socket?.close();
   }
 
   sendMessage(msg: string) {

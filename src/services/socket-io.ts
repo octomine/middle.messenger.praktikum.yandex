@@ -5,11 +5,14 @@ export class SocketIO {
 
   private socket: WebSocket;
 
+  private intervalId?: number;
+
   constructor(url: string) {
     this.socket = new WebSocket(`${SocketIO.API_URL}${url}`);
 
     this.socket.addEventListener('open', () => {
       console.log('socket is OPENED!!1');
+      this.intervalId = setInterval(this.ping.bind(this), 30 * 1000);
       this.getMessages();
     });
     this.socket.addEventListener('close', () => {
@@ -26,6 +29,11 @@ export class SocketIO {
     });
   }
 
+  private ping() {
+    console.log('socket ping');
+    this.socket.send(JSON.stringify({ type: 'ping' }));
+  }
+
   public send(content: string, type: string) {
     this.socket.send(JSON.stringify({
       content,
@@ -35,5 +43,10 @@ export class SocketIO {
 
   public getMessages() {
     this.send('0', 'get old');
+  }
+
+  public close() {
+    clearInterval(this.intervalId);
+    this.socket.close();
   }
 }

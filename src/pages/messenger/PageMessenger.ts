@@ -8,6 +8,7 @@ import Chat from './components/chat';
 import tmpl from './tmpl.hbs';
 
 import ControllerChats from '../../controllers/ControllerChats';
+import ControllerMessenger from '../../controllers/ControllerMessenger';
 
 export default class PageMessenger extends Block<TBlockProps> {
   constructor(props: TBlockProps = {}) {
@@ -34,6 +35,11 @@ export default class PageMessenger extends Block<TBlockProps> {
 
   hidePopover() {
     this.children.chat.hidePopovers();
+  }
+
+  hide() {
+    ControllerMessenger.close();
+    super.hide();
   }
 
   render() {
