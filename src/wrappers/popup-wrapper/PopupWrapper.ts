@@ -6,6 +6,9 @@ import tmpl from './tmpl.hbs';
 import { connect, Indexed } from '../../store';
 import ControllerPopup from '../../controllers/ControllerPopup';
 import LineForm from '../form-wrapper/components/list-form/elements/line-form';
+import ListUsers from './components/list-users';
+
+const FLAGS = ['input', 'list'];
 
 interface PopupProps extends TBlockProps {
   button: string,
@@ -17,12 +20,13 @@ class PopupWrapper extends Block<PopupProps> {
   }
 
   init() {
-    // TODO: эт, канеш, отсюда убрать и сделать по-нормальному
-    this.children.custom = new LineForm({
+    this.children.input = new LineForm({
       name: 'login',
       title: 'Логин',
       placeholder: 'Логин',
     });
+
+    this.children.list = new ListUsers({ fields: [], onUser: this.onUser.bind(this) });
 
     const { button: label } = this.props;
     this.children.button = new Button({
@@ -36,17 +40,27 @@ class PopupWrapper extends Block<PopupProps> {
   performAction() {
     const { action } = this.props;
     if (action) {
-      action(this.children.custom.value);
+      action(this.children.input.value); // TODO: чё-т как-то тут не очень
     } else {
       ControllerPopup.hide();
     }
   }
 
+  onUser(id: string) {
+    const { onUser } = this.props;
+    if (onUser) {
+      onUser(id);
+    }
+  }
+
   componentDidUpdate(oldProps: Indexed, newProps: Indexed): boolean {
-    const { button: oldButton } = oldProps;
-    const { button } = newProps;
+    const { button: oldButton, users: oldUsers } = oldProps;
+    const { button, users } = newProps;
     if (button !== oldButton) {
       this.children.button.setProps({ label: button });
+    }
+    if (users !== oldUsers) {
+      this.children.list.setProps({ fields: users });
     }
 
     return true;
@@ -60,11 +74,12 @@ class PopupWrapper extends Block<PopupProps> {
 const withPopup = connect((state: Indexed): Indexed => {
   const { popup } = state;
   const {
-    isShown, title, button, action,
+    isShown, flag, title, button, action, onUser, users,
   } = popup;
   const modifiers = isShown ? '' : 'hidden';
+  const flags = FLAGS.reduce((res, name) => ({ ...res, [name]: name === flag }), {});
   return {
-    modifiers, title, button, action,
+    modifiers, flags, title, button, action, onUser, users,
   };
 });
 

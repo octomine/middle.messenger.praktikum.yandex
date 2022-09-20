@@ -39,7 +39,7 @@ export class ControllerUser {
 
   search(data: FindUserData) {
     return this.api.search(data)
-      .then((user) => console.log(user))
+      .then((users) => users)
       .catch((err) => console.error(err));
   }
 }

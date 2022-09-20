@@ -2,10 +2,11 @@
   <div class='flex_vertical align_center {{> styles element='plate' modifiers='popup'}}'>
     {{> label txt=title modifiers=(concat title.modifiers 'popup')}}
     <div class='flex_vertical align_center justify_center popup__content'>
-      {{#if custom}}
-      {{{custom}}}
-      {{else}}
-      {{message}}
+      {{#if flags.input}}
+      {{{input}}}
+      {{/if}}
+      {{#if flags.list}}
+      {{{list}}}
       {{/if}}
     </div>
     {{{button}}}

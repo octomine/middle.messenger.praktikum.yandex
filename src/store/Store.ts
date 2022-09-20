@@ -13,6 +13,8 @@ class Store extends EventBus {
   private state: Indexed = {
     popup: {
       isShown: false,
+      flag: 'input',
+      users: [],
     },
     authErrors: {},
     user: {

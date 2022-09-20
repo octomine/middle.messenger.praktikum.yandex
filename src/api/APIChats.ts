@@ -1,4 +1,5 @@
 import APIBase from './APIBase';
+import Store from '../store';
 
 export interface TokenData {
   token: string;
@@ -16,7 +17,7 @@ export interface CreateChatData {
 
 export interface AddUsersData {
   users: string[];
-  hatId: string;
+  chatId: string;
 }
 
 export class APIChats extends APIBase {
@@ -36,8 +37,16 @@ export class APIChats extends APIBase {
     return this.http.delete('/', { chatId });
   }
 
+  getUsers() {
+    return this.http.get(`/${Store.getChatId()}/users`);
+  }
+
   addUsers(data: AddUsersData) {
     return this.http.put('/users', data);
+  }
+
+  removeUsers(data: AddUsersData) {
+    return this.http.delete('/users', data);
   }
 
   getToken(id: string): Promise<TokenData> {

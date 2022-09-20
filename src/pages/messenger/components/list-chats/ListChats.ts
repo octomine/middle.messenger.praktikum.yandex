@@ -7,7 +7,6 @@ import Search from './elements/search';
 
 import tmpl from './tmpl.hbs';
 import { connect, Indexed } from '../../../../store';
-import { isEqual } from '../../../../utils/isEqual';
 import ControllerChats from '../../../../controllers/ControllerChats';
 
 export class ListChats extends List {
@@ -54,27 +53,6 @@ export class ListChats extends List {
       }
     });
     ControllerChats.selectChat(this.getCurrentChat());
-  }
-
-  componentDidUpdate({ fields: oldFields }: Indexed, { fields }: Indexed): boolean {
-    if (isEqual(oldFields as Indexed, fields as Indexed)) {
-      return false;
-    }
-    const l = Math.max(fields.length, this.children.fields.length);
-
-    for (let i: number = 0; i < l; i++) {
-      const field = this.children.fields[i];
-      if (field) {
-        if (fields[i]) {
-          field.setProps(fields[i]);
-        } else {
-          field.hide();
-        }
-      } else {
-        this.children.fields.push(this.line(fields[i]));
-      }
-    }
-    return true;
   }
 
   render() {

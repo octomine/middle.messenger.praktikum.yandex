@@ -30,8 +30,20 @@ export class ControllerChats {
       .catch((err) => console.error(err));
   }
 
+  getUsers() {
+    return this.api.getUsers()
+      .then((users) => users)
+      .catch((err) => console.error(err));
+  }
+
   addUsers(data: AddUsersData) {
     return this.api.addUsers(data)
+      .then(() => console.log('DONE!!1'))
+      .catch((err) => console.error(err));
+  }
+
+  removeUsers(data: AddUsersData) {
+    return this.api.removeUsers(data)
       .then(() => console.log('DONE!!1'))
       .catch((err) => console.error(err));
   }

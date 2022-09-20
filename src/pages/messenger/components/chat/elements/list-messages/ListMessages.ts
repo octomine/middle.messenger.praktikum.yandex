@@ -9,28 +9,6 @@ class ListMessages extends List {
     super({ ...props, block: 'chat_sheet' });
   }
 
-  componentDidUpdate(oldProps: Indexed, newProps: Indexed): boolean {
-    const { fields: oldFields } = oldProps;
-    const { fields } = newProps;
-
-    const l = Math.max(fields.length, this.children.fields.length);
-
-    for (let i: number = 0; i < l; i++) {
-      const field = this.children.fields[i];
-      if (field) {
-        if (fields[i]) {
-          field.setProps(fields[i]);
-          field.show();
-        } else {
-          field.hide();
-        }
-      } else {
-        this.children.fields.push(this.line(fields[i]));
-      }
-    }
-    return true;
-  }
-
   line(field: TBlockProps): LineMessage {
     return new LineMessage(field);
   }
