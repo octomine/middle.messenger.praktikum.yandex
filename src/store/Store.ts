@@ -11,6 +11,11 @@ export enum StoreEvents {
 
 class Store extends EventBus {
   private state: Indexed = {
+    popup: {
+      isShown: false,
+      flag: 'input',
+      users: [],
+    },
     authErrors: {},
     user: {
       edit: false,
@@ -38,6 +43,11 @@ class Store extends EventBus {
   public getChatId(): string {
     const { currentChat: { id } } = this.getState();
     return id;
+  }
+
+  public getMessages(): Indexed[] {
+    const { currentChat: { messages } } = this.getState();
+    return messages;
   }
 
   public set(path: string, value: unknown) {

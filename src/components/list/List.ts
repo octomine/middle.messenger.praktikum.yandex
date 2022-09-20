@@ -28,18 +28,23 @@ export default class List extends Block<ListProps> {
     return fields.filter(({ name }) => name === fieldName)[0]; // name у всех уникальный
   }
 
-  componentDidUpdate(oldProps: Indexed, newProps: Indexed): boolean {
-    const { fields: oldFields } = oldProps;
-    const { fields: newFields } = newProps;
+  componentDidUpdate({ fields: oldFields }: Indexed, { fields }: Indexed): boolean {
+    if (isEqual(oldFields as Indexed, fields as Indexed)) {
+      return false;
+    }
+    const l = Math.max(fields.length, this.children.fields.length);
 
-    if (!isEqual(oldFields as Indexed, newFields as Indexed)) {
-      newFields.forEach<Indexed>((newField: Indexed) => {
-        const { name } = newField;
-        const field = this.getField(name);
-        if (field) {
-          field.setProps(newField);
+    for (let i: number = 0; i < l; i++) {
+      const field = this.children.fields[i];
+      if (field) {
+        if (fields[i]) {
+          field.setProps(fields[i]);
+        } else {
+          field.hide();
         }
-      });
+      } else {
+        this.children.fields.push(this.line(fields[i]));
+      }
     }
     return true;
   }

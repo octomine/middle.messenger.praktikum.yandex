@@ -6,7 +6,7 @@ export interface PasswordData {
   newPassword: string;
 }
 
-export interface SearchData {
+export interface FindUserData {
   login: string;
 }
 
@@ -31,7 +31,7 @@ export class APIUser extends APIBase {
     return this.http.get(`/${id}`);
   }
 
-  search(data: SearchData) {
+  search(data: FindUserData) {
     return this.http.post('/search', data);
   }
 

@@ -60,7 +60,7 @@ export default class FormWrapper extends Block<FormProps> {
     if (!isEqual(oldFields as Indexed, fields as Indexed)) {
       this.list.setProps({ fields });
     }
-    return true;
+    return super.componentDidUpdate(oldProps, newProps);
   }
 
   render() {

@@ -3,6 +3,7 @@ import { TemplateDelegate } from 'handlebars/runtime';
 import EventBus from '../../../utils/event-bus';
 import { merge } from '../../../utils/merge';
 import { Indexed } from '../../../store/Store';
+import { isEqual } from '../../../utils/isEqual';
 
 export interface TBlockProps extends Record<string, unknown> {
   block?: string,
@@ -177,8 +178,8 @@ export default class Block<P> {
 
   protected componentDidMount() { }
 
-  protected componentDidUpdate(oldProps: object, newProps: object) {
-    return oldProps !== newProps;
+  protected componentDidUpdate(oldProps: Indexed, newProps: Indexed) {
+    return !isEqual(oldProps, newProps);
   }
 
   protected compile(tmpl: TemplateDelegate, props: P) {
