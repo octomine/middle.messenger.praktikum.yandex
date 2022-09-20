@@ -22,6 +22,7 @@ window.addEventListener('DOMContentLoaded', () => {
   ControllerAuth.fetchUser()
     .then(() => {
       // TODO: вот тут проверять адрес, если логин или регистрация, то идти в чат
+      Router.go('/messenger');
     }).catch(() => {
       Router.go('/');
     }).finally(() => {
