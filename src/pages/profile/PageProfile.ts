@@ -116,7 +116,7 @@ class PageProfile extends Block<SettingsProps> {
       this.children.list.setProps({ fields });
       this.children.chageSettings.setProps({ fields });
     }
-    return true;
+    return super.componentDidUpdate(oldProps, newProps);
   }
 
   render() {

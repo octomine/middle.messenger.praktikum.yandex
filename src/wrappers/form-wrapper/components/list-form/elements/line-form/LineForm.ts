@@ -49,7 +49,7 @@ export default class LineForm extends InputWrapped {
       return false;
     }
 
-    return !isEqual(oldProps as Indexed, newProps as Indexed);
+    return super.componentDidUpdate(oldProps, newProps);
   }
 
   render() {

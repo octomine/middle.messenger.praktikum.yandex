@@ -24,7 +24,6 @@ export default class Popover extends List {
   }
 
   componentDidUpdate(oldProps: Indexed, newProps: Indexed): boolean {
-    super.componentDidUpdate(oldProps, newProps);
-    return true;
+    return super.componentDidUpdate(oldProps, newProps);
   }
 }

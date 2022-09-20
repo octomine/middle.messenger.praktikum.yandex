@@ -88,7 +88,7 @@ class Chat extends Block<TBlockProps> {
     if (!isEqual(oldProps, newProps)) {
       this.children.header.setProps(newProps);
     }
-    return true;
+    return super.componentDidUpdate(oldProps, newProps);
   }
 
   render() {

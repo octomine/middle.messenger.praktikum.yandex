@@ -63,7 +63,7 @@ class PopupWrapper extends Block<PopupProps> {
       this.children.list.setProps({ fields: users });
     }
 
-    return true;
+    return super.componentDidUpdate(oldProps, newProps);
   }
 
   render() {
