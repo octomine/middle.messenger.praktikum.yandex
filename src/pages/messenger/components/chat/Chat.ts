@@ -1,15 +1,15 @@
 import Block, { TBlockProps } from '../../../../components/common/block';
 
-import ChatInput from './elements/chat-input/ChatInput';
-
-import ChatHeader from './elements/chat-header/ChatHeader';
-
-import tmpl from './tmpl.hbs';
-import ListMessages from './elements/list-messages/ListMessages';
-import Popover from './elements/popover/Popover';
 import { connect, Indexed } from '../../../../store';
 import { isEqual } from '../../../../utils/isEqual';
 import ControllerPopup from '../../../../controllers/ControllerPopup';
+
+import ChatInput from './elements/chat-input/ChatInput';
+import ChatHeader from './elements/chat-header/ChatHeader';
+import ListMessages from './elements/list-messages/ListMessages';
+import Popover from './elements/popover/Popover';
+
+import tmpl from './tmpl.hbs';
 
 class Chat extends Block<TBlockProps> {
   needToHidePopover: boolean = false;
@@ -32,14 +32,20 @@ class Chat extends Block<TBlockProps> {
           type: 'add',
           label: 'Добавить пользователя',
           events: {
-            click: () => ControllerPopup.addUser(),
+            click: () => {
+              this.performPopoverClcik();
+              ControllerPopup.addUser();
+            },
           },
         },
         {
           type: 'remove',
           label: 'Удалить пользователя',
           events: {
-            click: () => ControllerPopup.removeUser(),
+            click: () => {
+              this.performPopoverClcik();
+              ControllerPopup.removeUser();
+            },
           },
         },
       ],
@@ -78,10 +84,15 @@ class Chat extends Block<TBlockProps> {
       this.needToHidePopover = false;
       Object.entries(this.children).forEach(([key, value]) => {
         if (key.includes('popover')) {
-          (value as Popover).show(false);
+          (value as Popover).hide();
         }
       });
     }
+  }
+
+  performPopoverClcik() {
+    this.needToHidePopover = true;
+    this.hidePopovers();
   }
 
   componentDidUpdate(oldProps: Indexed, newProps: Indexed): boolean {

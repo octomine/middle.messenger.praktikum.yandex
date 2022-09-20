@@ -4,7 +4,7 @@ import LinePopover from '../line-popover';
 import { Indexed } from '../../../../../../store';
 
 interface PopoverProps extends ListProps, TBlockProps {
-  show?: () => void,
+
 }
 
 export default class Popover extends List {
@@ -19,8 +19,8 @@ export default class Popover extends List {
     return new LinePopover(field);
   }
 
-  show(isShown: boolean = true) {
-    this.setProps({ styles: isShown ? '' : 'hide' });
+  show() {
+    this.getContent().style.display = 'block';
   }
 
   componentDidUpdate(oldProps: Indexed, newProps: Indexed): boolean {
