@@ -10,7 +10,7 @@ export class SocketIO {
 
     this.socket.addEventListener('open', () => {
       console.log('socket is OPENED!!1');
-      this.send('0', 'get old');
+      this.getMessages();
     });
     this.socket.addEventListener('close', () => {
       console.log('socket is CLOSED!!1');
@@ -31,5 +31,9 @@ export class SocketIO {
       content,
       type,
     }));
+  }
+
+  public getMessages() {
+    this.send('0', 'get old');
   }
 }

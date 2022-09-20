@@ -1,6 +1,14 @@
 import { SocketIO } from '../services/socket-io';
 import Store, { Indexed } from '../store';
 
+export interface Message {
+  chat_id: string,
+  time: string,
+  type: string,
+  user_id: string,
+  content: string,
+}
+
 export class ControllerMessenger {
   private socket?: SocketIO;
 
@@ -20,6 +28,7 @@ export class ControllerMessenger {
     const { type } = msg;
     switch (type) {
       case 'message':
+        this.socket?.getMessages();
         break;
       case 'user connected':
         break;

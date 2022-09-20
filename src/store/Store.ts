@@ -45,6 +45,11 @@ class Store extends EventBus {
     return id;
   }
 
+  public getMessages(): Indexed[] {
+    const { currentChat: { messages } } = this.getState();
+    return messages;
+  }
+
   public set(path: string, value: unknown) {
     set(this.state, path, value);
     this.emit(StoreEvents.Updated);
