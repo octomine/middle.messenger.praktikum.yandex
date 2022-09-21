@@ -9,6 +9,7 @@ enum Method {
 export type Options = {
   method: Method;
   data?: any;
+  headers?: Record<string, string>
 };
 
 export class HTTPTransport {
@@ -28,8 +29,8 @@ export class HTTPTransport {
     return this.request<Response>(`${this.endpoint}${path}`, { data, method: Method.Post });
   }
 
-  public put<Response = void>(path: string, data: unknown): Promise<Response> {
-    return this.request<Response>(`${this.endpoint}${path}`, { data, method: Method.Put });
+  public put<Response = void>(path: string, data: unknown, headers?: Record<string, string>): Promise<Response> {
+    return this.request<Response>(`${this.endpoint}${path}`, { data, headers, method: Method.Put });
   }
 
   public patch<Response = void>(path: string, data: unknown): Promise<Response> {
@@ -41,11 +42,11 @@ export class HTTPTransport {
   }
 
   request<Response>(url: string, opts: Options = { method: Method.Get }): Promise<Response> {
-    const { method, data } = opts;
+    const { method, headers, data } = opts;
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-
+      console.log(data);
       xhr.open(method, url); // TODO: queryStringify для GET
       xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -57,7 +58,11 @@ export class HTTPTransport {
         }
       };
 
-      xhr.setRequestHeader('Content-Type', 'application/json');
+      if (headers) {
+        Object.entries(headers).forEach(([key, value]) => xhr.setRequestHeader(key, value));
+      } else {
+        xhr.setRequestHeader('Content-Type', 'application/json');
+      }
       xhr.withCredentials = true;
       xhr.responseType = 'json';
 
@@ -68,7 +73,7 @@ export class HTTPTransport {
       if (method === Method.Get || !data) {
         xhr.send();
       } else {
-        xhr.send(JSON.stringify(data));
+        xhr.send(data instanceof FormData ? data : JSON.stringify(data)); // TODO: вот тут вот надо норм сделать!!1
       }
     });
   }

@@ -15,8 +15,9 @@ class ControllerPopup {
       button: 'Найти',
       action: (login: string) => ControllerUser.search({ login }).then((data) => {
         const users = data.map(({
-          id, login, display_name, first_name, second_name,
+          id, avatar, login, display_name, first_name, second_name,
         }) => ({
+          avatar,
           id,
           login: display_name || login,
           name: `${first_name} ${second_name}`,
@@ -34,12 +35,6 @@ class ControllerPopup {
     });
   }
 
-  showUsers(users) {
-    Store.set('popup', {
-      users,
-    });
-  }
-
   removeUser() {
     Store.set('popup', {
       isShown: true,
@@ -51,6 +46,25 @@ class ControllerPopup {
         .then(() => this.hide()),
     });
     ControllerChats.getUsers().then((users) => this.showUsers(users));
+  }
+
+  showUsers(users) {
+    Store.set('popup', {
+      users,
+    });
+  }
+
+  addAvatar() {
+    Store.set('popup', {
+      isShown: true,
+      flag: 'upload',
+      title: 'Загрузите файл',
+      button: 'Поменять',
+      action: (fd: FormData) => ControllerUser.avatar(fd).then((user) => {
+        Store.set('user.settings', user);
+        this.hide();
+      }),
+    });
   }
 
   show() {

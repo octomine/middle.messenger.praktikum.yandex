@@ -14,6 +14,9 @@ import tmpl from './tmpl.hbs';
 import ControllerAuth from '../../controllers/ControllerAuth';
 import ControllerUser from '../../controllers/ControllerUser';
 import { isEqual } from '../../utils/isEqual';
+import ControllerPopup from '../../controllers/ControllerPopup';
+import ControllerResources from '../../controllers/ControllerResources';
+import { HTTPTransport } from '../../services/network';
 
 interface SettingsProps extends TBlockProps {
   edit: boolean;
@@ -33,7 +36,10 @@ class PageProfile extends Block<SettingsProps> {
       },
     });
 
-    this.children.avatar = new Avatar({});
+    this.children.avatar = new Avatar({
+      img: `${HTTPTransport.API_URL}/resources/${this.props.avatar}`,
+      events: { click: () => this.onAvatar() },
+    });
 
     const { settings: fields } = this.props;
     this.children.list = new ListProfile({ modifiers: 'titled', fields });
@@ -86,6 +92,10 @@ class PageProfile extends Block<SettingsProps> {
     }
   }
 
+  onAvatar() {
+    ControllerPopup.addAvatar();
+  }
+
   changeSettings() {
     ControllerUser.editSettings();
   }
@@ -116,6 +126,7 @@ class PageProfile extends Block<SettingsProps> {
       this.children.list.setProps({ fields });
       this.children.chageSettings.setProps({ fields });
     }
+    this.children.avatar.setProps({ img: `${HTTPTransport.API_URL}/resources/${this.props.avatar}` });
     return super.componentDidUpdate(oldProps, newProps);
   }
 

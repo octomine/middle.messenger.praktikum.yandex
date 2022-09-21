@@ -7,8 +7,9 @@ import { connect, Indexed } from '../../store';
 import ControllerPopup from '../../controllers/ControllerPopup';
 import LineForm from '../form-wrapper/components/list-form/elements/line-form';
 import ListUsers from './components/list-users';
+import Upload from './components/upload';
 
-const FLAGS = ['input', 'list'];
+const FLAGS = ['input', 'list', 'upload', 'info'];
 
 interface PopupProps extends TBlockProps {
   button: string,
@@ -28,6 +29,8 @@ class PopupWrapper extends Block<PopupProps> {
 
     this.children.list = new ListUsers({ fields: [], onUser: this.onUser.bind(this) });
 
+    this.children.upload = new Upload({});
+
     const { button: label } = this.props;
     this.children.button = new Button({
       label,
@@ -40,7 +43,13 @@ class PopupWrapper extends Block<PopupProps> {
   performAction() {
     const { action } = this.props;
     if (action) {
-      action(this.children.input.value); // TODO: чё-т как-то тут не очень
+      const { flags: { input, upload } } = this.props;
+      if (input) {
+        action(this.children.input.value); // TODO: чё-т как-то тут не очень
+      }
+      if (upload) {
+        action(this.children.upload.formData);
+      }
     } else {
       ControllerPopup.hide();
     }
