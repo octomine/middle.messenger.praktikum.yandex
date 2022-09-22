@@ -34,7 +34,7 @@ export class ControllerUser {
   avatar(data: FormData) {
     return this.api.avatar(data)
       .then((res) => res)
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   }
 
   password(data: PasswordData) {

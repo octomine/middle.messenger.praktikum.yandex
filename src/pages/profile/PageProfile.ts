@@ -35,9 +35,8 @@ class PageProfile extends Block<SettingsProps> {
         click: () => this.onBack(),
       },
     });
-
     this.children.avatar = new Avatar({
-      img: `${HTTPTransport.API_URL}/resources/${this.props.avatar}`,
+      img: ControllerResources.resourcePath(this.props.avatar),
       events: { click: () => this.onAvatar() },
     });
 
@@ -126,7 +125,7 @@ class PageProfile extends Block<SettingsProps> {
       this.children.list.setProps({ fields });
       this.children.chageSettings.setProps({ fields });
     }
-    this.children.avatar.setProps({ img: `${HTTPTransport.API_URL}/resources/${this.props.avatar}` });
+    this.children.avatar.setProps({ img: ControllerResources.resourcePath(this.props.avatar) });
     return super.componentDidUpdate(oldProps, newProps);
   }
 

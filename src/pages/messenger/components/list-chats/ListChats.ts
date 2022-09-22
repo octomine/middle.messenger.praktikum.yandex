@@ -8,6 +8,8 @@ import Search from './elements/search';
 import tmpl from './tmpl.hbs';
 import { connect, Indexed } from '../../../../store';
 import ControllerChats from '../../../../controllers/ControllerChats';
+import ControllerResources from '../../../../controllers/ControllerResources';
+import { getTime } from '../../../../utils/time';
 
 export class ListChats extends List {
   private _selected: string | null = null;
@@ -61,7 +63,15 @@ export class ListChats extends List {
 }
 
 const withChats = connect((state: Indexed) => {
-  const { chats: fields } = state;
+  const { chats } = state;
+  const fields = chats.map(({ id, avatar, title, last_message, unread_count: unread }) => ({
+    id,
+    title,
+    img: ControllerResources.resourcePath(avatar),
+    time: last_message ? getTime(last_message.time) : '',
+    msg: last_message ? last_message.content : 'Нет сообщений',
+    unread
+  }));
   return { fields };
 });
 

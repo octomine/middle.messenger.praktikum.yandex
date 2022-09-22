@@ -12,7 +12,7 @@ import Popover from './elements/popover/Popover';
 import tmpl from './tmpl.hbs';
 
 class Chat extends Block<TBlockProps> {
-  needToHidePopover: boolean = false;
+  private needToHidePopover: boolean = false;
 
   constructor(props: TBlockProps) {
     super(props);
@@ -29,7 +29,7 @@ class Chat extends Block<TBlockProps> {
       styles: 'hide',
       fields: [
         {
-          type: 'add',
+          type: 'add_user',
           label: 'Добавить пользователя',
           events: {
             click: () => {
@@ -39,12 +39,23 @@ class Chat extends Block<TBlockProps> {
           },
         },
         {
-          type: 'remove',
+          type: 'remove_user',
           label: 'Удалить пользователя',
           events: {
             click: () => {
               this.performPopoverClcik();
               ControllerPopup.removeUser();
+            },
+          },
+        },
+        {
+          type: 'remove_chat',
+          label: 'Удалить чат',
+          events: {
+            click: () => {
+              this.performPopoverClcik();
+              console.log('DELETE CHAT!!1');
+              // ControllerPopup.removeUser();
             },
           },
         },
@@ -61,7 +72,6 @@ class Chat extends Block<TBlockProps> {
       ],
       events: popoverEents,
     });
-
     this.children.header = new ChatHeader({
       optionsClick: () => this.showPopover('Options'),
     });
@@ -108,8 +118,8 @@ class Chat extends Block<TBlockProps> {
 }
 
 const withChat = connect((state: Indexed) => {
-  const { currentChat: { avatar, title } } = state;
-  return { avatar, title };
+  const { currentChat: { id, img, title } } = state;
+  return { id, img, title };
 });
 
 export default withChat(Chat);

@@ -21,6 +21,10 @@ export class HTTPTransport {
     this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
   }
 
+  getEndpoint(): string {
+    return this.endpoint;
+  }
+
   public get<Response>(path = '/', data?: unknown): Promise<Response> {
     return this.request<Response>(`${this.endpoint}${path}`, { data, method: Method.Get });
   }
@@ -46,7 +50,7 @@ export class HTTPTransport {
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      console.log(data);
+
       xhr.open(method, url); // TODO: queryStringify для GET
       xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
