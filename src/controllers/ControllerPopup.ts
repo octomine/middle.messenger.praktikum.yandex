@@ -67,6 +67,19 @@ class ControllerPopup {
     });
   }
 
+  addChat() {
+    Store.set('popup', {
+      isShown: true,
+      flag: 'input',
+      title: 'Введите название чата',
+      button: 'Создать',
+      action: (title: string) => ControllerChats.createChat({ title })
+        .then((id) => ControllerChats.selectChat(id))
+        .then(() => ControllerChats.getChats({}))
+        .then(() => this.hide()),
+    });
+  }
+
   show() {
     Store.set('popup.isShown', true);
   }

@@ -46,9 +46,10 @@ class PopupWrapper extends Block<PopupProps> {
       const { flags: { input, upload } } = this.props;
       if (input) {
         action(this.children.input.value); // TODO: чё-т как-то тут не очень
-      }
-      if (upload) {
+      } else if (upload) {
         action(this.children.upload.formData);
+      } else {
+        action();
       }
     } else {
       ControllerPopup.hide();

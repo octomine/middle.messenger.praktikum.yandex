@@ -6,9 +6,9 @@ export interface TokenData {
 }
 
 export interface GetChatsData {
-  offset: number;
-  limit: number;
-  title: string;
+  offset?: number;
+  limit?: number;
+  title?: string;
 }
 
 export interface CreateChatData {

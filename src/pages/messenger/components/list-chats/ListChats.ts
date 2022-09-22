@@ -64,13 +64,15 @@ export class ListChats extends List {
 
 const withChats = connect((state: Indexed) => {
   const { chats } = state;
-  const fields = chats.map(({ id, avatar, title, last_message, unread_count: unread }) => ({
+  const fields = chats.map(({
+    id, avatar, title, last_message, unread_count: unread,
+  }) => ({
     id,
     title,
     img: ControllerResources.resourcePath(avatar),
     time: last_message ? getTime(last_message.time) : '',
     msg: last_message ? last_message.content : 'Нет сообщений',
-    unread
+    unread,
   }));
   return { fields };
 });

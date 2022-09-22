@@ -4,12 +4,13 @@ import { connect, Indexed } from '../../../../store';
 import { isEqual } from '../../../../utils/isEqual';
 import ControllerPopup from '../../../../controllers/ControllerPopup';
 
-import ChatInput from './elements/chat-input/ChatInput';
-import ChatHeader from './elements/chat-header/ChatHeader';
-import ListMessages from './elements/list-messages/ListMessages';
+import ChatInput from './elements/chat-input';
+import ChatHeader from './elements/chat-header';
+import ListMessages from './elements/list-messages';
 import Popover from './elements/popover/Popover';
 
 import tmpl from './tmpl.hbs';
+import ControllerChats from '../../../../controllers/ControllerChats';
 
 class Chat extends Block<TBlockProps> {
   private needToHidePopover: boolean = false;
@@ -54,8 +55,8 @@ class Chat extends Block<TBlockProps> {
           events: {
             click: () => {
               this.performPopoverClcik();
-              console.log('DELETE CHAT!!1');
-              // ControllerPopup.removeUser();
+              ControllerChats.deleteChat()
+                .then(() => ControllerChats.getChats({}));
             },
           },
         },

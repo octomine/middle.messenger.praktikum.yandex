@@ -1,8 +1,8 @@
-import APIBase from "./APIBase";
+import APIBase from './APIBase';
 
 export class APIResuources extends APIBase {
   constructor() {
-    super('/resources')
+    super('/resources');
   }
 
   getPath(path: string): string {
@@ -12,11 +12,13 @@ export class APIResuources extends APIBase {
   create(data: FormData) {
     return this.http.post('/', data)
       .then((result) => result)
-      .catch((err) => console.error(err))
+      .catch((err) => console.error(err));
   }
 
   read = undefined;
+
   update = undefined;
+
   delete = undefined;
 }
 

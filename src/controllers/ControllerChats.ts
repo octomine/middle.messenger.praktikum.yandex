@@ -1,4 +1,6 @@
-import API, { APIChats, GetChatsData, AddUsersData } from '../api/APIChats';
+import API, {
+  APIChats, GetChatsData, AddUsersData, CreateChatData,
+} from '../api/APIChats';
 import Store, { Indexed } from '../store';
 import ControllerMessenger from './ControllerMessenger';
 
@@ -45,6 +47,18 @@ export class ControllerChats {
   removeUsers(data: AddUsersData) {
     return this.api.removeUsers(data)
       .then(() => console.log('DONE!!1'))
+      .catch((err) => console.error(err));
+  }
+
+  createChat(data: CreateChatData) {
+    return this.api.create(data)
+      .then((res) => res)
+      .catch((err) => console.error(err));
+  }
+
+  deleteChat() {
+    return this.api.delete(Store.getChatId()) // нигде, кроме открытого чата этого нет
+      .then(() => Store.set('currentChat', { messages: [] }))
       .catch((err) => console.error(err));
   }
 

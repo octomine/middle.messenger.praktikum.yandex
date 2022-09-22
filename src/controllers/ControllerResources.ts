@@ -1,4 +1,4 @@
-import API, { APIResuources } from "../api/APIResources";
+import API, { APIResuources } from '../api/APIResources';
 
 class ControllerResources {
   private readonly api: APIResuources;
