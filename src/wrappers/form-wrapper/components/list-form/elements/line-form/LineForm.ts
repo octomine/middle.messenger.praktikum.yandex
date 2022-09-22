@@ -1,5 +1,4 @@
 import { Indexed } from '../../../../../../store';
-import { isEqual } from '../../../../../../utils/isEqual';
 import InputWrapped, { InputWrappedProps } from '../../../../../../components/input-wrapped';
 import Input from '../../../../../../components/input/Input';
 

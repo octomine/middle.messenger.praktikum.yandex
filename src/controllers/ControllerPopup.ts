@@ -12,6 +12,7 @@ class ControllerPopup {
       isShown: true,
       flag: 'input',
       title: 'Введите логин',
+      inputTitle: 'Логин',
       button: 'Найти',
       action: (login: string) => ControllerUser.search({ login }).then((data) => {
         const users = data.map(({
@@ -72,6 +73,7 @@ class ControllerPopup {
       isShown: true,
       flag: 'input',
       title: 'Введите название чата',
+      inputTitle: 'Название чата',
       button: 'Создать',
       action: (title: string) => ControllerChats.createChat({ title })
         .then((id) => ControllerChats.selectChat(id))
