@@ -64,8 +64,6 @@ export default class FormWrapper extends Block<FormProps> {
   }
 
   render() {
-    const { title: txt, block } = this.props;
-
-    return this.compile(tmpl, { title: { txt }, block });
+    return this.compile(tmpl, this.props);
   }
 }

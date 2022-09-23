@@ -1,6 +1,5 @@
 import Block, { TBlockProps } from '../common/block';
-import Input from '../input/Input';
-import ControllerInput from '../../controllers/ControllerInput';
+import Input from '../input';
 
 export interface InputWrappedProps extends TBlockProps {
   name: string,
@@ -52,7 +51,7 @@ export default class InputWrapped extends Block<InputWrappedProps> {
   }
 
   protected onFocus() {
-    ControllerInput.setError(this.name, null); // TODO: сохранять фокус при обновлении!
+
   }
 
   protected onBlur() {
@@ -60,7 +59,7 @@ export default class InputWrapped extends Block<InputWrappedProps> {
     this.setProps({ value });
 
     const { validated } = this.props;
-    if (validated) {
+    if (value && validated) {
       console.log('VALIDATE IT!!1');
     }
   }

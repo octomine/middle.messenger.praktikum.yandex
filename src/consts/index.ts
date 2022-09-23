@@ -13,7 +13,7 @@ export const FIELDS_REGISTRATION: Indexed = {
   display_name: { title: 'Имя в чате', isRequired: true, validated: true },
   phone: { title: 'Телефон', isRequired: true, validated: true },
   password: { title: 'Пароль', isPassword: true, isRequired: true, validated: true },
-  password_check: { title: 'Пароль (ещё раз)', isPassword: true },
+  password_check: { title: 'Пароль (ещё раз)', isPassword: true, isEqual: 'password' },
 };
 
 export const FIELDS_PROFILE: Indexed = {

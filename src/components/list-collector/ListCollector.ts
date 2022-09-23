@@ -25,14 +25,14 @@ export default class ListCollector extends List {
         ControllerInput.setError(`${errorSpace}.${field.name}`, InputErrors.IsRequired);
         error = true;
       }
-      // if (value && !validate.bind(field)(value)) {
-      //   error = true;
-      // }
+      if (value && validated) {
+        error = true;
+      }
       if (isEqual) {
         const contestee = this.getField(isEqual);
         if (contestee.value !== value) {
-          contestee.setProps({ error: InputErrors.NotEqual });
-          field.setProps({ error: InputErrors.NotEqual });
+          ControllerInput.setError(`${errorSpace}.${contestee.name}`, InputErrors.NotEqual);
+          ControllerInput.setError(`${errorSpace}.${field.name}`, InputErrors.NotEqual);
           error = true;
         }
       }

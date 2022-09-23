@@ -31,7 +31,10 @@ export default class LineForm extends InputWrapped {
 
   onFocus() {
     this.title.classList.toggle('disguise', false);
-    super.onFocus();
+    const { resetError } = this.props;
+    if (resetError) {
+      resetError(this.name);
+    }
   }
 
   onBlur() {
