@@ -9,7 +9,6 @@ import tmpl from './tmpl.hbs';
 
 import ControllerChats from '../../controllers/ControllerChats';
 import ControllerMessenger from '../../controllers/ControllerMessenger';
-import ControllerPopup from '../../controllers/ControllerPopup';
 
 export default class PageMessenger extends Block<TBlockProps> {
   constructor(props: TBlockProps = {}) {
@@ -19,12 +18,6 @@ export default class PageMessenger extends Block<TBlockProps> {
   init() {
     ControllerChats.getChats({});
 
-    this.children.addChat = new Button({
-      modifiers: 'add_chat',
-      events: {
-        click: () => ControllerPopup.addChat(),
-      },
-    });
     this.children.profile = new Button({
       label: 'Профиль',
       modifiers: 'profile',

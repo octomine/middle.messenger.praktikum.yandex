@@ -16,7 +16,10 @@ class Store extends EventBus {
       flag: 'input',
       users: [],
     },
-    authErrors: {},
+    errors: {
+      login: {},
+      signup: {}
+    },
     user: {
       edit: false,
       password: false,

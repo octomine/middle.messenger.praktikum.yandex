@@ -10,6 +10,8 @@ import { connect, Indexed } from '../../../../store';
 import ControllerChats from '../../../../controllers/ControllerChats';
 import ControllerResources from '../../../../controllers/ControllerResources';
 import { getTime } from '../../../../utils/time';
+import Button from '../../../../components/button';
+import ControllerPopup from '../../../../controllers/ControllerPopup';
 
 export class ListChats extends List {
   private _selected: string | null = null;
@@ -28,6 +30,13 @@ export class ListChats extends List {
 
   init() {
     this.children.search = new Search({});
+    this.children.addChat = new Button({
+      modifiers: 'add_chat',
+      events: {
+        click: () => ControllerPopup.addChat(),
+      },
+    });
+
     super.init();
   }
 

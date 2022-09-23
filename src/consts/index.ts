@@ -6,13 +6,13 @@ export const FIELDS_LOGIN: Indexed = {
 };
 
 export const FIELDS_REGISTRATION: Indexed = {
-  email: { title: 'Почта', isRequired: true },
-  login: { title: 'Логин', isRequired: true },
-  first_name: { title: 'Имя', isRequired: true },
-  second_name: { title: 'Фамилия', isRequired: true },
-  display_name: { title: 'Имя в чате', isRequired: true },
-  phone: { title: 'Телефон', isRequired: true },
-  password: { title: 'Пароль', isPassword: true, isRequired: true },
+  email: { title: 'Почта', isRequired: true, validated: true },
+  login: { title: 'Логин', isRequired: true, validated: true },
+  first_name: { title: 'Имя', isRequired: true, validated: true },
+  second_name: { title: 'Фамилия', isRequired: true, validated: true },
+  display_name: { title: 'Имя в чате', isRequired: true, validated: true },
+  phone: { title: 'Телефон', isRequired: true, validated: true },
+  password: { title: 'Пароль', isPassword: true, isRequired: true, validated: true },
   password_check: { title: 'Пароль (ещё раз)', isPassword: true },
 };
 

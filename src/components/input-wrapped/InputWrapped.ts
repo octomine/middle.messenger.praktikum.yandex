@@ -1,6 +1,6 @@
 import Block, { TBlockProps } from '../common/block';
-import { ValidType as ValidationType } from '../../utils/validators';
 import Input from '../input/Input';
+import ControllerInput from '../../controllers/ControllerInput';
 
 export interface InputWrappedProps extends TBlockProps {
   name: string,
@@ -10,7 +10,7 @@ export interface InputWrappedProps extends TBlockProps {
   isRequired?: boolean,
   isPassword?: boolean,
   isEqual?: string,
-  validator?: (value: string) => ValidationType,
+  validated?: boolean,
 }
 
 export default class InputWrapped extends Block<InputWrappedProps> {
@@ -52,26 +52,16 @@ export default class InputWrapped extends Block<InputWrappedProps> {
   }
 
   protected onFocus() {
-    // TODO: хорошо бы тут скрывать ошибку, но что-то идёт не так
+    ControllerInput.setError(this.name, null); // TODO: сохранять фокус при обновлении!
   }
 
   protected onBlur() {
     const { value } = this.children.input as Input;
+    this.setProps({ value });
 
-    if (value) {
-      this.validate(value);
+    const { validated } = this.props;
+    if (validated) {
+      console.log('VALIDATE IT!!1');
     }
-  }
-
-  validate(value: string): boolean {
-    const { validator } = this.props;
-    if (validator) {
-      const { error } = validator(value);
-      this.setProps({ error });
-      if (error) {
-        return false;
-      }
-    }
-    return true;
   }
 }

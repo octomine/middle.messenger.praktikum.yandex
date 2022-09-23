@@ -8,10 +8,10 @@ import { FIELDS_REGISTRATION } from '../../consts';
 import { connect } from '../../store';
 
 const withRegistration = connect((state: Indexed) => {
-  const { authErrors } = state;
+  const { errors } = state;
   const fields = Object.keys(FIELDS_REGISTRATION).map<Indexed>((name) => {
     const field = { name, ...FIELDS_REGISTRATION[name] };
-    const error = authErrors[name];
+    const error = errors[name];
     return { ...field, error };
   });
   return { fields };

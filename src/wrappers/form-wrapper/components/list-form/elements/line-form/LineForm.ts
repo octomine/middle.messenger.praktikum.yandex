@@ -31,6 +31,7 @@ export default class LineForm extends InputWrapped {
 
   onFocus() {
     this.title.classList.toggle('disguise', false);
+    super.onFocus();
   }
 
   onBlur() {
@@ -42,11 +43,11 @@ export default class LineForm extends InputWrapped {
 
   componentDidUpdate(oldProps: Indexed, newProps: Indexed): boolean {
     const { error: oldError } = oldProps;
-    const { error } = newProps;
+    const { error, title, placeholder } = newProps;
     if (error !== oldError) {
       this.children.error.setProps({ error });
-      return false;
     }
+    this.children.input.setProps({ title, placeholder });
 
     return super.componentDidUpdate(oldProps, newProps);
   }
