@@ -24,7 +24,7 @@ export default class Block<P> {
 
   public id: string | null = null;
 
-  protected props: any;
+  protected props: P;
 
   protected children: Record<string, Block<unknown> | Array<Record<string, Block<unknown>>>>;
 
@@ -131,7 +131,7 @@ export default class Block<P> {
     dispatchCDMInner(Object.values(this.children));
   }
 
-  private _componentDidUpdate(oldProps: object, newProps: object) {
+  private _componentDidUpdate(oldProps: P, newProps: P) {
     if (this.componentDidUpdate(oldProps, newProps)) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
@@ -178,7 +178,7 @@ export default class Block<P> {
 
   protected componentDidMount() { }
 
-  protected componentDidUpdate(oldProps: Indexed, newProps: Indexed) {
+  protected componentDidUpdate(oldProps: P, newProps: P) {
     return !isEqual(oldProps, newProps);
   }
 
