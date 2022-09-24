@@ -1,3 +1,4 @@
 [[redirects]]
   from = "/messenger"
-  to = "/"
+  to = "/messenger"
+  query = {path = ":path"}
