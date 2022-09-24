@@ -1,5 +1,4 @@
 import Block, { TBlockProps } from '../../../../../../components/common/block';
-import { Indexed } from '../../../../../../store';
 
 import Avatar from '../../../../../../components/avatar';
 import Button from '../../../../../../components/button';
@@ -26,7 +25,7 @@ export default class ChatHeader extends Block<ChatHeaderProps> {
     });
   }
 
-  componentDidUpdate(oldProps: Indexed, newProps: Indexed): boolean {
+  componentDidUpdate(oldProps: TBlockProps, newProps: TBlockProps): boolean {
     const { img: oldImg } = oldProps;
     const { img } = newProps;
     if (img !== oldImg) {

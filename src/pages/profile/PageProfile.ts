@@ -16,7 +16,6 @@ import ControllerUser from '../../controllers/ControllerUser';
 import { isEqual } from '../../utils/is-equal';
 import ControllerPopup from '../../controllers/ControllerPopup';
 import ControllerResources from '../../controllers/ControllerResources';
-import { HTTPTransport } from '../../services/network';
 
 interface SettingsProps extends TBlockProps {
   edit: boolean;
@@ -118,7 +117,7 @@ class PageProfile extends Block<SettingsProps> {
     }
   }
 
-  componentDidUpdate(oldProps: Indexed, newProps: Indexed): boolean {
+  componentDidUpdate(oldProps: SettingsProps, newProps: SettingsProps): boolean {
     const { settings: oldFields } = oldProps;
     const { settings: fields } = newProps;
     if (!isEqual(oldFields as Indexed, fields as Indexed)) {

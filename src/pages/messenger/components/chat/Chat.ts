@@ -106,7 +106,7 @@ class Chat extends Block<TBlockProps> {
     this.hidePopovers();
   }
 
-  componentDidUpdate(oldProps: Indexed, newProps: Indexed): boolean {
+  componentDidUpdate(oldProps: TBlockProps, newProps: TBlockProps): boolean {
     if (!isEqual(oldProps, newProps)) {
       this.children.header.setProps(newProps);
     }

@@ -2,14 +2,9 @@ import Block, { TBlockProps } from '../../../../components/common/block';
 import Avatar from '../../../../components/avatar';
 import tmpl from './tmpl.hbs';
 import { HTTPTransport } from '../../../../services/network';
-import { Indexed } from '../../../../store';
 
-export interface LineUserProps extends TBlockProps {
-
-}
-
-export default class LineUser extends Block<LineUserProps> {
-  constructor(props: LineUserProps) {
+export default class LineUser extends Block<TBlockProps> {
+  constructor(props: TBlockProps) {
     super(props);
   }
 
@@ -25,7 +20,7 @@ export default class LineUser extends Block<LineUserProps> {
     });
   }
 
-  componentDidUpdate(oldProps: Indexed, newProps: Indexed): boolean {
+  componentDidUpdate(oldProps: TBlockProps, newProps: TBlockProps): boolean {
     this.children.avatar.setProps({ img: `${HTTPTransport.API_URL}/resources/${newProps.avatar}` });
     return super.componentDidUpdate(oldProps, newProps);
   }
