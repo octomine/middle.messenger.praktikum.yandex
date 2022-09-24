@@ -1,5 +1,8 @@
 <div class='flex_vertical align_center justify_center {{> styles element='popup_cover' modifiers=(split modifiers)}}'>
   <div class='flex_vertical align_center {{> styles element='plate' modifiers='popup'}}'>
+    <div class="close_holder">
+      {{{clsButton}}}
+    </div>
     {{> label txt=title modifiers=(concat title.modifiers 'popup')}}
     <div class='flex_vertical align_center justify_center popup__content'>
       {{#if flags.input}}

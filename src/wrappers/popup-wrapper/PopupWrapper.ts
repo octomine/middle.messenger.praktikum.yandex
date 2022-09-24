@@ -21,6 +21,13 @@ class PopupWrapper extends Block<PopupProps> {
   }
 
   init() {
+    this.children.clsButton = new Button({
+      modifiers: 'close',
+      events: {
+        click: () => ControllerPopup.hide()
+      }
+    })
+
     const { inputTitle: title } = this.props;
     this.children.input = new LineForm({
       name: 'input',
