@@ -1,4 +1,4 @@
 [[redirects]]
-  from = "/messenger"
-  to = "/messenger"
-  query = {path = ":path"}
+  from = "/*"
+  to = "/index.html"
+  status = 200
