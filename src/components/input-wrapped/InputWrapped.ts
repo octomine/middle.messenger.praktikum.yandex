@@ -1,15 +1,17 @@
 import Block, { TBlockProps } from '../common/block';
 import Input from '../input';
+import ControllerInput from '../../controllers/ControllerInput';
 
 export interface InputWrappedProps extends TBlockProps {
-  name: string,
-  title: string,
-  value?: string,
-  placeholder?: string,
-  isRequired?: boolean,
-  isPassword?: boolean,
-  isEqual?: string,
-  validated?: boolean,
+  name: string;
+  title: string;
+  value?: string;
+  placeholder?: string;
+  isRequired?: boolean;
+  isPassword?: boolean;
+  isEqual?: string;
+  validated?: boolean;
+  errorSpace?: string;
 }
 
 export default class InputWrapped extends Block<InputWrappedProps> {
@@ -42,14 +44,6 @@ export default class InputWrapped extends Block<InputWrappedProps> {
     return (this.children.input as Input).value;
   }
 
-  get isRequired(): boolean {
-    return this.props.isRequired;
-  }
-
-  get isEqual(): string {
-    return this.props.isEqual;
-  }
-
   protected onFocus() {
 
   }
@@ -59,8 +53,10 @@ export default class InputWrapped extends Block<InputWrappedProps> {
     this.setProps({ value });
 
     const { validated } = this.props;
-    if (value && validated) {
-      console.log('VALIDATE IT!!1');
+    if (validated) {
+      ControllerInput.validate({ ...this.props });
+    } else {
+      ControllerInput.resetError({ ...this.props });
     }
   }
 }

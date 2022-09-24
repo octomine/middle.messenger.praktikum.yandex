@@ -9,7 +9,7 @@ import ListForm from './components/list-form';
 import tmpl from './tmpl.hbs';
 import Router from '../../router/Router';
 import ListCollector from '../../components/list-collector';
-import { isEqual } from '../../utils/isEqual';
+import { isEqual } from '../../utils/is-equal';
 
 export interface FormProps extends TBlockProps {
   title: string,
@@ -31,10 +31,10 @@ export default class FormWrapper extends Block<FormProps> {
 
   init() {
     const {
-      block, button, link, submit, linkPath, fields, errorSpace
+      block, button, link, submit, linkPath, fields,
     } = this.props;
 
-    this.children.list = new ListForm({ block, fields, errorSpace });
+    this.children.list = new ListForm({ block, fields });
     this.children.button = new Button({
       label: button,
       events: {

@@ -1,9 +1,9 @@
 import { Indexed } from '../../../../../../store';
 import InputWrapped, { InputWrappedProps } from '../../../../../../components/input-wrapped';
-import Input from '../../../../../../components/input/Input';
+import Input from '../../../../../../components/input';
 
 import tmpl from './tmpl.hbs';
-import ErrorHolder from '../error-holder/ErrorHolder';
+import ErrorHolder from '../error-holder';
 
 export default class LineForm extends InputWrapped {
   constructor(props: InputWrappedProps) {
@@ -31,10 +31,6 @@ export default class LineForm extends InputWrapped {
 
   onFocus() {
     this.title.classList.toggle('disguise', false);
-    const { resetError } = this.props;
-    if (resetError) {
-      resetError(this.name);
-    }
   }
 
   onBlur() {

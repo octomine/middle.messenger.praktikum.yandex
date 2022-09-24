@@ -15,7 +15,7 @@ const withLogin = connect((state: Indexed) => {
     const error = errors[name];
     return { ...field, error };
   });
-  return { fields, errorSpace: "login" };
+  return { fields };
 });
 
 class PageLogin extends Block<TBlockProps> {

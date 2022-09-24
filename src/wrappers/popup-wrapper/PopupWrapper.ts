@@ -21,11 +21,11 @@ class PopupWrapper extends Block<PopupProps> {
   }
 
   init() {
-    const { inputTitle: title } = this.props
+    const { inputTitle: title } = this.props;
     this.children.input = new LineForm({
       name: 'input',
       title,
-      placeholder: title
+      placeholder: title,
     });
 
     this.children.list = new ListUsers({ fields: [], onUser: this.onUser.bind(this) });
@@ -46,7 +46,7 @@ class PopupWrapper extends Block<PopupProps> {
     if (action) {
       const { flags: { input, upload } } = this.props;
       if (input) {
-        action(this.children.input.value); // TODO: чё-т как-то тут не очень
+        action(this.children.input.value);
       } else if (upload) {
         action(this.children.upload.formData);
       } else {
@@ -73,7 +73,7 @@ class PopupWrapper extends Block<PopupProps> {
     if (inputTitle !== oldInputTitle) {
       this.children.input.setProps({
         title: inputTitle,
-        placeholder: inputTitle
+        placeholder: inputTitle,
       });
     }
     if (users !== oldUsers) {

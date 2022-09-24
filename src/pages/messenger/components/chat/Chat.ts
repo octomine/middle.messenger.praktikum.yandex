@@ -1,7 +1,7 @@
 import Block, { TBlockProps } from '../../../../components/common/block';
 
 import { connect, Indexed } from '../../../../store';
-import { isEqual } from '../../../../utils/isEqual';
+import { isEqual } from '../../../../utils/is-equal';
 import ControllerPopup from '../../../../controllers/ControllerPopup';
 
 import ChatInput from './elements/chat-input';

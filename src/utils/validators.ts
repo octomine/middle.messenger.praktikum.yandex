@@ -4,6 +4,8 @@ export type ValidType = {
   error?: string
 };
 
+export type ValidatorType = (value: string) => ValidType;
+
 const name = (value: string): ValidType => {
   const re = /(^[A-ZА-Я])[-a-zA-Zа-яА-Я]*/g;
   return re.test(value) ? {} : { error: InputErrors.Wrong };
@@ -34,10 +36,10 @@ const password = (value: string): ValidType => {
   return re1.test(value) ? {} : { error: InputErrors.EasyPassword };
 };
 
-export const getValidator = (fieldName: string) => {
+export const getValidator = (fieldName: string): ValidatorType | null => {
   switch (fieldName) {
-    case 'name_first':
-    case 'name_first':
+    case 'first_name':
+    case 'second_name':
       return name;
     case 'login':
       return login;
@@ -48,5 +50,6 @@ export const getValidator = (fieldName: string) => {
     case 'password':
       return password;
     default:
+      return null;
   }
-}
+};

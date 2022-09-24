@@ -14,7 +14,7 @@ const withRegistration = connect((state: Indexed) => {
     const error = errors[name];
     return { ...field, error };
   });
-  return { fields, errorSpace: 'signup' };
+  return { fields };
 });
 
 export default class PageSignup extends Block<TBlockProps> {

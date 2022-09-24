@@ -13,7 +13,7 @@ import Avatar from './components/avatar';
 import tmpl from './tmpl.hbs';
 import ControllerAuth from '../../controllers/ControllerAuth';
 import ControllerUser from '../../controllers/ControllerUser';
-import { isEqual } from '../../utils/isEqual';
+import { isEqual } from '../../utils/is-equal';
 import ControllerPopup from '../../controllers/ControllerPopup';
 import ControllerResources from '../../controllers/ControllerResources';
 import { HTTPTransport } from '../../services/network';

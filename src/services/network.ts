@@ -1,3 +1,5 @@
+import { queryStringify } from '../utils';
+
 enum Method {
   Get = 'Get',
   Post = 'Post',
@@ -25,8 +27,8 @@ export class HTTPTransport {
     return this.endpoint;
   }
 
-  public get<Response>(path = '/', data?: unknown): Promise<Response> {
-    return this.request<Response>(`${this.endpoint}${path}`, { data, method: Method.Get });
+  public get<Response>(path = '/', data: unknown = {}): Promise<Response> {
+    return this.request<Response>(`${this.endpoint}${path}${queryStringify(data)}`, { data, method: Method.Get });
   }
 
   public post<Response = void>(path: string, data?: unknown): Promise<Response> {
@@ -51,7 +53,7 @@ export class HTTPTransport {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
 
-      xhr.open(method, url); // TODO: queryStringify для GET
+      xhr.open(method, url);
       xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
           if (xhr.status < 400) {
@@ -77,7 +79,7 @@ export class HTTPTransport {
       if (method === Method.Get || !data) {
         xhr.send();
       } else {
-        xhr.send(data instanceof FormData ? data : JSON.stringify(data)); // TODO: вот тут вот надо норм сделать!!1
+        xhr.send(data instanceof FormData ? data : JSON.stringify(data)); // TODO: подумать, как сделать более красивее
       }
     });
   }
