@@ -18,7 +18,7 @@ export default class PageMessenger extends Block<TBlockProps> {
   init() {
     ControllerChats.getChats({});
 
-    this.children.button = new Button({
+    this.children.profile = new Button({
       label: 'Профиль',
       modifiers: 'profile',
       events: {

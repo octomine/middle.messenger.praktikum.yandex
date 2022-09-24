@@ -7,6 +7,10 @@ export default abstract class APIBase {
     this.http = new HTTPTransport(endpoint);
   }
 
+  get endpoint(): string {
+    return this.http.getEndpoint();
+  }
+
   public abstract create?(data: unknown): Promise<unknown>;
 
   public abstract read?(identifier?: string): Promise<unknown>;

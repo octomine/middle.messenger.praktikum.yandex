@@ -31,6 +31,12 @@ export class ControllerUser {
       .catch((err) => console.error(err));
   }
 
+  avatar(data: FormData) {
+    return this.api.avatar(data)
+      .then((res) => res)
+      .catch((err) => console.error(err));
+  }
+
   password(data: PasswordData) {
     return this.api.password(data)
       .then(() => Store.set('user.edit', false))

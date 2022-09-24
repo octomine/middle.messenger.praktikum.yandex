@@ -3,7 +3,7 @@ import { TemplateDelegate } from 'handlebars/runtime';
 import EventBus from '../../../utils/event-bus';
 import { merge } from '../../../utils/merge';
 import { Indexed } from '../../../store/Store';
-import { isEqual } from '../../../utils/isEqual';
+import { isEqual } from '../../../utils/is-equal';
 
 export interface TBlockProps extends Record<string, unknown> {
   block?: string,

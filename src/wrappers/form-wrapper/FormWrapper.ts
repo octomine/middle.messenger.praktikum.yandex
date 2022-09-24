@@ -9,7 +9,7 @@ import ListForm from './components/list-form';
 import tmpl from './tmpl.hbs';
 import Router from '../../router/Router';
 import ListCollector from '../../components/list-collector';
-import { isEqual } from '../../utils/isEqual';
+import { isEqual } from '../../utils/is-equal';
 
 export interface FormProps extends TBlockProps {
   title: string,
@@ -64,8 +64,6 @@ export default class FormWrapper extends Block<FormProps> {
   }
 
   render() {
-    const { title: txt, block } = this.props;
-
-    return this.compile(tmpl, { title: { txt }, block });
+    return this.compile(tmpl, this.props);
   }
 }

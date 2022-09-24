@@ -13,7 +13,10 @@ import Avatar from './components/avatar';
 import tmpl from './tmpl.hbs';
 import ControllerAuth from '../../controllers/ControllerAuth';
 import ControllerUser from '../../controllers/ControllerUser';
-import { isEqual } from '../../utils/isEqual';
+import { isEqual } from '../../utils/is-equal';
+import ControllerPopup from '../../controllers/ControllerPopup';
+import ControllerResources from '../../controllers/ControllerResources';
+import { HTTPTransport } from '../../services/network';
 
 interface SettingsProps extends TBlockProps {
   edit: boolean;
@@ -32,8 +35,10 @@ class PageProfile extends Block<SettingsProps> {
         click: () => this.onBack(),
       },
     });
-
-    this.children.avatar = new Avatar({});
+    this.children.avatar = new Avatar({
+      img: ControllerResources.resourcePath(this.props.avatar),
+      events: { click: () => this.onAvatar() },
+    });
 
     const { settings: fields } = this.props;
     this.children.list = new ListProfile({ modifiers: 'titled', fields });
@@ -86,6 +91,10 @@ class PageProfile extends Block<SettingsProps> {
     }
   }
 
+  onAvatar() {
+    ControllerPopup.addAvatar();
+  }
+
   changeSettings() {
     ControllerUser.editSettings();
   }
@@ -116,6 +125,7 @@ class PageProfile extends Block<SettingsProps> {
       this.children.list.setProps({ fields });
       this.children.chageSettings.setProps({ fields });
     }
+    this.children.avatar.setProps({ img: ControllerResources.resourcePath(this.props.avatar) });
     return super.componentDidUpdate(oldProps, newProps);
   }
 

@@ -22,7 +22,7 @@ export default class Route {
   }
 
   match(pathname: string): boolean {
-    return pathname === this._pathname; // TODO: сделать нормальный isEqual
+    return pathname === this._pathname;
   }
 
   navigate(pathname: string): void {
@@ -32,18 +32,10 @@ export default class Route {
     }
   }
 
-  leave() {
-    if (this._block) {
-      this._block.hide();
-    }
-  }
-
   render() {
     if (!this._block) {
       this._block = new this._blockClass();
-      render(this._props.rootQuery, this._block);
-      return;
     }
-    this._block.show();
+    render(this._props.rootQuery, this._block);
   }
 }

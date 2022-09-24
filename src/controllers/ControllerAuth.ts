@@ -1,6 +1,7 @@
 import API, { APIAuth, SigninData, SignupData } from '../api/APIAuth';
 import Store from '../store';
 import Router from '../router/Router';
+import ControllerInput from './ControllerInput';
 
 class ControllerAuth {
   private readonly api: APIAuth;
@@ -9,17 +10,15 @@ class ControllerAuth {
     this.api = API;
   }
 
-  setError(name: string, error: string | null) {
-    console.log('gonna set');
-    console.log(`authErrors.${name}`, error);
-    Store.set(`authErrors.${name}`, error);
-  }
-
   signin(data: SigninData) {
     return this.api.signin(data)
       .then(() => this.fetchUser())
       .then(() => Router.go('/messenger'))
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        ControllerInput.setError('login.login', 'Неверный логин');
+        ControllerInput.setError('login.password', 'или пароль');
+      });
   }
 
   signup(data: SignupData) {

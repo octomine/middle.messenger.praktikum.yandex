@@ -1,16 +1,17 @@
 import Block, { TBlockProps } from '../common/block';
-import { ValidType as ValidationType } from '../../utils/validators';
-import Input from '../input/Input';
+import Input from '../input';
+import ControllerInput from '../../controllers/ControllerInput';
 
 export interface InputWrappedProps extends TBlockProps {
-  name: string,
-  title: string,
-  value?: string,
-  placeholder?: string,
-  isRequired?: boolean,
-  isPassword?: boolean,
-  isEqual?: string,
-  validator?: (value: string) => ValidationType,
+  name: string;
+  title: string;
+  value?: string;
+  placeholder?: string;
+  isRequired?: boolean;
+  isPassword?: boolean;
+  isEqual?: string;
+  validated?: boolean;
+  errorSpace?: string;
 }
 
 export default class InputWrapped extends Block<InputWrappedProps> {
@@ -43,35 +44,19 @@ export default class InputWrapped extends Block<InputWrappedProps> {
     return (this.children.input as Input).value;
   }
 
-  get isRequired(): boolean {
-    return this.props.isRequired;
-  }
-
-  get isEqual(): string {
-    return this.props.isEqual;
-  }
-
   protected onFocus() {
-    // TODO: хорошо бы тут скрывать ошибку, но что-то идёт не так
+
   }
 
   protected onBlur() {
     const { value } = this.children.input as Input;
+    this.setProps({ value });
 
-    if (value) {
-      this.validate(value);
+    const { validated } = this.props;
+    if (validated) {
+      ControllerInput.validate({ ...this.props });
+    } else {
+      ControllerInput.resetError({ ...this.props });
     }
-  }
-
-  validate(value: string): boolean {
-    const { validator } = this.props;
-    if (validator) {
-      const { error } = validator(value);
-      this.setProps({ error });
-      if (error) {
-        return false;
-      }
-    }
-    return true;
   }
 }

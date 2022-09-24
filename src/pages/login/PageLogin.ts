@@ -9,10 +9,10 @@ import { SigninData } from '../../api/APIAuth';
 import { FIELDS_LOGIN } from '../../consts';
 
 const withLogin = connect((state: Indexed) => {
-  const { authErrors } = state;
+  const { errors: { login: errors } } = state;
   const fields = Object.keys(FIELDS_LOGIN).map<Indexed>((name) => {
     const field = { name, ...FIELDS_LOGIN[name] };
-    const error = authErrors[name];
+    const error = errors[name];
     return { ...field, error };
   });
   return { fields };

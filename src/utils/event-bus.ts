@@ -21,8 +21,6 @@ class EventBus {
 
   emit(event: string, ...args: unknown[]) {
     if (!this.listeners[event]) {
-      // TODO: разобраться, как лучше
-      // throw new Error(`Отсутствует событие ${event}`);
       console.log(`Отсутствует событие ${event}`);
       return;
     }

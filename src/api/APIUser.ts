@@ -19,8 +19,8 @@ export class APIUser extends APIBase {
     return this.http.put('/profile', data);
   }
 
-  avatar(data: unknown) { // TODO: сделать норм, ща чё-т лень
-    return this.http.put('/profile/avatar', data);
+  avatar(data: FormData) {
+    return this.http.put('/profile/avatar', data, {});
   }
 
   password(data: PasswordData) {

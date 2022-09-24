@@ -1,4 +1,3 @@
-import { getTime } from '../../../../../../utils/time';
 import Block, { TBlockProps } from '../../../../../../components/common/block';
 import Avatar from '../../../../../../components/avatar/Avatar';
 
@@ -32,19 +31,11 @@ export default class LineChat extends Block<LineChatProps> {
   }
 
   init() {
-    this.children.avatar = new Avatar({ block: 'chat' });
+    const { img } = this.props;
+    this.children.avatar = new Avatar({ block: 'chat', img });
   }
 
   render() {
-    const { title, last_message, unread_count: unread } = this.props;
-    let msg = 'Сообщений нет';
-    let time = '';
-    if (last_message) {
-      msg = last_message.content;
-      time = last_message.time;
-    }
-    return this.compile(tmpl, {
-      title, msg, time: getTime(time), unread,
-    });
+    return this.compile(tmpl, this.props);
   }
 }

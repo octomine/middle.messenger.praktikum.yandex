@@ -13,6 +13,10 @@ class Router {
     this.history = window.history;
   }
 
+  get pathname(): string {
+    return window.location.pathname;
+  }
+
   use(pathname: string, block: unknown) {
     const route = new Route(pathname, block, { rootQuery: 'main' });
     this.routes.push(route);
@@ -44,10 +48,6 @@ class Router {
         return;
       }
       route = this._notFoundRoute;
-    }
-
-    if (this._currentRoute) {
-      this._currentRoute.leave();
     }
 
     this._currentRoute = route;

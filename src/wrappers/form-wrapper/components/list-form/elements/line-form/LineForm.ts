@@ -1,10 +1,9 @@
 import { Indexed } from '../../../../../../store';
-import { isEqual } from '../../../../../../utils/isEqual';
 import InputWrapped, { InputWrappedProps } from '../../../../../../components/input-wrapped';
-import Input from '../../../../../../components/input/Input';
+import Input from '../../../../../../components/input';
 
 import tmpl from './tmpl.hbs';
-import ErrorHolder from '../error-holder/ErrorHolder';
+import ErrorHolder from '../error-holder';
 
 export default class LineForm extends InputWrapped {
   constructor(props: InputWrappedProps) {
@@ -43,11 +42,11 @@ export default class LineForm extends InputWrapped {
 
   componentDidUpdate(oldProps: Indexed, newProps: Indexed): boolean {
     const { error: oldError } = oldProps;
-    const { error } = newProps;
+    const { error, title, placeholder } = newProps;
     if (error !== oldError) {
       this.children.error.setProps({ error });
-      return false;
     }
+    this.children.input.setProps({ title, placeholder });
 
     return super.componentDidUpdate(oldProps, newProps);
   }

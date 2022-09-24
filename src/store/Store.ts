@@ -1,5 +1,4 @@
-import EventBus from '../utils/event-bus';
-import { set } from '../utils/set';
+import EventBus, { set } from '../utils';
 
 export type Indexed<T = unknown> = {
   [key in string]: T
@@ -16,7 +15,22 @@ class Store extends EventBus {
       flag: 'input',
       users: [],
     },
-    authErrors: {},
+    errors: {
+      login: {
+        login: null,
+        password: null,
+      },
+      signup: {
+        email: null,
+        login: null,
+        first_name: null,
+        second_name: null,
+        display_name: null,
+        phone: null,
+        password: null,
+        password_check: null,
+      },
+    },
     user: {
       edit: false,
       password: false,
