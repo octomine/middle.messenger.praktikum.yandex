@@ -21,6 +21,13 @@ class PopupWrapper extends Block<PopupProps> {
   }
 
   init() {
+    this.children.clsButton = new Button({
+      modifiers: 'close',
+      events: {
+        click: () => ControllerPopup.hide(),
+      },
+    });
+
     const { inputTitle: title } = this.props;
     this.children.input = new LineForm({
       name: 'input',
@@ -64,7 +71,7 @@ class PopupWrapper extends Block<PopupProps> {
     }
   }
 
-  componentDidUpdate(oldProps: Indexed, newProps: Indexed): boolean {
+  componentDidUpdate(oldProps: PopupProps, newProps: PopupProps): boolean {
     const { button: oldButton, users: oldUsers, inputTitle: oldInputTitle } = oldProps;
     const { button, users, inputTitle } = newProps;
     if (button !== oldButton) {

@@ -54,7 +54,7 @@ export default class FormWrapper extends Block<FormProps> {
     return this.list.collect();
   }
 
-  componentDidUpdate(oldProps: Indexed, newProps: Indexed): boolean {
+  componentDidUpdate(oldProps: FormProps, newProps: FormProps): boolean {
     const { fields: oldFields } = oldProps;
     const { fields } = newProps;
     if (!isEqual(oldFields as Indexed, fields as Indexed)) {

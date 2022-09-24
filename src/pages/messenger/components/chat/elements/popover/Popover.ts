@@ -1,7 +1,6 @@
 import { TBlockProps } from '../../../../../../components/common/block';
 import List, { ListProps } from '../../../../../../components/list';
 import LinePopover from '../line-popover';
-import { Indexed } from '../../../../../../store';
 
 interface PopoverProps extends ListProps, TBlockProps {
 
@@ -23,7 +22,7 @@ export default class Popover extends List {
     this.getContent().style.display = 'block';
   }
 
-  componentDidUpdate(oldProps: Indexed, newProps: Indexed): boolean {
+  componentDidUpdate(oldProps: PopoverProps, newProps: PopoverProps): boolean {
     return super.componentDidUpdate(oldProps, newProps);
   }
 }

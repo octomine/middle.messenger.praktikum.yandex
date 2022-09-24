@@ -1,4 +1,3 @@
-import { Indexed } from '../../../../../../store';
 import InputWrapped, { InputWrappedProps } from '../../../../../../components/input-wrapped';
 import Input from '../../../../../../components/input';
 
@@ -40,7 +39,7 @@ export default class LineForm extends InputWrapped {
     super.onBlur();
   }
 
-  componentDidUpdate(oldProps: Indexed, newProps: Indexed): boolean {
+  componentDidUpdate(oldProps: InputWrappedProps, newProps: InputWrappedProps): boolean {
     const { error: oldError } = oldProps;
     const { error, title, placeholder } = newProps;
     if (error !== oldError) {
