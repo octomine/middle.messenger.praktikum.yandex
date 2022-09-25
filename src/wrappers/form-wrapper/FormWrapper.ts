@@ -1,4 +1,5 @@
 import Block, { TBlockProps } from '../../components/common/block';
+import { Indexed } from '../../store/Store';
 
 import Button from '../../components/button';
 import '../../components/label';
@@ -6,12 +7,16 @@ import '../../components/label';
 import ListForm from './components/list-form';
 
 import tmpl from './tmpl.hbs';
+import Router from '../../router/Router';
+import ListCollector from '../../components/list-collector';
+import { isEqual } from '../../utils/is-equal';
 
-interface FormProps extends TBlockProps {
+export interface FormProps extends TBlockProps {
   title: string,
   block: string,
   button: string,
   link: string,
+  errors?: Indexed,
   submit: () => void,
 }
 
@@ -20,29 +25,45 @@ export default class FormWrapper extends Block<FormProps> {
     super(props);
   }
 
-  init() {
-    const { fields, block, button, link, submit } = this.props;
+  get list(): ListCollector {
+    return this.children.list as ListCollector;
+  }
 
-    this.children.list = new ListForm({ fields, block });
+  init() {
+    const {
+      block, button, link, submit, linkPath, fields,
+    } = this.props;
+
+    this.children.list = new ListForm({ block, fields });
     this.children.button = new Button({
       label: button,
       events: {
-        click: () => submit()
-      }
+        click: submit,
+      },
     });
     this.children.link = new Button({
       label: link,
       modifiers: 'link',
+      events: {
+        click: () => Router.go(linkPath),
+      },
     });
   }
 
-  collect() {
-    console.log(this.children.list.collect());
+  submit(): object {
+    return this.list.collect();
+  }
+
+  componentDidUpdate(oldProps: FormProps, newProps: FormProps): boolean {
+    const { fields: oldFields } = oldProps;
+    const { fields } = newProps;
+    if (!isEqual(oldFields as Indexed, fields as Indexed)) {
+      this.list.setProps({ fields });
+    }
+    return super.componentDidUpdate(oldProps, newProps);
   }
 
   render() {
-    const { title: txt, block } = this.props;
-
-    return this.compile(tmpl, { title: { txt }, block });
+    return this.compile(tmpl, this.props);
   }
 }

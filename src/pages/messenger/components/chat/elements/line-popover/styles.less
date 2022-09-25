@@ -1,0 +1,37 @@
+.line_popover {
+  padding: 8px;
+  border-radius: @radiusButton;
+  cursor: pointer;
+
+  &:hover {
+    background: @colorSecondaryLighter;
+  }
+  &:active {
+    transform: translateY(2px);
+  }
+}
+
+.img {
+  width: 22px;
+  height: 22px;
+  margin-right: 15px;
+
+  &-add_user {
+    background: @imageUserAdd;
+  }
+  &-remove_user {
+    background: @imageUserRemove;
+  }
+  &-remove_chat {
+    background: @imageChatRemove;
+  }
+  &-media {
+    background: @imageMedia;
+  }
+  &-file {
+    background: @imageFile;
+  }
+  &-location {
+    background: @imageLocation;
+  }
+}

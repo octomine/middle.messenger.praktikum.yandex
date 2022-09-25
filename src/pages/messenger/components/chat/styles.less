@@ -1,0 +1,37 @@
+@import "./elements/chat-header/styles.less";
+@import "./elements/chat-input/styles.less";
+@import "./elements/line-message/styles.less";
+@import "./elements/line-popover/styles.less";
+
+.chat_sheet {
+  justify-content: space-between;
+  padding: 0 20px;
+  width: 100%;
+}
+
+.chat_sheet__list {
+  .flex_vertical();
+  .justify_end();
+  height: 100%;
+}
+
+.list {
+  &-popover {
+    position: absolute;
+
+    padding: 7px;
+    width: fit-content;
+    border-radius: @radiusContainer;
+    background: @colorInvert;
+    box-shadow: @shadow;
+  }
+  // TODO: подумать, как сделать не таким вот хардкодом
+  &-options {
+    top: 65px;
+    right: 10px;
+  }
+  &-attach {
+    bottom: 65px;
+    left: 321px;
+  }
+}

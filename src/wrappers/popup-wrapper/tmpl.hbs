@@ -1,11 +1,18 @@
-<div class='fv ac jc popup_cover'>
-  <div class='fv ac {{> styles element='plate' modifiers='popup'}}'>
-    {{> label title modifiers=(concat title.modifiers 'popup')}}
-    <div class='fv ac jc popup__content'>
-      {{#if custom}}
-      {{{custom}}}
-      {{else}}
-      {{message}}
+<div class='flex_vertical align_center justify_center {{> styles element='popup_cover' modifiers=(split modifiers)}}'>
+  <div class='flex_vertical align_center {{> styles element='plate' modifiers='popup'}}'>
+    <div class="close_holder">
+      {{{clsButton}}}
+    </div>
+    {{> label txt=title modifiers=(concat title.modifiers 'popup')}}
+    <div class='flex_vertical align_center justify_center popup__content'>
+      {{#if flags.input}}
+      {{{input}}}
+      {{/if}}
+      {{#if flags.list}}
+      {{{list}}}
+      {{/if}}
+      {{#if flags.upload}}
+      {{{upload}}}
       {{/if}}
     </div>
     {{{button}}}

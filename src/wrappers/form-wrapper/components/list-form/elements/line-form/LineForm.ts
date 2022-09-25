@@ -1,26 +1,27 @@
 import InputWrapped, { InputWrappedProps } from '../../../../../../components/input-wrapped';
-import Input from '../../../../../../components/input/Input';
-
-import '../../../../../../components/label'
-import '../../../../../../components/common/styles'
+import Input from '../../../../../../components/input';
 
 import tmpl from './tmpl.hbs';
+import ErrorHolder from '../error-holder';
 
 export default class LineForm extends InputWrapped {
   constructor(props: InputWrappedProps) {
-    super(props)
+    super(props);
   }
 
   init() {
     const { value, placeholder, isPassword } = this.props;
     this.children.input = new Input({
-      value, placeholder, isPassword,
+      value,
+      placeholder,
+      isPassword,
       block: 'form',
       events: {
         focus: () => this.onFocus(),
-        blur: () => this.onBlur()
-      }
+        blur: () => this.onBlur(),
+      },
     });
+    this.children.error = new ErrorHolder({});
   }
 
   get title(): HTMLElement {
@@ -36,6 +37,17 @@ export default class LineForm extends InputWrapped {
     this.title.classList.toggle('disguise', !(value && value.length > 0));
 
     super.onBlur();
+  }
+
+  componentDidUpdate(oldProps: InputWrappedProps, newProps: InputWrappedProps): boolean {
+    const { error: oldError } = oldProps;
+    const { error, title, placeholder } = newProps;
+    if (error !== oldError) {
+      this.children.error.setProps({ error });
+    }
+    this.children.input.setProps({ title, placeholder });
+
+    return super.componentDidUpdate(oldProps, newProps);
   }
 
   render() {
