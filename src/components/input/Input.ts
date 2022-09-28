@@ -15,7 +15,7 @@ export default class Input extends Block<InputProps> {
   }
 
   get value(): string {
-    return (this._element as HTMLInputElement).value;
+    return (this.element as HTMLInputElement).value;
   }
 
   render() {
