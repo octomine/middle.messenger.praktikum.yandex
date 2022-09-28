@@ -1,10 +1,10 @@
 import Block, { TBlockProps } from '../common/block';
+import { TFieldProps } from '../../consts';
 import { Indexed } from '../../store/Store';
 import '../common/styles';
 
 import tmpl from './tmpl.hbs';
 import { isEqual } from '../../utils/is-equal';
-import { InputWrappedProps } from '../input-wrapped';
 
 export interface ListProps extends TBlockProps {
   fields?: Record<string, string | boolean>[],
@@ -29,7 +29,7 @@ export default class List extends Block<ListProps> {
     return fields.filter(({ name }) => name === fieldName)[0]; // name у всех уникальный
   }
 
-  getFieldProps(fieldName: string): InputWrappedProps {
+  getFieldProps(fieldName: string): TFieldProps {
     const { fields } = this.props;
     return fields.filter(({ name }) => name === fieldName)[0]; // name у всех уникальный
   }

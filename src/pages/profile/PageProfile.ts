@@ -13,17 +13,19 @@ import Avatar from './components/avatar';
 import tmpl from './tmpl.hbs';
 import ControllerAuth from '../../controllers/ControllerAuth';
 import ControllerUser from '../../controllers/ControllerUser';
-import { isEqual } from '../../utils/is-equal';
+import { isEqual, PlainObject } from '../../utils/is-equal';
 import ControllerPopup from '../../controllers/ControllerPopup';
 import ControllerResources from '../../controllers/ControllerResources';
 
 interface SettingsProps extends TBlockProps {
   edit: boolean;
   password: boolean;
+  avatar?: string;
+  settings?: Record<string, string | boolean>[];
 }
 
 class PageProfile extends Block<SettingsProps> {
-  constructor(props: SettingsProps = { edit: false, password: false, title: 'aaa' }) {
+  constructor(props: SettingsProps = { edit: false, password: false }) {
     super(props);
   }
 
@@ -120,7 +122,7 @@ class PageProfile extends Block<SettingsProps> {
   componentDidUpdate(oldProps: SettingsProps, newProps: SettingsProps): boolean {
     const { settings: oldFields } = oldProps;
     const { settings: fields } = newProps;
-    if (!isEqual(oldFields as Indexed, fields as Indexed)) {
+    if (!isEqual(oldFields as PlainObject, fields as PlainObject)) {
       this.children.list.setProps({ fields });
       this.children.chageSettings.setProps({ fields });
     }

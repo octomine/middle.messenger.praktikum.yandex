@@ -12,7 +12,11 @@ import Upload from './components/upload';
 const FLAGS = ['input', 'list', 'upload', 'info'];
 
 interface PopupProps extends TBlockProps {
-  button: string,
+  flags: Record<string, boolean>;
+  inputTitle: string;
+  button: string;
+  action: (val?: string | FormData) => void;
+  onUser: (id: string) => void;
 }
 
 class PopupWrapper extends Block<PopupProps> {
@@ -64,7 +68,7 @@ class PopupWrapper extends Block<PopupProps> {
     }
   }
 
-  onUser(id: string) {
+  onUser(id: string): void {
     const { onUser } = this.props;
     if (onUser) {
       onUser(id);
@@ -99,7 +103,7 @@ const withPopup = connect((state: Indexed): Indexed => {
   const { popup } = state;
   const {
     isShown, flag, title, inputTitle, button, action, onUser, users,
-  } = popup;
+  } = popup as PopupProps;
   const modifiers = isShown ? '' : 'hidden';
   const flags = FLAGS.reduce((res, name) => ({ ...res, [name]: name === flag }), {});
   return {

@@ -3,8 +3,12 @@ import Avatar from '../../../../components/avatar';
 import tmpl from './tmpl.hbs';
 import { HTTPTransport } from '../../../../services/network';
 
-export default class LineUser extends Block<TBlockProps> {
-  constructor(props: TBlockProps) {
+export interface LieUserProps extends TBlockProps {
+  id: string;
+}
+
+export default class LineUser extends Block<LieUserProps> {
+  constructor(props: LieUserProps) {
     super(props);
   }
 
@@ -20,7 +24,7 @@ export default class LineUser extends Block<TBlockProps> {
     });
   }
 
-  componentDidUpdate(oldProps: TBlockProps, newProps: TBlockProps): boolean {
+  componentDidUpdate(oldProps: LieUserProps, newProps: LieUserProps): boolean {
     this.children.avatar.setProps({ img: `${HTTPTransport.API_URL}/resources/${newProps.avatar}` });
     return super.componentDidUpdate(oldProps, newProps);
   }

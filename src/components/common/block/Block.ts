@@ -11,7 +11,7 @@ export interface TBlockProps extends Record<string, unknown> {
   styles?: string,
   events?: Record<string, (...args: unknown[]) => void>,
   children?: Record<string, Block<unknown>>
-  setProps?: (newProps: object) => void,
+  setProps?: (newProps: Indexed) => void,
 }
 
 export default class Block<P> {

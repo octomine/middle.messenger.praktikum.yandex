@@ -7,7 +7,7 @@ import Search from './elements/search';
 
 import tmpl from './tmpl.hbs';
 import { connect, Indexed } from '../../../../store';
-import ControllerChats from '../../../../controllers/ControllerChats';
+import ControllerChats, { CurrentChatData } from '../../../../controllers/ControllerChats';
 import ControllerResources from '../../../../controllers/ControllerResources';
 import { getTime } from '../../../../utils/time';
 import Button from '../../../../components/button';
@@ -48,7 +48,7 @@ export class ListChats extends List {
     return line;
   }
 
-  getCurrentChat(): Indexed {
+  getCurrentChat(): CurrentChatData {
     const { fields } = this.props;
     return fields.filter(({ id }) => id === this.selected)[0]; // id все уникальные
   }
@@ -72,7 +72,7 @@ export class ListChats extends List {
 }
 
 const withChats = connect((state: Indexed) => {
-  const { chats } = state;
+  const { chats }: Record<string, CurrentChatData[]> = state;
   const fields = chats.map(({
     id, avatar, title, last_message, unread_count: unread,
   }) => ({
