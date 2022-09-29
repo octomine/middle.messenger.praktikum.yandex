@@ -25,11 +25,15 @@ export default class ChatHeader extends Block<ChatHeaderProps> {
     });
   }
 
-  componentDidUpdate(oldProps: TBlockProps, newProps: TBlockProps): boolean {
+  get avatar(): Avatar {
+    return this.children.avatart as Avatar;
+  }
+
+  componentDidUpdate(oldProps: ChatHeaderProps, newProps: ChatHeaderProps): boolean {
     const { img: oldImg } = oldProps;
     const { img } = newProps;
     if (img !== oldImg) {
-      this.children.avatar.setProps({ img });
+      this.avatar.setProps({ img });
     }
     return super.componentDidUpdate(oldProps, newProps);
   }

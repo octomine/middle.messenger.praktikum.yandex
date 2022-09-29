@@ -7,7 +7,7 @@ import tmpl from './tmpl.hbs';
 import { isEqual } from '../../utils/is-equal';
 
 export interface ListProps extends TBlockProps {
-  fields?: Record<string, string | boolean>[],
+  fields?: Record<string, any>[],
 }
 
 export default class List extends Block<ListProps> {
@@ -17,14 +17,14 @@ export default class List extends Block<ListProps> {
 
   init() {
     const { fields } = this.props;
-    this.children.fields = fields.map((field: unknown) => this.line(field));
+    this.children.fields = fields?.map((field: Indexed) => this.line(field));
   }
 
-  line(field: Indexed): Block<unknown> | null {
+  line(field: Indexed): Block<any> | null {
     return null;
   }
 
-  getField(fieldName: string): Block<unknown> {
+  getField(fieldName: string): Block<any> {
     const { fields } = this.children;
     return fields.filter(({ name }) => name === fieldName)[0]; // name у всех уникальный
   }

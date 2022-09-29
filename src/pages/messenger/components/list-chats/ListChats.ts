@@ -1,5 +1,3 @@
-import Block from '../../../../components/common/block';
-
 import List, { ListProps } from '../../../../components/list';
 
 import LineChat, { LineChatProps } from './elements/line-chat/LineChat';
@@ -40,7 +38,7 @@ export class ListChats extends List {
     super.init();
   }
 
-  line(field: LineChatProps): Block<unknown> {
+  line(field: LineChatProps): LineChat {
     const events = {
       click: () => this.select(line.id),
     };
@@ -53,9 +51,9 @@ export class ListChats extends List {
     return fields.filter(({ id }) => id === this.selected)[0]; // id все уникальные
   }
 
-  select(id: string) {
+  select(id: string | null) {
     const { fields } = this.children;
-    fields.forEach((field: LineChat) => {
+    fields?.forEach((field) => {
       if (field.id === id) {
         field.isSelected = true;
         this.selected = field.chatID;

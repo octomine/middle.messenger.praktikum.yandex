@@ -5,16 +5,19 @@ import { merge } from '../../../utils/merge';
 import { Indexed } from '../../../store/Store';
 import { isEqual } from '../../../utils/is-equal';
 
-export interface TBlockProps extends Record<string, unknown> {
+export interface TBlockProps extends Record<string, any> {
   block?: string,
   modifiers?: string,
   styles?: string,
-  events?: Record<string, (...args: unknown[]) => void>,
-  children?: Record<string, Block<unknown>>
-  setProps?: (newProps: Indexed) => void,
+  events?: Record<string, (...args: any[]) => void>,
+  children?: Record<string, Block>
 }
 
-export default class Block<P> {
+export type TChildren = Record<string, Block<any>> & {
+  fields?: Block<any>[];
+};
+
+export default class Block<P extends TBlockProps = {}> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -26,13 +29,13 @@ export default class Block<P> {
 
   protected props: P;
 
-  protected children: Record<string, Block<unknown> | Array<Record<string, Block<unknown>>>>;
+  protected children: TChildren;
 
   private eventBus: () => EventBus;
 
   private _element: HTMLElement | null = null;
 
-  constructor(propsAndChildren: P & TBlockProps) {
+  constructor(propsAndChildren: P) {
     const eventBus = new EventBus();
 
     const { props, children } = this._getChildrenAndProps(propsAndChildren);
@@ -52,8 +55,8 @@ export default class Block<P> {
   }
 
   private _getChildrenAndProps(childrenAndProps: P & TBlockProps) {
-    const children = {};
-    const props = {};
+    const children: Record<string, Block<any>> = {};
+    const props: P = {};
 
     Object.entries(childrenAndProps).forEach(([key, value]) => {
       if (value instanceof Block) {
@@ -82,7 +85,7 @@ export default class Block<P> {
       deleteProperty: () => {
         throw 'Нет прав';
       },
-    });
+    }) as P;
   }
 
   private _registerEvents(eventBus: EventBus) {
@@ -119,7 +122,7 @@ export default class Block<P> {
   private _componentDidMount() {
     this.componentDidMount();
 
-    const dispatchCDMInner = (children: Block<unknown>[]): void => {
+    const dispatchCDMInner = (children: Block<any>[]): void => {
       children.forEach((child) => {
         if (Array.isArray(child)) {
           dispatchCDMInner(child);
@@ -128,7 +131,7 @@ export default class Block<P> {
         }
       });
     };
-    dispatchCDMInner(Object.values(this.children));
+    dispatchCDMInner(Object.values(this.children) as Block<any>[]);
   }
 
   private _componentDidUpdate(oldProps: P, newProps: P) {
@@ -139,7 +142,7 @@ export default class Block<P> {
 
   private _render() {
     const newElement: HTMLElement = this.render().firstElementChild;
-    newElement.setAttribute('data-id', this.id);
+    newElement.setAttribute('data-id', this.id as string);
 
     this._removeEvents();
 
@@ -184,7 +187,7 @@ export default class Block<P> {
 
   protected compile(tmpl: TemplateDelegate, props: P) {
     const stub = (id: string | null): string => `<div data-id='${id}'></div>`;
-    const replaceStub = (el: DocumentFragment, block: Block<unknown>): void => {
+    const replaceStub = (el: DocumentFragment, block: Block<any>): void => {
       const { id } = block;
       const stub = el.querySelector(`[data-id='${id}']`);
       if (stub) {
@@ -208,7 +211,7 @@ export default class Block<P> {
       if (Array.isArray(child)) {
         child.forEach((inner) => replaceStub(el, inner));
       }
-      replaceStub(el, child);
+      replaceStub(el, child as Block<any>);
     });
 
     return el;

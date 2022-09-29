@@ -1,1 +1,1 @@
-export { default, ListCollectorProps } from './ListCollector';
+export { default } from './ListCollector';

@@ -1,6 +1,6 @@
 import List, { ListProps } from '../../../../components/list';
 import LineUser from '../line-user';
-import { LieUserProps } from '../line-user/LineUser';
+import { LineUserProps } from '../line-user/LineUser';
 
 export interface ListUsersProps extends ListProps {
   onUser: (id: string) => void;
@@ -11,7 +11,7 @@ export default class ListUsers extends List {
     super(props);
   }
 
-  line(field: LieUserProps): LineUser {
+  line(field: LineUserProps): LineUser {
     const { onUser } = this.props as ListUsersProps;
     const line: LineUser = new LineUser({
       ...field,

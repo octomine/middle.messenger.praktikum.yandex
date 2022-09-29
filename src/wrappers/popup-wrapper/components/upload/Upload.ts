@@ -2,6 +2,10 @@ import Block, { TBlockProps } from '../../../../components/common/block';
 
 import tmpl from './tmpl.hbs';
 
+export interface UploadProps extends TBlockProps {
+  formData: FormData;
+}
+
 export default class Upload extends Block<TBlockProps> {
   constructor(props: TBlockProps) {
     super(props);
@@ -9,16 +13,13 @@ export default class Upload extends Block<TBlockProps> {
 
   get formData(): FormData | null {
     const input = this.element as HTMLInputElement;
-    if (input) {
-      const fd = new FormData();
-      fd.append('avatar', input.files[0]);
-      return fd;
-    }
-    return null;
+    const fd = new FormData();
+    fd.append('avatar', input.files[0]);
+    return fd;
   }
 
   render() {
     return this.compile(tmpl, this.props);
   }
 }
-HTMLInputElement
+HTMLInputElement;

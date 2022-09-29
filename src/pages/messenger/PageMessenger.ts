@@ -3,7 +3,7 @@ import Router from '../../router/Router';
 
 import Button from '../../components/button';
 import ListChats from './components/list-chats';
-import Chat from './components/chat';
+import ChatHOC, { Chat } from './components/chat';
 
 import tmpl from './tmpl.hbs';
 
@@ -26,15 +26,19 @@ export default class PageMessenger extends Block<TBlockProps> {
       },
     });
     this.children.chats = new ListChats({});
-    this.children.chat = new Chat({
+    this.children.chat = new ChatHOC({
       events: {
         mousedown: this.hidePopover.bind(this),
       },
     });
   }
 
+  get chat(): Chat {
+    return this.children.chat as Chat;
+  }
+
   hidePopover() {
-    this.children.chat.hidePopovers();
+    this.chat.hidePopovers();
   }
 
   hide() {

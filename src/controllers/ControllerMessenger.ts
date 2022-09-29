@@ -1,6 +1,13 @@
 import { SocketIO } from '../services/socket-io';
 import Store, { Indexed } from '../store';
 
+export type TMessage = {
+  type: string;
+  user_id: string;
+  content: Indexed;
+  time: string;
+};
+
 export class ControllerMessenger {
   private socket?: SocketIO;
 
@@ -20,7 +27,7 @@ export class ControllerMessenger {
     this.socket?.send(msg, 'message');
   }
 
-  recieveMessage(msg: Indexed | Indexed[]) {
+  recieveMessage(msg: TMessage | TMessage[]) {
     const { type } = msg;
     switch (type) {
       case 'message':
@@ -31,7 +38,7 @@ export class ControllerMessenger {
       case 'pong':
         break;
       default:
-        const messages = msg.map(({ user_id, content, time }) => {
+        const messages = msg.map(({ user_id, content, time }: TMessage) => {
           const modifiers = user_id === Store.getUserId() ? 'my' : '';
           return { content, time, modifiers };
         }).reverse();

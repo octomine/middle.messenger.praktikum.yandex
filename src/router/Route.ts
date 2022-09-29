@@ -10,7 +10,7 @@ export default class Route {
 
   _blockClass: any;
 
-  _block: Block<unknown> | null;
+  _block: Block<any> | null;
 
   _props: RouteProps;
 

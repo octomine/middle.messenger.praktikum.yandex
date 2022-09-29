@@ -1,6 +1,7 @@
 import EventBus, { set } from '../utils';
+import { CurrentChatData } from '../controllers/ControllerChats';
 
-export type Indexed<T = unknown> = {
+export type Indexed<T = any> = {
   [key in string]: T
 };
 
@@ -55,7 +56,7 @@ class Store extends EventBus {
   }
 
   public getChatId(): string {
-    const { currentChat: { id } } = this.getState();
+    const { currentChat: { id } }: Indexed<CurrentChatData> = this.getState();
     return id;
   }
 

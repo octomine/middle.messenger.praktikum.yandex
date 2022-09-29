@@ -12,7 +12,7 @@ import Popover from './elements/popover/Popover';
 import tmpl from './tmpl.hbs';
 import ControllerChats from '../../../../controllers/ControllerChats';
 
-class Chat extends Block<TBlockProps> {
+export class Chat extends Block<TBlockProps> {
   private needToHidePopover: boolean = false;
 
   constructor(props: TBlockProps) {
@@ -82,6 +82,10 @@ class Chat extends Block<TBlockProps> {
     });
   }
 
+  get header(): ChatHeader {
+    return this.children.header as ChatHeader;
+  }
+
   showPopover(name: string): void {
     const popover = this.children[`popover${name}`] as Popover;
     if (popover) {
@@ -108,7 +112,7 @@ class Chat extends Block<TBlockProps> {
 
   componentDidUpdate(oldProps: TBlockProps, newProps: TBlockProps): boolean {
     if (!isEqual(oldProps, newProps)) {
-      this.children.header.setProps(newProps);
+      this.header.setProps(newProps);
     }
     return super.componentDidUpdate(oldProps, newProps);
   }

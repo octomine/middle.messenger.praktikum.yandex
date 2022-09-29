@@ -46,10 +46,10 @@ class ControllerPopup {
       onUser: (id: string) => ControllerChats.removeUsers({ users: [id], chatId: Store.getChatId() })
         .then(() => this.hide()),
     });
-    ControllerChats.getUsers().then((users) => this.showUsers(users));
+    ControllerChats.getUsers().then((users) => this.showUsers(users as any[]));
   }
 
-  showUsers(users) {
+  showUsers(users: any[]) {
     Store.set('popup', {
       users,
     });
@@ -76,7 +76,7 @@ class ControllerPopup {
       inputTitle: 'Название чата',
       button: 'Создать',
       action: (title: string) => ControllerChats.createChat({ title })
-        .then((id) => ControllerChats.selectChat(id))
+        .then((id) => ControllerChats.selectChat({ id }))
         .then(() => ControllerChats.getChats({}))
         .then(() => this.hide()),
     });

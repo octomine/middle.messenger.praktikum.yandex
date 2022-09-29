@@ -15,10 +15,10 @@ export default class ListCollector extends List {
     const result = fields.reduce((res: object, field: InputWrapped) => {
       field.setProps({ error: null });
       const { name, value } = field;
-      const fieldProps = this.getFieldProps(name);
+      const fieldProps = this.getFieldProps(name) as InputWrappedProps;
       const {
         isRequired, isEqual, validated, errorSpace,
-      }: InputWrappedProps = fieldProps;
+      } = fieldProps;
       if (!value && isRequired) {
         ControllerInput.setError(`${errorSpace}.${field.name}`, InputErrors.IsRequired);
         error = true;
@@ -27,7 +27,7 @@ export default class ListCollector extends List {
         ControllerInput.validate(fieldProps);
       }
       if (isEqual) {
-        const contestee = this.getField(isEqual);
+        const contestee = this.getField(isEqual) as InputWrapped;
         if (contestee.value !== value) {
           ControllerInput.setError(`${errorSpace}.${contestee.name}`, InputErrors.NotEqual);
           ControllerInput.setError(`${errorSpace}.${field.name}`, InputErrors.NotEqual);

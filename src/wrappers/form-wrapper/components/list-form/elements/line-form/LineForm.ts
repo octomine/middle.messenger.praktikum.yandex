@@ -24,17 +24,25 @@ export default class LineForm extends InputWrapped {
     this.children.error = new ErrorHolder({});
   }
 
-  get title(): HTMLElement {
-    return this._element.querySelector('.input__label');
+  get title(): HTMLElement | null | undefined {
+    return this.element?.querySelector('.input__label');
+  }
+
+  get input(): Input {
+    return this.children.input as Input;
+  }
+
+  get error(): ErrorHolder {
+    return this.children.error as ErrorHolder;
   }
 
   onFocus() {
-    this.title.classList.toggle('disguise', false);
+    this.title?.classList.toggle('disguise', false);
   }
 
   onBlur() {
     const { value } = this.children.input as Input;
-    this.title.classList.toggle('disguise', !(value && value.length > 0));
+    this.title?.classList.toggle('disguise', !(value && value.length > 0));
 
     super.onBlur();
   }
@@ -43,9 +51,9 @@ export default class LineForm extends InputWrapped {
     const { error: oldError } = oldProps;
     const { error, title, placeholder } = newProps;
     if (error !== oldError) {
-      this.children.error.setProps({ error });
+      this.error.setProps({ error });
     }
-    this.children.input.setProps({ title, placeholder });
+    this.input.setProps({ title, placeholder });
 
     return super.componentDidUpdate(oldProps, newProps);
   }

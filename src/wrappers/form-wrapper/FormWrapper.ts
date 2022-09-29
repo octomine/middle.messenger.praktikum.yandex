@@ -12,13 +12,14 @@ import ListCollector from '../../components/list-collector';
 import { isEqual } from '../../utils/is-equal';
 
 export interface FormProps extends TBlockProps {
-  title: string,
-  block: string,
-  button: string,
-  link: string,
-  errors?: Indexed,
-  submit: () => void,
+  title: string;
+  block: string;
+  button: string;
+  link: string;
+  errors?: Indexed;
+  submit: () => void;
   linkPath: string;
+  fields?: Record<string, any>[];
 }
 
 export default class FormWrapper extends Block<FormProps> {
@@ -33,7 +34,7 @@ export default class FormWrapper extends Block<FormProps> {
   init() {
     const {
       block, button, link, submit, linkPath, fields,
-    } = this.props;
+    }: FormProps = this.props;
 
     this.children.list = new ListForm({ block, fields });
     this.children.button = new Button({
