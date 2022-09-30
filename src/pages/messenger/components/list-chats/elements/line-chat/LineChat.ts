@@ -13,23 +13,12 @@ export interface LineChatProps extends TBlockProps {
 }
 
 export default class LineChat extends Block<LineChatProps> {
-  private _isSelected: boolean = false;
-
   constructor(props: LineChatProps) {
     super(props);
   }
 
   get chatID(): string {
     return this.props.id;
-  }
-
-  set isSelected(val: boolean) {
-    this._isSelected = val;
-    this.element?.querySelector('.chat').classList.toggle('chat-selected', val);
-  }
-
-  get isSelected(): boolean {
-    return this._isSelected;
   }
 
   init() {

@@ -9,18 +9,18 @@ export default class ListCollector extends List {
   }
 
   // TODO: отнести как можно больше в контроллер
-  collect(): object {
+  collect(): Record<string, string> | undefined {
     let error = false;
     const { fields } = this.children;
-    const result = fields.reduce((res: object, field: InputWrapped) => {
+    const result = fields?.reduce((res, field) => {
       field.setProps({ error: null });
-      const { name, value } = field;
+      const { name, value } = field as InputWrapped;
       const fieldProps = this.getFieldProps(name) as InputWrappedProps;
       const {
         isRequired, isEqual, validated, errorSpace,
       } = fieldProps;
       if (!value && isRequired) {
-        ControllerInput.setError(`${errorSpace}.${field.name}`, InputErrors.IsRequired);
+        ControllerInput.setError(`${errorSpace}.${name}`, InputErrors.IsRequired);
         error = true;
       }
       if (value && validated) {
@@ -30,12 +30,12 @@ export default class ListCollector extends List {
         const contestee = this.getField(isEqual) as InputWrapped;
         if (contestee.value !== value) {
           ControllerInput.setError(`${errorSpace}.${contestee.name}`, InputErrors.NotEqual);
-          ControllerInput.setError(`${errorSpace}.${field.name}`, InputErrors.NotEqual);
+          ControllerInput.setError(`${errorSpace}.${name}`, InputErrors.NotEqual);
           error = true;
         }
       }
       return value ? { ...res, [name]: value } : res;
-    }, {});
+    }, {} as Record<string, string>);
     return error ? {} : result;
   }
 }

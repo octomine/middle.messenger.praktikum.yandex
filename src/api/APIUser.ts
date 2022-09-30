@@ -1,7 +1,7 @@
 import APIBase from './APIBase';
 import { SignupData } from './APIAuth';
 
-export interface PasswordData {
+export interface PasswordData extends Record<string, string> {
   oldPassword: string;
   newPassword: string;
 }

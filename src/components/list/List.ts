@@ -1,5 +1,4 @@
 import Block, { TBlockProps } from '../common/block';
-import { TFieldProps } from '../../consts';
 import { Indexed } from '../../store/Store';
 import '../common/styles';
 
@@ -24,14 +23,14 @@ export default class List extends Block<ListProps> {
     return null;
   }
 
-  getField(fieldName: string): Block<any> {
+  getField(fieldName: string): Block<any> | undefined {
     const { fields } = this.children;
-    return fields.filter(({ name }) => name === fieldName)[0]; // name у всех уникальный
+    return fields?.filter(({ name }) => name === fieldName)[0]; // name у всех уникальный
   }
 
-  getFieldProps(fieldName: string): TFieldProps {
+  getFieldProps(fieldName: string): Record<string, any> | undefined {
     const { fields } = this.props;
-    return fields.filter(({ name }) => name === fieldName)[0]; // name у всех уникальный
+    return fields?.filter(({ name }) => name === fieldName)[0]; // name у всех уникальный
   }
 
   componentDidUpdate({ fields: oldFields }: Indexed, { fields }: Indexed): boolean {

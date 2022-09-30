@@ -17,7 +17,7 @@ export type TChildren = Record<string, Block<any>> & {
   fields?: Block<any>[];
 };
 
-export default class Block<P extends TBlockProps = {}> {
+export default class Block<P extends Record<string, any> = any> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -54,9 +54,9 @@ export default class Block<P extends TBlockProps = {}> {
     return this._element;
   }
 
-  private _getChildrenAndProps(childrenAndProps: P & TBlockProps) {
+  private _getChildrenAndProps(childrenAndProps: P): { props: P, children: Record<string, Block> } {
     const children: Record<string, Block<any>> = {};
-    const props: P = {};
+    const props: Record<string, unknown> = {};
 
     Object.entries(childrenAndProps).forEach(([key, value]) => {
       if (value instanceof Block) {
@@ -66,18 +66,18 @@ export default class Block<P extends TBlockProps = {}> {
       }
     });
 
-    return { props, children };
+    return { props: props as P, children };
   }
 
-  private _makePropsProxy(props: TBlockProps) {
+  private _makePropsProxy(props: P) {
     return new Proxy(props, {
-      get: (target: object, prop: string) => {
+      get: (target, prop: string) => {
         const value = target[prop];
         return typeof value === 'function' ? value.bind(target) : value;
       },
-      set: (target: object, prop: string, value: unknown) => {
+      set: (target, prop: string, value) => {
         const old = { ...target };
-        target[prop] = value;
+        target[prop as keyof P] = value;
 
         this.eventBus().emit(Block.EVENTS.FLOW_CDU, old, { ...target });
         return true;
@@ -85,7 +85,7 @@ export default class Block<P extends TBlockProps = {}> {
       deleteProperty: () => {
         throw 'Нет прав';
       },
-    }) as P;
+    });
   }
 
   private _registerEvents(eventBus: EventBus) {
@@ -141,12 +141,14 @@ export default class Block<P extends TBlockProps = {}> {
   }
 
   private _render() {
-    const newElement: HTMLElement = this.render().firstElementChild;
-    newElement.setAttribute('data-id', this.id as string);
+    const newElement = this.render().firstElementChild as HTMLElement;
+    newElement?.setAttribute('data-id', this.id as string);
 
     this._removeEvents();
 
-    this._element?.replaceWith(newElement);
+    if (this._element && newElement) {
+      this._element.replaceWith(newElement);
+    }
     this._element = newElement;
 
     this._addEvents();
@@ -169,11 +171,11 @@ export default class Block<P extends TBlockProps = {}> {
   }
 
   public show() {
-    this.getContent().style.display = 'flex';
+    this.getContent()!.style.display = 'flex';
   }
 
   public hide() {
-    this.getContent().style.display = 'none';
+    this.getContent()!.style.display = 'none';
   }
 
   // переопределяется в наследниках
@@ -185,13 +187,13 @@ export default class Block<P extends TBlockProps = {}> {
     return !isEqual(oldProps, newProps);
   }
 
-  protected compile(tmpl: TemplateDelegate, props: P) {
+  protected compile(tmpl: TemplateDelegate, props: any) {
     const stub = (id: string | null): string => `<div data-id='${id}'></div>`;
     const replaceStub = (el: DocumentFragment, block: Block<any>): void => {
       const { id } = block;
       const stub = el.querySelector(`[data-id='${id}']`);
       if (stub) {
-        stub.replaceWith(block.getContent());
+        stub.replaceWith(block.getContent()!);
       }
     };
 

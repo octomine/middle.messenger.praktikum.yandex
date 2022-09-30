@@ -43,7 +43,6 @@ export default class PageMessenger extends Block<TBlockProps> {
 
   hide() {
     ControllerMessenger.close();
-    super.hide();
   }
 
   render() {

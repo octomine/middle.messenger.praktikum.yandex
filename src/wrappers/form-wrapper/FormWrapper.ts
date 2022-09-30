@@ -52,7 +52,7 @@ export default class FormWrapper extends Block<FormProps> {
     });
   }
 
-  submit(): object {
+  submit(): Record<string, string> | undefined {
     return this.list.collect();
   }
 

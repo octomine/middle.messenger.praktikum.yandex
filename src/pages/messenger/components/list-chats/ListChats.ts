@@ -55,10 +55,10 @@ export class ListChats extends List {
     const { fields } = this.children;
     fields?.forEach((field) => {
       if (field.id === id) {
-        field.isSelected = true;
+        field.setProps({ modifiers: 'selected' });
         this.selected = field.chatID;
       } else {
-        field.isSelected = false;
+        field.setProps({ modifiers: '' });
       }
     });
     ControllerChats.selectChat(this.getCurrentChat());
