@@ -48,7 +48,7 @@ export default class List extends Block<ListProps> {
           field.hide();
         }
       } else {
-        this.children.fields.push(this.line(fields[i]));
+        this.children?.fields?.push(this.line(fields[i]));
       }
     }
     return true;

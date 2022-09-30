@@ -10,6 +10,17 @@ export interface FindUserData {
   login: string;
 }
 
+export interface UserProps {
+  id: string;
+  first_name: string;
+  second_name: string;
+  display_name: string;
+  login: string;
+  email: string;
+  phone: string;
+  avatar: string;
+}
+
 export class APIUser extends APIBase {
   constructor() {
     super('/user');
@@ -31,7 +42,7 @@ export class APIUser extends APIBase {
     return this.http.get(`/${id}`);
   }
 
-  search(data: FindUserData) {
+  search(data: FindUserData): Promise<UserProps[]> {
     return this.http.post('/search', data);
   }
 

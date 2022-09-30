@@ -19,6 +19,8 @@ import ControllerResources from '../../controllers/ControllerResources';
 import { SignupData } from '../../api/APIAuth';
 import { PasswordData } from '../../api/APIUser';
 
+import '../../components/label';
+
 interface SettingsProps extends TBlockProps {
   edit: boolean;
   password: boolean;

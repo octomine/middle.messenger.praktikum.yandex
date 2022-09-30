@@ -1,6 +1,7 @@
 import Store from '../store';
 import ControllerUser from './ControllerUser';
 import ControllerChats from './ControllerChats';
+import { UserProps } from '../api/APIUser';
 
 class ControllerPopup {
   constructor() {
@@ -17,7 +18,7 @@ class ControllerPopup {
       action: (login: string) => ControllerUser.search({ login }).then((data) => {
         const users = data.map(({
           id, avatar, login, display_name, first_name, second_name,
-        }) => ({
+        }: UserProps) => ({
           avatar,
           id,
           login: display_name || login,

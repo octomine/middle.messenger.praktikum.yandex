@@ -1,6 +1,8 @@
 import InputWrapped, { InputWrappedProps } from '../../../../../../components/input-wrapped';
 import Input from '../../../../../../components/input';
 
+import '../../../../../../components/label';
+
 import tmpl from './tmpl.hbs';
 import ErrorHolder from '../error-holder';
 
