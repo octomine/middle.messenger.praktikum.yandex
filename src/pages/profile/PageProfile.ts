@@ -169,4 +169,4 @@ const withUser = connect((state: Indexed) => {
   };
 });
 
-export default withUser(PageProfile);
+export default withUser(PageProfile as typeof Block);

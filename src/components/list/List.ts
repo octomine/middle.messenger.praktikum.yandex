@@ -5,6 +5,10 @@ import '../common/styles';
 import tmpl from './tmpl.hbs';
 import { isEqual } from '../../utils/is-equal';
 
+export interface LineBase {
+  name: string;
+}
+
 export interface ListProps extends TBlockProps {
   fields: Record<string, any>[],
 }
@@ -16,11 +20,11 @@ export default class List extends Block<ListProps> {
 
   init() {
     const { fields } = this.props;
-    this.children.fields = fields?.map((field: Indexed) => this.line(field));
+    this.children.fields = fields?.map((field: Record<string, any>) => this.line(field));
   }
 
-  line(field: Indexed): Block<any> | null {
-    return null;
+  line(field: Indexed): Block<any> {
+    return new Block(field);
   }
 
   getField(fieldName: string): Block<any> | undefined {

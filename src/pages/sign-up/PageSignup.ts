@@ -36,7 +36,7 @@ export default class PageSignup extends Block<TBlockProps> {
       linkPath: '/',
     };
 
-    this.children.form = new (withRegistration(FormWrapper))(ctx);
+    this.children.form = new (withRegistration(FormWrapper as typeof Block))(ctx);
   }
 
   submit() {

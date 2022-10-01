@@ -127,4 +127,4 @@ const withPopup = connect((state: Indexed<PopupProps>): PopupProps => {
   };
 });
 
-export default withPopup(PopupWrapper);
+export default withPopup(PopupWrapper as typeof Block);

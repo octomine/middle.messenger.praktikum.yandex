@@ -10,6 +10,7 @@ import ControllerResources from '../../../../controllers/ControllerResources';
 import { getTime } from '../../../../utils/time';
 import Button from '../../../../components/button';
 import ControllerPopup from '../../../../controllers/ControllerPopup';
+import Block from '../../../../components/common/block';
 
 export class ListChats extends List {
   private _selected: string | null = null;
@@ -85,4 +86,4 @@ const withChats = connect((state: Indexed) => {
   return { fields };
 });
 
-export default withChats(ListChats);
+export default withChats(ListChats as typeof Block);

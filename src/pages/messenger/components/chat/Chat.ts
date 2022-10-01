@@ -127,4 +127,4 @@ const withChat = connect((state: Indexed) => {
   return { id, img, title };
 });
 
-export default withChat(Chat);
+export default withChat(Chat as typeof Block);
