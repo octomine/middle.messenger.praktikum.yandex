@@ -10,7 +10,6 @@ export interface TBlockProps extends Record<string, any> {
   modifiers?: string,
   styles?: string,
   events?: Record<string, (...args: any[]) => void>,
-  children?: Record<string, Block>
 }
 
 export type TChildren = Record<string, Block<any>> & {
@@ -23,7 +22,7 @@ export default class Block<P extends Record<string, any> = any> {
     FLOW_CDM: 'flow:component-did-mount',
     FLOW_CDU: 'flow:component-did-update',
     FLOW_RENDER: 'flow:render',
-  };
+  } as const;
 
   public id: string | null = null;
 

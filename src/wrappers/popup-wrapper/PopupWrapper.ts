@@ -115,7 +115,7 @@ class PopupWrapper extends Block<PopupProps> {
   }
 }
 
-const withPopup = connect((state: Indexed): PopupProps => {
+const withPopup = connect((state: Indexed<PopupProps>): PopupProps => {
   const { popup } = state;
   const {
     isShown, flag, title, inputTitle, button, action, onUser, users,
