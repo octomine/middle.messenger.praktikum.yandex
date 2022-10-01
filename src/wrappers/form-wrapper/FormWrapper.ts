@@ -19,7 +19,7 @@ export interface FormProps extends TBlockProps {
   errors?: Indexed;
   submit: () => void;
   linkPath: string;
-  fields?: Record<string, any>[];
+  fields: Record<string, any>[];
 }
 
 export default class FormWrapper extends Block<FormProps> {

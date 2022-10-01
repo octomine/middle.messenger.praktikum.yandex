@@ -25,11 +25,11 @@ interface SettingsProps extends TBlockProps {
   edit: boolean;
   password: boolean;
   avatar: string | null;
-  settings?: Record<string, string | boolean>[];
+  settings: Record<string, any>[];
 }
 
 class PageProfile extends Block<SettingsProps> {
-  constructor(props: SettingsProps = { edit: false, password: false, avatar: null }) {
+  constructor(props: SettingsProps = { edit: false, password: false, avatar: null, settings: [] }) {
     super(props);
   }
 

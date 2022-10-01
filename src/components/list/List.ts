@@ -6,7 +6,7 @@ import tmpl from './tmpl.hbs';
 import { isEqual } from '../../utils/is-equal';
 
 export interface ListProps extends TBlockProps {
-  fields?: Record<string, any>[],
+  fields: Record<string, any>[],
 }
 
 export default class List extends Block<ListProps> {
