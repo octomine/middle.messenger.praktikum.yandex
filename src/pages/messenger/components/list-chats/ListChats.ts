@@ -48,7 +48,8 @@ export class ListChats extends List {
 
   getCurrentChat(): CurrentChatData {
     const { fields } = this.props;
-    return fields.filter(({ id }) => id === this.selected)[0]; // id все уникальные
+    const res = fields?.filter(({ id }) => id === this.selected)[0]; // id все уникальные
+    return res as CurrentChatData;
   }
 
   select(id: string | null) {
@@ -56,7 +57,7 @@ export class ListChats extends List {
     fields?.forEach((field) => {
       if (field.id === id) {
         field.setProps({ modifiers: 'selected' });
-        this.selected = field.chatID;
+        this.selected = (field as LineChat).chatID;
       } else {
         field.setProps({ modifiers: '' });
       }

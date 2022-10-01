@@ -9,7 +9,8 @@
     "build": "parcel build",
     "start": "npm run build && PORT=3000 node ./src/server.js",
     "eslint": "eslint --ext .ts ./src",
-    "eslint-fix": "eslint --fix --ext .ts ./src"
+    "eslint-fix": "eslint --fix --ext .ts ./src",
+    "webpack": "webpack --mode development"
   },
   "keywords": [],
   "author": "",

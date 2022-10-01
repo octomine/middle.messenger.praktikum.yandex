@@ -38,7 +38,7 @@ export class ControllerMessenger {
       case 'pong':
         break;
       default:
-        const messages = msg.map(({ user_id, content, time }: TMessage) => {
+        const messages = (msg as TMessage[]).map(({ user_id, content, time }: TMessage) => {
           const modifiers = user_id === Store.getUserId() ? 'my' : '';
           return { content, time, modifiers };
         }).reverse();

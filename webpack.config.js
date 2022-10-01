@@ -35,6 +35,17 @@ module.exports = {
         use: [
           {
             loader: "handlebars-loader",
+            options: {
+              query: {
+                partialDirs: [
+                  path.join(__dirname, "src", "components", "label"),
+                  path.join(__dirname, "src", "components", "common", "styles"),
+                ],
+                helperDirs: [
+                  path.join(__dirname, "src", "components", "common", "styles"),
+                ],
+              },
+            },
           },
         ],
         exclude: /(node_modules)/,

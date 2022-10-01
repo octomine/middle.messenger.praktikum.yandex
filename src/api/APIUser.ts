@@ -42,8 +42,8 @@ export class APIUser extends APIBase {
     return this.http.get(`/${id}`);
   }
 
-  search(data: FindUserData): Promise<UserProps[]> {
-    return this.http.post('/search', data);
+  search(data: FindUserData) {
+    return this.http.post<UserProps[]>('/search', data);
   }
 
   create = undefined;

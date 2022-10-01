@@ -16,7 +16,7 @@ class ControllerPopup {
       inputTitle: 'Логин',
       button: 'Найти',
       action: (login: string) => ControllerUser.search({ login }).then((data) => {
-        const users = data.map(({
+        const users = (data as UserProps[]).map(({
           id, avatar, login, display_name, first_name, second_name,
         }: UserProps) => ({
           avatar,

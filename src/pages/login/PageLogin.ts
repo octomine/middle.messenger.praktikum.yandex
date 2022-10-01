@@ -42,7 +42,7 @@ class PageLogin extends Block<TBlockProps> {
 
   submit() {
     const req = this.form.submit();
-    if (Object.keys(req).length > 0) {
+    if (Object.keys(req as object).length > 0) {
       ControllerAuth.signin(req as SigninData);
     }
   }
