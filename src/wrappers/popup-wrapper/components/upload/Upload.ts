@@ -14,7 +14,7 @@ export default class Upload extends Block<TBlockProps> {
   get formData(): FormData | null {
     const input = this.element as HTMLInputElement;
     const fd = new FormData();
-    fd.append('avatar', input.files[0]);
+    fd.append('avatar', input.files![0]);
     return fd;
   }
 

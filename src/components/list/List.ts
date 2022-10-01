@@ -41,10 +41,10 @@ export default class List extends Block<ListProps> {
     if (isEqual(oldFields as Indexed, fields as Indexed)) {
       return false;
     }
-    const l = Math.max(fields.length, this.children.fields.length);
+    const l = Math.max(fields.length, this.children.fields!.length);
 
     for (let i: number = 0; i < l; i++) {
-      const field = this.children.fields[i];
+      const field = this.children.fields![i];
       if (field) {
         if (fields[i]) {
           field.setProps(fields[i]);
