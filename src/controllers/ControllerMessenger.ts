@@ -28,21 +28,23 @@ export class ControllerMessenger {
   }
 
   recieveMessage(msg: TMessage | TMessage[]) {
-    const { type } = msg;
-    switch (type) {
-      case 'message':
-        this.socket?.getMessages();
-        break;
-      case 'user connected':
-        break;
-      case 'pong':
-        break;
-      default:
-        const messages = (msg as TMessage[]).map(({ user_id, content, time }: TMessage) => {
-          const modifiers = user_id === Store.getUserId() ? 'my' : '';
-          return { content, time, modifiers };
-        }).reverse();
-        Store.set('currentChat.messages', messages);
+    if (Array.isArray(msg)) {
+      const messages = msg.map(({ user_id, content, time }: TMessage) => {
+        const modifiers = user_id === Store.getUserId() ? 'my' : '';
+        return { content, time, modifiers };
+      }).reverse();
+      Store.set('currentChat.messages', messages);
+    } else {
+      const { type } = msg;
+      switch (type) {
+        case 'message':
+          this.socket?.getMessages();
+          break;
+        case 'user connected':
+        case 'pong':
+          break;
+        default:
+      }
     }
   }
 }

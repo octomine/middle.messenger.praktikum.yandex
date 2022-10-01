@@ -26,7 +26,7 @@ export default class ChatHeader extends Block<ChatHeaderProps> {
   }
 
   get avatar(): Avatar {
-    return this.children.avatart as Avatar;
+    return this.children.avatar as Avatar;
   }
 
   componentDidUpdate(oldProps: ChatHeaderProps, newProps: ChatHeaderProps): boolean {
