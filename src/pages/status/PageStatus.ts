@@ -2,8 +2,8 @@ import Block, { TBlockProps } from '../../components/common/block';
 import Button from '../../components/button';
 import Router from '../../router/Router';
 
-import '../../components/label';
-import '../../components/common/styles';
+// import '../../components/label';
+// import '../../components/common/styles';
 
 import tmpl from './tmpl.hbs';
 

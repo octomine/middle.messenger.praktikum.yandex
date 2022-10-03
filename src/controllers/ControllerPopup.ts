@@ -77,6 +77,7 @@ class ControllerPopup {
       inputTitle: 'Название чата',
       button: 'Создать',
       action: (title: string) => ControllerChats.createChat({ title })
+        // @ts-ignore
         .then((id) => ControllerChats.selectChat({ id }))
         .then(() => ControllerChats.getChats({}))
         .then(() => this.hide()),

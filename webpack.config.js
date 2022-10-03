@@ -10,11 +10,15 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "messenger.bundle.js",
   },
-  resolve: {
-    extensions: [".ts", ".js", ".json"],
-    alias: {
-      handlebars: "handlebars/dist/handlebars.runtime",
+  devServer: {
+    static: {
+      directory: path.join(__dirname, "dist"),
     },
+    compress: true,
+    port: 3000,
+  },
+  resolve: {
+    extensions: [".ts", ".js", ".hbs"],
   },
   module: {
     rules: [
@@ -36,19 +40,24 @@ module.exports = {
           {
             loader: "handlebars-loader",
             options: {
-              query: {
-                partialDirs: [
-                  path.join(__dirname, "src", "components", "label"),
-                  path.join(__dirname, "src", "components", "common", "styles"),
-                ],
-                helperDirs: [
-                  path.join(__dirname, "src", "components", "common", "styles"),
-                ],
+              runtime: "handlebars/dist/handlebars.runtime",
+              precompileOptions: {
+                knownHelpersOnly: false,
               },
+              partialDirs: [
+                path.join(__dirname, "src", "components", "common", "partials"),
+              ],
+              helperDirs: [
+                path.join(__dirname, "src", "components", "common", "helpers"),
+              ],
             },
           },
         ],
         exclude: /(node_modules)/,
+      },
+      {
+        test: /\.less$/,
+        use: ["style-loader", "css-loader", "less-loader"],
       },
     ],
   },

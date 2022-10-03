@@ -1,6 +1,6 @@
 import Block, { TBlockProps } from '../common/block';
 import { Indexed } from '../../store/Store';
-import '../common/styles';
+// import '../common/styles';
 
 import tmpl from './tmpl.hbs';
 import { isEqual } from '../../utils/is-equal';
@@ -29,6 +29,7 @@ export default class List extends Block<ListProps> {
 
   getField(fieldName: string): Block<any> | undefined {
     const { fields } = this.children;
+    // @ts-ignore
     return fields?.filter(({ name }) => name === fieldName)[0]; // name у всех уникальный
   }
 

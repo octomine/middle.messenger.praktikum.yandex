@@ -2,7 +2,7 @@ import Block, { TBlockProps } from '../../components/common/block';
 import { Indexed } from '../../store/Store';
 
 import Button from '../../components/button';
-import '../../components/label';
+// import '../../components/label';
 
 import ListForm from './components/list-form';
 

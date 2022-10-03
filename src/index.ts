@@ -15,8 +15,9 @@ window.addEventListener('DOMContentLoaded', () => {
     .use('/settings', PageProfile)
     .use('/messenger', PageMessenger)
     .notFound(PageStatus);
-
+  console.log(1);
   const popup = new PopupWrapper({ modifiers: 'hidden' });
+  console.log(2);
   render('.popup', popup);
 
   ControllerAuth.fetchUser()
