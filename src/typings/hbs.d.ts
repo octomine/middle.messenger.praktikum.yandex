@@ -5,3 +5,5 @@ declare module '*.hbs' {
 
   export default tmpl;
 }
+
+declare module 'handlebars/dist/handlebars.runtime';

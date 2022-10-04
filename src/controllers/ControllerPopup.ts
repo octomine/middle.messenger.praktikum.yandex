@@ -1,6 +1,7 @@
 import Store from '../store';
 import ControllerUser from './ControllerUser';
 import ControllerChats from './ControllerChats';
+import { UserProps } from '../api/APIUser';
 
 class ControllerPopup {
   constructor() {
@@ -15,9 +16,9 @@ class ControllerPopup {
       inputTitle: 'Логин',
       button: 'Найти',
       action: (login: string) => ControllerUser.search({ login }).then((data) => {
-        const users = data.map(({
+        const users = (data as UserProps[]).map(({
           id, avatar, login, display_name, first_name, second_name,
-        }) => ({
+        }: UserProps) => ({
           avatar,
           id,
           login: display_name || login,
@@ -46,10 +47,10 @@ class ControllerPopup {
       onUser: (id: string) => ControllerChats.removeUsers({ users: [id], chatId: Store.getChatId() })
         .then(() => this.hide()),
     });
-    ControllerChats.getUsers().then((users) => this.showUsers(users));
+    ControllerChats.getUsers().then((users) => this.showUsers(users as any[]));
   }
 
-  showUsers(users) {
+  showUsers(users: any[]) {
     Store.set('popup', {
       users,
     });
@@ -76,7 +77,8 @@ class ControllerPopup {
       inputTitle: 'Название чата',
       button: 'Создать',
       action: (title: string) => ControllerChats.createChat({ title })
-        .then((id) => ControllerChats.selectChat(id))
+        // @ts-ignore
+        .then((id) => ControllerChats.selectChat({ id }))
         .then(() => ControllerChats.getChats({}))
         .then(() => this.hide()),
     });

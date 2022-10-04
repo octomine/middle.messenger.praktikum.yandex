@@ -44,10 +44,14 @@ export default class ChatInput extends Block<ChatInputProps> {
     });
   }
 
+  get input(): Input {
+    return this.children.input as Input;
+  }
+
   send() {
     const { value } = this.children.input as Input;
     if (value && value.length > 0) {
-      this.children.input.setProps({ value: '' }); // TODO: наверно делать это через контроллеp
+      this.input.setProps({ value: '' }); // TODO: наверно делать это через контроллеp
       ControllerMessenger.sendMessage(value);
     }
   }

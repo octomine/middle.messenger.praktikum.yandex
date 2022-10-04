@@ -5,7 +5,7 @@ export class SocketIO {
 
   private socket: WebSocket;
 
-  private intervalId?: number;
+  private intervalId?: NodeJS.Timer;
 
   constructor(url: string) {
     this.socket = new WebSocket(`${SocketIO.API_URL}${url}`);
@@ -18,14 +18,14 @@ export class SocketIO {
     this.socket.addEventListener('close', () => {
       console.log('socket is CLOSED!!1');
     });
-    this.socket.addEventListener('message', (evt) => {
+    this.socket.addEventListener('message', (evt: MessageEvent) => {
       console.log('got message');
       const message = JSON.parse(evt.data);
       ControllerMessenger.recieveMessage(message);
     });
-    this.socket.addEventListener('error', (evt) => {
+    this.socket.addEventListener('error', (evt: Event) => {
       console.log('ERROR!!1');
-      console.log(evt.data);
+      console.log(evt);
     });
   }
 

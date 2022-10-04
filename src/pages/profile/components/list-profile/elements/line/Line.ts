@@ -1,7 +1,4 @@
 import Block, { TBlockProps } from '../../../../../../components/common/block';
-import { Indexed } from '../../../../../../store';
-
-import '../../../../../../components/label';
 
 import tmpl from './tmpl.hbs';
 
@@ -18,10 +15,6 @@ export default class Line extends Block<LineProps> {
 
   get name(): string {
     return this.props.name;
-  }
-
-  update(newValue: Indexed) {
-    this.setProps(newValue);
   }
 
   render() {

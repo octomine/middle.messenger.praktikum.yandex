@@ -30,7 +30,7 @@ export class APIChats extends APIBase {
   }
 
   create(data: CreateChatData) {
-    return this.http.post('/', data);
+    return this.http.post<string>('/', data);
   }
 
   delete(chatId: string) {

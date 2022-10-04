@@ -1,5 +1,3 @@
-import Block from '../../../../components/common/block';
-
 import List, { ListProps } from '../../../../components/list';
 
 import LineChat, { LineChatProps } from './elements/line-chat/LineChat';
@@ -7,11 +5,12 @@ import Search from './elements/search';
 
 import tmpl from './tmpl.hbs';
 import { connect, Indexed } from '../../../../store';
-import ControllerChats from '../../../../controllers/ControllerChats';
+import ControllerChats, { CurrentChatData } from '../../../../controllers/ControllerChats';
 import ControllerResources from '../../../../controllers/ControllerResources';
 import { getTime } from '../../../../utils/time';
 import Button from '../../../../components/button';
 import ControllerPopup from '../../../../controllers/ControllerPopup';
+import Block from '../../../../components/common/block';
 
 export class ListChats extends List {
   private _selected: string | null = null;
@@ -40,7 +39,7 @@ export class ListChats extends List {
     super.init();
   }
 
-  line(field: LineChatProps): Block<unknown> {
+  line(field: LineChatProps): LineChat {
     const events = {
       click: () => this.select(line.id),
     };
@@ -48,19 +47,20 @@ export class ListChats extends List {
     return line;
   }
 
-  getCurrentChat(): Indexed {
+  getCurrentChat(): CurrentChatData {
     const { fields } = this.props;
-    return fields.filter(({ id }) => id === this.selected)[0]; // id все уникальные
+    const res = fields?.filter(({ id }) => id === this.selected)[0]; // id все уникальные
+    return res as CurrentChatData;
   }
 
-  select(id: string) {
+  select(id: string | null) {
     const { fields } = this.children;
-    fields.forEach((field: LineChat) => {
+    fields?.forEach((field) => {
       if (field.id === id) {
-        field.isSelected = true;
-        this.selected = field.chatID;
+        field.setProps({ modifiers: 'selected' });
+        this.selected = (field as LineChat).chatID;
       } else {
-        field.isSelected = false;
+        field.setProps({ modifiers: '' });
       }
     });
     ControllerChats.selectChat(this.getCurrentChat());
@@ -72,7 +72,7 @@ export class ListChats extends List {
 }
 
 const withChats = connect((state: Indexed) => {
-  const { chats } = state;
+  const { chats }: Record<string, CurrentChatData[]> = state;
   const fields = chats.map(({
     id, avatar, title, last_message, unread_count: unread,
   }) => ({
@@ -86,4 +86,4 @@ const withChats = connect((state: Indexed) => {
   return { fields };
 });
 
-export default withChats(ListChats);
+export default withChats(ListChats as typeof Block);

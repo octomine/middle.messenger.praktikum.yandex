@@ -1,11 +1,11 @@
 import APIBase from './APIBase';
 
-export interface SigninData {
+export interface SigninData extends Record<string, string> {
   login: string;
   password: string;
 }
 
-export interface SignupData {
+export interface SignupData extends Record<string, string> {
   first_name: string;
   second_name: string;
   login: string;
@@ -15,7 +15,7 @@ export interface SignupData {
 }
 
 export interface User extends SignupData {
-  id: number;
+  id: string;
   avatar: string;
 }
 

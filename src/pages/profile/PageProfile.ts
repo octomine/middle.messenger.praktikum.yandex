@@ -13,17 +13,23 @@ import Avatar from './components/avatar';
 import tmpl from './tmpl.hbs';
 import ControllerAuth from '../../controllers/ControllerAuth';
 import ControllerUser from '../../controllers/ControllerUser';
-import { isEqual } from '../../utils/is-equal';
+import { isEqual, PlainObject } from '../../utils/is-equal';
 import ControllerPopup from '../../controllers/ControllerPopup';
 import ControllerResources from '../../controllers/ControllerResources';
+import { SignupData } from '../../api/APIAuth';
+import { PasswordData } from '../../api/APIUser';
 
 interface SettingsProps extends TBlockProps {
   edit: boolean;
   password: boolean;
+  avatar: string | null;
+  settings: Record<string, any>[];
 }
 
 class PageProfile extends Block<SettingsProps> {
-  constructor(props: SettingsProps = { edit: false, password: false, title: 'aaa' }) {
+  constructor(props: SettingsProps = {
+    edit: false, password: false, avatar: null, settings: [],
+  }) {
     super(props);
   }
 
@@ -57,7 +63,7 @@ class PageProfile extends Block<SettingsProps> {
       ],
     });
     this.children.button = new Button({
-      label: 'Сохранить',
+      title: 'Сохранить',
       block: 'footer',
       events: { click: this.saveChanges.bind(this) },
     });
@@ -71,13 +77,29 @@ class PageProfile extends Block<SettingsProps> {
     return this.props.password;
   }
 
+  get list(): ListProfile {
+    return this.children.list as ListProfile;
+  }
+
+  get settings(): ListInput {
+    return this.children.chageSettings as ListInput;
+  }
+
+  get password(): ListInput {
+    return this.children.changePassword as ListInput;
+  }
+
+  get avatar(): Avatar {
+    return this.children.avatar as Avatar;
+  }
+
   getButtons(changeSettings: () => void, changePassword: () => void, logout: () => void) {
     return new ListLink({
       block: 'footer',
       fields: [
-        { label: 'Изменить данные', click: changeSettings },
-        { label: 'Изменить пароль', click: changePassword },
-        { label: 'Выйти', modifiers: 'alert', click: logout },
+        { title: 'Изменить данные', click: changeSettings },
+        { title: 'Изменить пароль', click: changePassword },
+        { title: 'Выйти', modifiers: 'alert', click: logout },
       ],
     });
   }
@@ -109,10 +131,10 @@ class PageProfile extends Block<SettingsProps> {
   saveChanges() {
     let req;
     if (this.isPassword) {
-      req = this.children.changePassword.collect();
+      req = this.password.collect() as PasswordData;
       ControllerUser.password(req);
     } else {
-      req = this.children.chageSettings.collect();
+      req = this.settings.collect() as SignupData;
       ControllerUser.profile(req);
     }
   }
@@ -120,11 +142,11 @@ class PageProfile extends Block<SettingsProps> {
   componentDidUpdate(oldProps: SettingsProps, newProps: SettingsProps): boolean {
     const { settings: oldFields } = oldProps;
     const { settings: fields } = newProps;
-    if (!isEqual(oldFields as Indexed, fields as Indexed)) {
-      this.children.list.setProps({ fields });
-      this.children.chageSettings.setProps({ fields });
+    if (!isEqual(oldFields as PlainObject, fields as PlainObject)) {
+      this.list.setProps({ fields });
+      this.settings.setProps({ fields });
     }
-    this.children.avatar.setProps({ img: ControllerResources.resourcePath(this.props.avatar) });
+    this.avatar.setProps({ img: ControllerResources.resourcePath(this.props.avatar) });
     return super.componentDidUpdate(oldProps, newProps);
   }
 
@@ -147,4 +169,4 @@ const withUser = connect((state: Indexed) => {
   };
 });
 
-export default withUser(PageProfile);
+export default withUser(PageProfile as typeof Block);

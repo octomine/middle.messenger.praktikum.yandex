@@ -1,6 +1,5 @@
 import Block, { TBlockProps } from '../../components/common/block';
 import Button from '../../components/button';
-import '../../components/label';
 
 import tmpl from './tmpl.hbs';
 import { connect, Indexed } from '../../store';
@@ -12,7 +11,11 @@ import Upload from './components/upload';
 const FLAGS = ['input', 'list', 'upload', 'info'];
 
 interface PopupProps extends TBlockProps {
-  button: string,
+  flags: Record<string, boolean>;
+  inputTitle: string;
+  button: string;
+  action: (val?: string | FormData | null) => void;
+  onUser: (id: string) => void;
 }
 
 class PopupWrapper extends Block<PopupProps> {
@@ -48,14 +51,30 @@ class PopupWrapper extends Block<PopupProps> {
     });
   }
 
+  get button(): Button {
+    return this.children.button as Button;
+  }
+
+  get input(): LineForm {
+    return this.children.input as LineForm;
+  }
+
+  get upload(): Upload {
+    return this.children.upload as Upload;
+  }
+
+  get list(): ListUsers {
+    return this.children.list as ListUsers;
+  }
+
   performAction() {
     const { action } = this.props;
     if (action) {
       const { flags: { input, upload } } = this.props;
       if (input) {
-        action(this.children.input.value);
+        action(this.input.value);
       } else if (upload) {
-        action(this.children.upload.formData);
+        action(this.upload.formData);
       } else {
         action();
       }
@@ -64,7 +83,7 @@ class PopupWrapper extends Block<PopupProps> {
     }
   }
 
-  onUser(id: string) {
+  onUser(id: string): void {
     const { onUser } = this.props;
     if (onUser) {
       onUser(id);
@@ -75,16 +94,16 @@ class PopupWrapper extends Block<PopupProps> {
     const { button: oldButton, users: oldUsers, inputTitle: oldInputTitle } = oldProps;
     const { button, users, inputTitle } = newProps;
     if (button !== oldButton) {
-      this.children.button.setProps({ label: button });
+      this.button.setProps({ title: button });
     }
     if (inputTitle !== oldInputTitle) {
-      this.children.input.setProps({
+      this.input.setProps({
         title: inputTitle,
         placeholder: inputTitle,
       });
     }
     if (users !== oldUsers) {
-      this.children.list.setProps({ fields: users });
+      this.list.setProps({ fields: users });
     }
 
     return super.componentDidUpdate(oldProps, newProps);
@@ -95,11 +114,11 @@ class PopupWrapper extends Block<PopupProps> {
   }
 }
 
-const withPopup = connect((state: Indexed): Indexed => {
+const withPopup = connect((state: Indexed<PopupProps>): PopupProps => {
   const { popup } = state;
   const {
     isShown, flag, title, inputTitle, button, action, onUser, users,
-  } = popup;
+  } = popup as PopupProps;
   const modifiers = isShown ? '' : 'hidden';
   const flags = FLAGS.reduce((res, name) => ({ ...res, [name]: name === flag }), {});
   return {
@@ -107,4 +126,4 @@ const withPopup = connect((state: Indexed): Indexed => {
   };
 });
 
-export default withPopup(PopupWrapper);
+export default withPopup(PopupWrapper as typeof Block);

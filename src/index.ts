@@ -8,6 +8,8 @@ import ControllerAuth from './controllers/ControllerAuth';
 import { render } from './utils/render';
 import PopupWrapper from './wrappers/popup-wrapper';
 
+import './common.less';
+
 window.addEventListener('DOMContentLoaded', () => {
   Router
     .use('/', PageLogin)

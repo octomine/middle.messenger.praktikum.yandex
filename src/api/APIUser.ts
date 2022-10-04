@@ -1,13 +1,24 @@
 import APIBase from './APIBase';
 import { SignupData } from './APIAuth';
 
-export interface PasswordData {
+export interface PasswordData extends Record<string, string> {
   oldPassword: string;
   newPassword: string;
 }
 
 export interface FindUserData {
   login: string;
+}
+
+export interface UserProps {
+  id: string;
+  first_name: string;
+  second_name: string;
+  display_name: string;
+  login: string;
+  email: string;
+  phone: string;
+  avatar: string;
 }
 
 export class APIUser extends APIBase {
@@ -32,7 +43,7 @@ export class APIUser extends APIBase {
   }
 
   search(data: FindUserData) {
-    return this.http.post('/search', data);
+    return this.http.post<UserProps[]>('/search', data);
   }
 
   create = undefined;

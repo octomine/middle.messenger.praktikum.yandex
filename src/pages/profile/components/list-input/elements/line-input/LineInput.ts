@@ -20,8 +20,8 @@ export default class LineInput extends InputWrapped {
     });
   }
 
-  get input() {
-    return this.element?.querySelector('.line__input') as HTMLInputElement;
+  get input(): Input {
+    return this.children.input as Input;
   }
 
   get name(): string {
@@ -35,7 +35,7 @@ export default class LineInput extends InputWrapped {
   update(newLine: Indexed) {
     this.setProps(newLine);
     const { value } = newLine;
-    this.children.input.setProps({ value });
+    this.input.setProps({ value });
   }
 
   render() {

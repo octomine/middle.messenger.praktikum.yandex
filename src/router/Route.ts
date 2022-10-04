@@ -6,13 +6,13 @@ export interface RouteProps {
 }
 
 export default class Route {
-  _pathname: string;
+  private _pathname: string;
 
-  _blockClass: any;
+  private _blockClass: any;
 
-  _block: Block<unknown> | null;
+  private _block: Block | null;
 
-  _props: RouteProps;
+  private _props: RouteProps;
 
   constructor(pathname: string, view: unknown, props: RouteProps) {
     this._pathname = pathname;
@@ -36,6 +36,6 @@ export default class Route {
     if (!this._block) {
       this._block = new this._blockClass();
     }
-    render(this._props.rootQuery, this._block);
+    render(this._props.rootQuery, this._block!);
   }
 }
