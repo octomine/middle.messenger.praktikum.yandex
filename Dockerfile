@@ -1,6 +1,11 @@
 FROM node:latest
 
-RUN apt update && apt install -y nodejs && apt install -y npm
 WORKDIR /var/www/
-COPY . ./
+COPY . .
 CMD echo $PWD && ls -la
+
+EXPOSE 3000
+RUN npm install
+RUN npm run build
+
+CMD npm start
