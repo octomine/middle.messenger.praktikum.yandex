@@ -1,5 +1,4 @@
 import Block, { TBlockProps } from '../common/block';
-// import '../common/styles';
 
 import tmpl from './tmpl.hbs';
 

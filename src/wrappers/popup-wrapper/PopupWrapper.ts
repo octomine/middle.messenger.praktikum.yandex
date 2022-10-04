@@ -1,6 +1,5 @@
 import Block, { TBlockProps } from '../../components/common/block';
 import Button from '../../components/button';
-// import '../../components/label';
 
 import tmpl from './tmpl.hbs';
 import { connect, Indexed } from '../../store';
@@ -95,7 +94,7 @@ class PopupWrapper extends Block<PopupProps> {
     const { button: oldButton, users: oldUsers, inputTitle: oldInputTitle } = oldProps;
     const { button, users, inputTitle } = newProps;
     if (button !== oldButton) {
-      this.button.setProps({ label: button });
+      this.button.setProps({ title: button });
     }
     if (inputTitle !== oldInputTitle) {
       this.input.setProps({

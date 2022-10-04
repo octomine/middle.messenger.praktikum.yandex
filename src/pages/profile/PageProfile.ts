@@ -19,8 +19,6 @@ import ControllerResources from '../../controllers/ControllerResources';
 import { SignupData } from '../../api/APIAuth';
 import { PasswordData } from '../../api/APIUser';
 
-// import '../../components/label';
-
 interface SettingsProps extends TBlockProps {
   edit: boolean;
   password: boolean;
@@ -29,7 +27,9 @@ interface SettingsProps extends TBlockProps {
 }
 
 class PageProfile extends Block<SettingsProps> {
-  constructor(props: SettingsProps = { edit: false, password: false, avatar: null, settings: [] }) {
+  constructor(props: SettingsProps = {
+    edit: false, password: false, avatar: null, settings: [],
+  }) {
     super(props);
   }
 
@@ -63,7 +63,7 @@ class PageProfile extends Block<SettingsProps> {
       ],
     });
     this.children.button = new Button({
-      label: 'Сохранить',
+      title: 'Сохранить',
       block: 'footer',
       events: { click: this.saveChanges.bind(this) },
     });
@@ -97,9 +97,9 @@ class PageProfile extends Block<SettingsProps> {
     return new ListLink({
       block: 'footer',
       fields: [
-        { label: 'Изменить данные', click: changeSettings },
-        { label: 'Изменить пароль', click: changePassword },
-        { label: 'Выйти', modifiers: 'alert', click: logout },
+        { title: 'Изменить данные', click: changeSettings },
+        { title: 'Изменить пароль', click: changePassword },
+        { title: 'Выйти', modifiers: 'alert', click: logout },
       ],
     });
   }

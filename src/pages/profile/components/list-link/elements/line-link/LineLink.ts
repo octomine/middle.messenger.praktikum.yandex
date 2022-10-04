@@ -5,7 +5,7 @@ import Button from '../../../../../../components/button';
 import tmpl from './tmpl.hbs';
 
 export interface LineLinkProps extends TBlockProps {
-  label: string;
+  title: string;
   modifiers: string;
   click: () => void;
 }

@@ -8,6 +8,8 @@ import ControllerAuth from './controllers/ControllerAuth';
 import { render } from './utils/render';
 import PopupWrapper from './wrappers/popup-wrapper';
 
+import './common.less';
+
 window.addEventListener('DOMContentLoaded', () => {
   Router
     .use('/', PageLogin)
@@ -15,9 +17,8 @@ window.addEventListener('DOMContentLoaded', () => {
     .use('/settings', PageProfile)
     .use('/messenger', PageMessenger)
     .notFound(PageStatus);
-  console.log(1);
+
   const popup = new PopupWrapper({ modifiers: 'hidden' });
-  console.log(2);
   render('.popup', popup);
 
   ControllerAuth.fetchUser()

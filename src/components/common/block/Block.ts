@@ -8,7 +8,6 @@ import { isEqual } from '../../../utils/is-equal';
 export interface TBlockProps extends Record<string, any> {
   block?: string,
   modifiers?: string,
-  styles?: string,
   events?: Record<string, (...args: any[]) => void>,
 }
 

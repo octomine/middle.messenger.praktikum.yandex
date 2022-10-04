@@ -20,7 +20,6 @@ export class SocketIO {
     });
     this.socket.addEventListener('message', (evt: MessageEvent) => {
       console.log('got message');
-      console.log(evt);
       const message = JSON.parse(evt.data);
       ControllerMessenger.recieveMessage(message);
     });

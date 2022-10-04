@@ -40,7 +40,6 @@ module.exports = {
           {
             loader: "handlebars-loader",
             options: {
-              runtime: "handlebars/dist/handlebars.runtime",
               precompileOptions: {
                 knownHelpersOnly: false,
               },
@@ -63,15 +62,6 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: "**/*",
-          context: path.resolve(__dirname, "src", "assets"),
-          to: "./assets",
-        },
-      ],
-    }),
     new HTMLWebpackPlugn({
       template: "src/index.html",
       filename: "index.html",

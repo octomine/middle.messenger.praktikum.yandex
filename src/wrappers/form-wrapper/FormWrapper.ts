@@ -2,7 +2,6 @@ import Block, { TBlockProps } from '../../components/common/block';
 import { Indexed } from '../../store/Store';
 
 import Button from '../../components/button';
-// import '../../components/label';
 
 import ListForm from './components/list-form';
 
@@ -38,13 +37,13 @@ export default class FormWrapper extends Block<FormProps> {
 
     this.children.list = new ListForm({ block, fields });
     this.children.button = new Button({
-      label: button,
+      title: button,
       events: {
         click: submit,
       },
     });
     this.children.link = new Button({
-      label: link,
+      title: link,
       modifiers: 'link',
       events: {
         click: () => Router.go(linkPath),

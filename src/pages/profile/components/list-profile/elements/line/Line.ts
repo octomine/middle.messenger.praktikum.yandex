@@ -1,7 +1,5 @@
 import Block, { TBlockProps } from '../../../../../../components/common/block';
 
-// import '../../../../../../components/label';
-
 import tmpl from './tmpl.hbs';
 
 export interface LineProps extends TBlockProps {

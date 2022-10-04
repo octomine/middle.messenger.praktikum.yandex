@@ -19,7 +19,7 @@ export default class PageMessenger extends Block<TBlockProps> {
     ControllerChats.getChats({});
 
     this.children.profile = new Button({
-      label: 'Профиль',
+      title: 'Профиль',
       modifiers: 'profile',
       events: {
         click: () => Router.go('/settings'),

@@ -1,6 +1,5 @@
 import Block, { TBlockProps } from '../common/block';
 import { Indexed } from '../../store/Store';
-// import '../common/styles';
 
 import tmpl from './tmpl.hbs';
 import { isEqual } from '../../utils/is-equal';

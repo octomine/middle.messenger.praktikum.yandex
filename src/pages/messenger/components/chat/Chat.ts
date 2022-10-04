@@ -13,10 +13,11 @@ import tmpl from './tmpl.hbs';
 import ControllerChats from '../../../../controllers/ControllerChats';
 
 export class Chat extends Block<TBlockProps> {
-  private needToHidePopover: boolean = false;
+  private needToHidePopover: boolean = true;
 
   constructor(props: TBlockProps) {
     super(props);
+    this.hidePopovers();
   }
 
   init() {
@@ -27,7 +28,6 @@ export class Chat extends Block<TBlockProps> {
 
     this.children.popoverOptions = new Popover({
       modifiers: 'options',
-      styles: 'hide',
       fields: [
         {
           type: 'add_user',
@@ -65,7 +65,6 @@ export class Chat extends Block<TBlockProps> {
     });
     this.children.popoverAttach = new Popover({
       modifiers: 'attach',
-      styles: 'hide',
       fields: [
         { type: 'media', label: 'Фото или Видео' },
         { type: 'file', label: 'Файл' },

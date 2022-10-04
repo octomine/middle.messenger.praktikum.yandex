@@ -1,5 +1,3 @@
-// import '../../../../components/common/styles';
-
 import Line, { LineProps } from './elements/line';
 import List, { ListProps } from '../../../../components/list';
 

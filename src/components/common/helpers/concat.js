@@ -1,5 +1,4 @@
 module.exports = function (...args) {
-  console.log('concat');
   return args.length === 0
     ? args
     : args
