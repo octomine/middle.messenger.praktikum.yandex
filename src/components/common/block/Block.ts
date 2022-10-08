@@ -43,7 +43,6 @@ export default class Block<P extends Record<string, any> = any> {
 
     this.props = this._makePropsProxy(props);
     this.eventBus = () => eventBus;
-
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
   }
