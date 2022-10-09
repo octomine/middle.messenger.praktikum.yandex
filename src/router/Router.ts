@@ -17,18 +17,18 @@ class Router {
     return window.location.pathname;
   }
 
-  use(pathname: string, block: unknown) {
+  public use(pathname: string, block: unknown) {
     const route = new Route(pathname, block, { rootQuery: 'main' });
     this.routes.push(route);
     return this;
   }
 
-  notFound(block: unknown) {
+  public notFound(block: unknown) {
     this._notFoundRoute = new Route('', block, { rootQuery: 'main' });
     return this;
   }
 
-  start() {
+  public start() {
     window.onpopstate = (evt: PopStateEvent) => {
       const target = evt.currentTarget as Window;
       this._onRoute(target.location.pathname);
@@ -37,12 +37,20 @@ class Router {
     this._onRoute(window.location.pathname);
   }
 
-  go(pathname: string) {
+  public go(pathname: string) {
     this.history.pushState({}, '', pathname);
     this._onRoute(pathname);
   }
 
-  _onRoute(pathname: string) {
+  public back() {
+    this.history.back();
+  }
+
+  public forward() {
+    this.history.forward();
+  }
+
+  private _onRoute(pathname: string) {
     let route = this.getRoute(pathname);
     if (!route) {
       if (!this._notFoundRoute) {
@@ -52,10 +60,10 @@ class Router {
     }
 
     this._currentRoute = route;
-    this._currentRoute.render();
+    route.render();
   }
 
-  getRoute(pathname: string): Route | undefined {
+  private getRoute(pathname: string): Route | undefined {
     return this.routes.find((route) => route.match(pathname));
   }
 }
