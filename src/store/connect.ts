@@ -1,4 +1,4 @@
-import Store, { StoreEvents, Indexed } from '.';
+import Store, { StoreEvents, Indexed } from './Store';
 import Block, { TBlockProps } from '../components/common/block';
 
 export function connect(mapStateToProps: (state: Indexed) => Indexed) {

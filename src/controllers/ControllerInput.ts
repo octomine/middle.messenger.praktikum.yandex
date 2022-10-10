@@ -1,5 +1,5 @@
 import Store from '../store';
-import { InputWrappedProps } from '../components/input-wrapped';
+import { InputWrappedProps } from '../components/input-wrapped/types';
 import { getValidator, ValidType } from '../utils';
 
 class ControllerInput {
