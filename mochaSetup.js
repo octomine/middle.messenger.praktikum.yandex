@@ -2,7 +2,6 @@ const { JSDOM } = require("jsdom");
 const Handlebars = require("handlebars");
 const fs = require("fs");
 
-// const partialStyles = require("./src/components/common/partials/styles.hbs");
 const helperSplit = require("./src/components/common/helpers/split");
 
 const { window } = new JSDOM('<main class="main"></main>', {

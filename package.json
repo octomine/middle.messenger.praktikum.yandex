@@ -7,7 +7,7 @@
     "test": "mocha --require ts-node/register --require ./mochaSetup.js './src/**/*.test.ts'",
     "dev": "webpack serve",
     "build": "webpack",
-    "start": "npm run build && PORT=3000 node ./src/server.js",
+    "start": "node ./src/server.js",
     "eslint": "eslint --ext .ts ./src",
     "eslint-fix": "eslint --fix --ext .ts ./src"
   },

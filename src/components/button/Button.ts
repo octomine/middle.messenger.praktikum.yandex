@@ -9,8 +9,6 @@ interface ButtonProps extends TBlockProps {
 export default class Button extends Block<ButtonProps> {
   constructor(props: ButtonProps) {
     super(props);
-    console.log('from Button');
-    console.log(this.element?.classList.value);
   }
 
   render() {
