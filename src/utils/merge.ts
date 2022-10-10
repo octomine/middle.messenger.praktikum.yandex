@@ -1,4 +1,4 @@
-import { Indexed } from '../store/Store';
+import { Indexed } from '../store';
 
 export function merge(a: Indexed, b: Indexed): Indexed {
   for (const p in b) {

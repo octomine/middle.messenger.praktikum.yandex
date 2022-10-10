@@ -72,9 +72,9 @@ export class HTTPTransport {
       xhr.withCredentials = true;
       xhr.responseType = 'json';
 
-      xhr.onabort = () => reject({ reason: 'abort' });
-      xhr.onerror = () => reject({ reason: 'network error' });
-      xhr.ontimeout = () => reject({ reason: 'timeout' });
+      xhr.onabort = () => reject(new Error('abort'));
+      xhr.onerror = () => reject(new Error('netwrok error'));
+      xhr.ontimeout = () => reject(new Error('timeout'));
 
       if (method === Method.Get || !data) {
         xhr.send();

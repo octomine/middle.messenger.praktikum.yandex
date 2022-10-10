@@ -1,6 +1,6 @@
 import sinon, { SinonFakeXMLHttpRequest, SinonFakeXMLHttpRequestStatic } from 'sinon';
-import { HTTPTransport } from './network';
 import { expect } from 'chai';
+import { HTTPTransport } from './network';
 
 describe('HTTPTransport', () => {
   let xhr: SinonFakeXMLHttpRequestStatic;

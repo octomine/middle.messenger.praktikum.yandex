@@ -6,15 +6,16 @@ import type BlockType from './Block';
 const eventBusMock = {
   on: sinon.fake(),
   emit: sinon.fake(),
-}
+};
 
 const { default: Block } = proxyquire('./Block', {
   '../../../utils/event-bus': {
     EventBus: class {
       emit = eventBusMock.emit;
+
       on = eventBusMock.on;
-    }
-  }
+    },
+  },
 }) as { default: typeof BlockType };
 
 describe('Block', () => {

@@ -4,10 +4,6 @@ import ControllerChats from './ControllerChats';
 import { UserProps } from '../api/APIUser';
 
 class ControllerPopup {
-  constructor() {
-
-  }
-
   addUser() {
     Store.set('popup', {
       isShown: true,
@@ -17,11 +13,11 @@ class ControllerPopup {
       button: 'Найти',
       action: (login: string) => ControllerUser.search({ login }).then((data) => {
         const users = (data as UserProps[]).map(({
-          id, avatar, login, display_name, first_name, second_name,
+          id, avatar, login: foundLogin, display_name, first_name, second_name,
         }: UserProps) => ({
           avatar,
           id,
-          login: display_name || login,
+          login: display_name || foundLogin,
           name: `${first_name} ${second_name}`,
         }));
         Store.set('popup', {

@@ -10,6 +10,10 @@ https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?node-id=1%3
 
 https://deploy--resilient-starburst-0f9890.netlify.app/
 
+## Heroku
+
+https://ypmessenger.herokuapp.com/messenger
+
 ## Installation
 
 Запуск:

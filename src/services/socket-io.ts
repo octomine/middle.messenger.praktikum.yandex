@@ -1,6 +1,10 @@
-import ControllerMessenger from '../controllers/ControllerMessenger';
+import EventBus from '../utils';
 
-export class SocketIO {
+export enum SocketEvents {
+  Recive = 'recive',
+}
+
+export class SocketIO extends EventBus {
   static API_URL = 'wss://ya-praktikum.tech/ws/chats';
 
   private socket: WebSocket;
@@ -8,6 +12,8 @@ export class SocketIO {
   private intervalId?: NodeJS.Timer;
 
   constructor(url: string) {
+    super();
+
     this.socket = new WebSocket(`${SocketIO.API_URL}${url}`);
 
     this.socket.addEventListener('open', () => {
@@ -21,7 +27,7 @@ export class SocketIO {
     this.socket.addEventListener('message', (evt: MessageEvent) => {
       console.log('got message');
       const message = JSON.parse(evt.data);
-      ControllerMessenger.recieveMessage(message);
+      this.emit(SocketEvents.Recive, message);
     });
     this.socket.addEventListener('error', (evt: Event) => {
       console.log('ERROR!!1');

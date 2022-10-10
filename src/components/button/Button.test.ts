@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 // import sinon from 'sinon';
-import Button from './';
+import Button from '.';
 
 describe('Button', () => {
   it(('should render'), () => {
@@ -12,6 +12,6 @@ describe('Button', () => {
     const el = btn.element;
     console.log('from test');
     console.log(el?.classList.length);
-    expect(el).to.be.instanceof(window.HTMLButtonElement)
-  })
+    expect(el).to.be.instanceof(window.HTMLButtonElement);
+  });
 });

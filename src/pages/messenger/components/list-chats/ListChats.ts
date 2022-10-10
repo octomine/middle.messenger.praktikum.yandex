@@ -40,10 +40,11 @@ export class ListChats extends List {
   }
 
   line(field: LineChatProps): LineChat {
+    const line = new LineChat({ ...field });
     const events = {
       click: () => this.select(line.id),
     };
-    const line = new LineChat({ ...field, events });
+    line.setProps({ events });
     return line;
   }
 

@@ -22,4 +22,3 @@ export default class Upload extends Block<TBlockProps> {
     return this.compile(tmpl, this.props);
   }
 }
-HTMLInputElement;

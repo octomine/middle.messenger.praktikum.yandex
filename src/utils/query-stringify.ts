@@ -1,4 +1,4 @@
-import { isPlainObject } from '.';
+import { isPlainObject } from './is-equal';
 
 export function queryStringify(data: unknown): string {
   if (!isPlainObject(data)) {

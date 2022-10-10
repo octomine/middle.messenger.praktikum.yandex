@@ -8,12 +8,8 @@ export type TMessage = {
   time: string;
 };
 
-export class ControllerMessenger {
+class ControllerMessenger {
   private socket?: SocketIO;
-
-  constructor() {
-
-  }
 
   openChat(token: string) {
     this.socket = new SocketIO(`/${Store.getUserId()}/${Store.getChatId()}/${token}`);

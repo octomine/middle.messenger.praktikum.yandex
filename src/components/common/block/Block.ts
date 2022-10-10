@@ -80,7 +80,7 @@ export default class Block<P extends Record<string, any> = any> {
         return true;
       },
       deleteProperty: () => {
-        throw 'Нет прав';
+        throw new Error('Нет прав');
       },
     });
   }
@@ -188,9 +188,9 @@ export default class Block<P extends Record<string, any> = any> {
     const stub = (id: string | null): string => `<div data-id='${id}'></div>`;
     const replaceStub = (el: DocumentFragment, block: Block<any>): void => {
       const { id } = block;
-      const stub = el.querySelector(`[data-id='${id}']`);
-      if (stub) {
-        stub.replaceWith(block.getContent()!);
+      const currentStub = el.querySelector(`[data-id='${id}']`);
+      if (currentStub) {
+        currentStub.replaceWith(block.getContent()!);
       }
     };
 

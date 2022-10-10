@@ -3,10 +3,6 @@ import { InputWrappedProps } from '../components/input-wrapped';
 import { getValidator, ValidType } from '../utils';
 
 class ControllerInput {
-  constructor() {
-
-  }
-
   resetError(field: InputWrappedProps) {
     const { name, errorSpace }: InputWrappedProps = field;
     this.setError(`${errorSpace}.${name}`, null);

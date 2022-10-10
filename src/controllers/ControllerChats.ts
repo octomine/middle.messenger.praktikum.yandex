@@ -13,7 +13,7 @@ export interface CurrentChatData {
   last_message: Indexed | null;
 }
 
-export class ControllerChats {
+class ControllerChats {
   private readonly api: APIChats;
 
   constructor() {
