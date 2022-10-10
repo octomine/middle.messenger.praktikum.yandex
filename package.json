@@ -9,7 +9,8 @@
     "build": "webpack",
     "start": "node ./src/server.js",
     "eslint": "eslint --ext .ts ./src",
-    "eslint-fix": "eslint --fix --ext .ts ./src"
+    "eslint-fix": "eslint --fix --ext .ts ./src",
+    "heroku": "heroku container:push web -a ypmessenger && heroku container:release web -a ypmessenger"
   },
   "keywords": [],
   "author": "",
