@@ -19,9 +19,11 @@ https://ypmessenger.herokuapp.com/messenger
 Запуск:
 
 - `npm i` - установка зависимостей
-- `npm run dev` - запуск parcel сервера для разработки
-- `npm run build` - сборка parcel
-- `npm run start` - сборка parcel и запуск express сервера
+- `npm run dev` - запуск webpack-dev-server для разработки
+- `npm run build` - сборка webpack
+- `npm run start` - express сервера
+- `npm test` - запуска тестов mocha
+- `npm heroku` - размещение docker в heroku
 
 ## TODO
 
