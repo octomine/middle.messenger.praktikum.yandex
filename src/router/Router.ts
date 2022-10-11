@@ -1,4 +1,4 @@
-import Route from './Route';
+import Route, { BlcokConstructable } from './Route';
 
 class Router {
   routes: Array<Route> = [];
@@ -11,19 +11,20 @@ class Router {
 
   constructor() {
     this.history = window.history;
+    this.routes = [];
   }
 
   get pathname(): string {
     return window.location.pathname;
   }
 
-  public use(pathname: string, block: unknown) {
+  public use(pathname: string, block: BlcokConstructable) {
     const route = new Route(pathname, block, { rootQuery: 'main' });
     this.routes.push(route);
     return this;
   }
 
-  public notFound(block: unknown) {
+  public notFound(block: BlcokConstructable) {
     this._notFoundRoute = new Route('', block, { rootQuery: 'main' });
     return this;
   }
@@ -57,6 +58,10 @@ class Router {
         return;
       }
       route = this._notFoundRoute;
+    }
+
+    if (this._currentRoute && this._currentRoute !== route) {
+      this._currentRoute.leave();
     }
 
     this._currentRoute = route;

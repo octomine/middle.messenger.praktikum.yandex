@@ -1,6 +1,6 @@
 import { v4 as makeID } from 'uuid';
 import { TemplateDelegate } from 'handlebars/runtime';
-import EventBus from '../../../utils/event-bus';
+import { EventBus } from '../../../utils';
 import { merge } from '../../../utils/merge';
 import { Indexed } from '../../../store/Store';
 import { isEqual } from '../../../utils/is-equal';
