@@ -1,7 +1,7 @@
 import { Indexed } from '../store';
 import { merge } from './merge';
 
-export function set(object: Indexed, path: string, value: unknown): Indexed {
+export function set(object: Indexed | unknown, path: string, value: unknown): Indexed | unknown {
   if (typeof path !== 'string') {
     throw new Error('path must be string');
   }
@@ -13,5 +13,5 @@ export function set(object: Indexed, path: string, value: unknown): Indexed {
   const arr = path.split('.');
   const res = arr.reduceRight<Indexed>((prev, curr) => ({ [curr]: prev }), value as Indexed);
 
-  return merge(object, res);
+  return merge(object as Indexed, res);
 }

@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-// import sinon from 'sinon';
 import Button from '.';
 
 describe('Button', () => {
@@ -9,7 +8,7 @@ describe('Button', () => {
 
   it('element should return <button>', () => {
     const btn = new Button({});
-    const el = btn.element;
+    const el = btn.getContent();
     expect(el).to.be.instanceof(window.HTMLButtonElement);
   });
 });
