@@ -29,4 +29,11 @@ describe('HTTPTransport', () => {
     const [request] = requests;
     expect(request.method).to.eq('Get');
   });
+
+  it('.get() should not have body in request', () => {
+    instance.get('/user');
+
+    const [request] = requests;
+    expect(request.requestBody).to.eq(undefined);
+  });
 });

@@ -25,4 +25,16 @@ describe('Block', () => {
     new ComponentMock({});
     expect(eventBusMock.emit.calledWith('init')).to.eq(true);
   });
+
+  it('should fire componentDidMount on dispatchComponentDidMount()', () => {
+    const block = new ComponentMock({});
+    block.dispatchComponentDidMount();
+    expect(eventBusMock.emit.calledWith('flow:component-did-mount')).to.eq(true);
+  });
+
+  it('should fire componentDidUpdate on setProps()', () => {
+    const block = new ComponentMock({});
+    block.setProps({ element: 'element' });
+    expect(eventBusMock.emit.calledWith('flow:component-did-update')).to.eq(true);
+  });
 });
