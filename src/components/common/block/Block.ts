@@ -1,6 +1,6 @@
 import { v4 as makeID } from 'uuid';
 import { TemplateDelegate } from 'handlebars/runtime';
-import EventBus from '../../../utils/event-bus';
+import { EventBus } from '../../../utils';
 import { merge } from '../../../utils/merge';
 import { Indexed } from '../../../store/Store';
 import { isEqual } from '../../../utils/is-equal';
@@ -43,7 +43,6 @@ export default class Block<P extends Record<string, any> = any> {
 
     this.props = this._makePropsProxy(props);
     this.eventBus = () => eventBus;
-
     this._registerEvents(eventBus);
     eventBus.emit(Block.EVENTS.INIT);
   }
@@ -81,7 +80,7 @@ export default class Block<P extends Record<string, any> = any> {
         return true;
       },
       deleteProperty: () => {
-        throw 'Нет прав';
+        throw new Error('Нет прав');
       },
     });
   }
@@ -189,9 +188,9 @@ export default class Block<P extends Record<string, any> = any> {
     const stub = (id: string | null): string => `<div data-id='${id}'></div>`;
     const replaceStub = (el: DocumentFragment, block: Block<any>): void => {
       const { id } = block;
-      const stub = el.querySelector(`[data-id='${id}']`);
-      if (stub) {
-        stub.replaceWith(block.getContent()!);
+      const currentStub = el.querySelector(`[data-id='${id}']`);
+      if (currentStub) {
+        currentStub.replaceWith(block.getContent()!);
       }
     };
 

@@ -2,7 +2,7 @@ import API, { APIUser, PasswordData, FindUserData } from '../api/APIUser';
 import Store from '../store';
 import { SignupData } from '../api/APIAuth';
 
-export class ControllerUser {
+class ControllerUser {
   private readonly api: APIUser;
 
   constructor() {

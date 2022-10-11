@@ -1,1 +1,2 @@
-export { default, InputWrappedProps } from './InputWrapped';
+export { default } from './InputWrapped';
+export { InputWrappedProps } from './types';

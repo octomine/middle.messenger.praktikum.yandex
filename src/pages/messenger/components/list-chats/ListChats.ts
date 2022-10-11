@@ -5,7 +5,8 @@ import Search from './elements/search';
 
 import tmpl from './tmpl.hbs';
 import { connect, Indexed } from '../../../../store';
-import ControllerChats, { CurrentChatData } from '../../../../controllers/ControllerChats';
+import ControllerChats from '../../../../controllers/ControllerChats';
+import { CurrentChatData } from '../../../../controllers/types';
 import ControllerResources from '../../../../controllers/ControllerResources';
 import { getTime } from '../../../../utils/time';
 import Button from '../../../../components/button';
@@ -40,10 +41,11 @@ export class ListChats extends List {
   }
 
   line(field: LineChatProps): LineChat {
+    const line = new LineChat({ ...field });
     const events = {
       click: () => this.select(line.id),
     };
-    const line = new LineChat({ ...field, events });
+    line.setProps({ events });
     return line;
   }
 

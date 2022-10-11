@@ -1,18 +1,7 @@
-import Block, { TBlockProps } from '../common/block';
+import Block from '../common/block';
 import Input from '../input';
 import ControllerInput from '../../controllers/ControllerInput';
-
-export interface InputWrappedProps extends TBlockProps {
-  name: string;
-  title: string;
-  value?: string;
-  placeholder?: string;
-  isRequired?: boolean;
-  isPassword?: boolean;
-  isEqual?: string;
-  validated?: boolean;
-  errorSpace?: string;
-}
+import { InputWrappedProps } from './types';
 
 export default class InputWrapped extends Block<InputWrappedProps> {
   constructor(props: InputWrappedProps) {

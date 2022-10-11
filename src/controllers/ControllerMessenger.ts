@@ -1,4 +1,4 @@
-import { SocketIO } from '../services/socket-io';
+import { SocketIO, SocketEvents } from '../services/socket-io';
 import Store, { Indexed } from '../store';
 
 export type TMessage = {
@@ -8,18 +8,16 @@ export type TMessage = {
   time: string;
 };
 
-export class ControllerMessenger {
+class ControllerMessenger {
   private socket?: SocketIO;
-
-  constructor() {
-
-  }
 
   openChat(token: string) {
     this.socket = new SocketIO(`/${Store.getUserId()}/${Store.getChatId()}/${token}`);
+    this.socket.on(SocketEvents.Recive, this.recieveMessage.bind(this));
   }
 
   close() {
+    this.socket?.off(SocketEvents.Recive, this.recieveMessage);
     this.socket?.close();
   }
 

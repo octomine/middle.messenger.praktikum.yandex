@@ -10,14 +10,20 @@ https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?node-id=1%3
 
 https://deploy--resilient-starburst-0f9890.netlify.app/
 
+## Heroku
+
+https://ypmessenger.herokuapp.com/messenger
+
 ## Installation
 
 Запуск:
 
 - `npm i` - установка зависимостей
-- `npm run dev` - запуск parcel сервера для разработки
-- `npm run build` - сборка parcel
-- `npm run start` - сборка parcel и запуск express сервера
+- `npm run dev` - запуск webpack-dev-server для разработки
+- `npm run build` - сборка webpack
+- `npm run start` - express сервера
+- `npm test` - запуска тестов mocha
+- `npm heroku` - размещение docker в heroku
 
 ## TODO
 
