@@ -1,7 +1,7 @@
-import Block, { TBlockProps } from '../../../../components/common/block';
-import Avatar from '../../../../components/avatar';
+import Block, { TBlockProps } from '@components/common/block';
+import Avatar from '@components/avatar';
+import { HTTPTransport } from '@services/network';
 import tmpl from './tmpl.hbs';
-import { HTTPTransport } from '../../../../services/network';
 
 export interface LineUserProps extends TBlockProps {
   id: string;

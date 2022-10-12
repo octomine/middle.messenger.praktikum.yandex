@@ -1,6 +1,6 @@
-import Block, { TBlockProps } from '../../components/common/block';
-import { Indexed, connect } from '../../store';
-import ControllerAuth from '../../controllers/ControllerAuth';
+import Block, { TBlockProps } from '@components/common/block';
+import { Indexed, connect } from '@store';
+import ControllerAuth from '@controllers/ControllerAuth';
 
 import FormWrapper from '../../wrappers/form-wrapper';
 

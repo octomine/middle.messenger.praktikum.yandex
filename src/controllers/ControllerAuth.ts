@@ -1,5 +1,5 @@
+import Store from '@store';
 import API, { APIAuth, SigninData, SignupData } from '../api/APIAuth';
-import Store from '../store';
 import Router from '../router/Router';
 import ControllerInput from './ControllerInput';
 

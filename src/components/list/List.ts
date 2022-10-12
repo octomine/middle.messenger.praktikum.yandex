@@ -1,8 +1,8 @@
+import { Indexed } from '@store';
+import { isEqual } from '@utils';
 import Block, { TBlockProps } from '../common/block';
-import { Indexed } from '../../store/Store';
 
 import tmpl from './tmpl.hbs';
-import { isEqual } from '../../utils/is-equal';
 
 export interface LineBase {
   name: string;

@@ -3,6 +3,24 @@
     "files": true,
   },
   "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@controllers/*": [
+        "src/controllers/*"
+      ],
+      "@services/*": [
+        "src/services/*"
+      ],
+      "@utils": [
+        "src/utils/index"
+      ],
+      "@store": [
+        "src/store/index"
+      ]
+    },
     "outDir": "dist",
     "target": "es2016",
     "module": "commonjs",

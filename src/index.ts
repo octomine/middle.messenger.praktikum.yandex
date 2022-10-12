@@ -1,11 +1,11 @@
+import ControllerAuth from '@controllers/ControllerAuth';
+import { render } from '@utils';
 import Router from './router/Router';
 import PageLogin from './pages/login';
 import PageSignup from './pages/sign-up';
 import PageProfile from './pages/profile';
 import PageMessenger from './pages/messenger';
 import PageStatus from './pages/status';
-import ControllerAuth from './controllers/ControllerAuth';
-import { render } from './utils/render';
 import PopupWrapper from './wrappers/popup-wrapper';
 
 import './common.less';

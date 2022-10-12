@@ -1,4 +1,4 @@
-import { Indexed } from '../store';
+import { Indexed } from '@store';
 import { merge } from './merge';
 
 export function set(object: Indexed | unknown, path: string, value: unknown): Indexed | unknown {

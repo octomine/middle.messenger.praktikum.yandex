@@ -12,13 +12,20 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     static: {
-      directory: path.join(__dirname, "dist"),
+      directory: path.resolve(__dirname, "dist"),
     },
     compress: true,
     port: 3000,
   },
   resolve: {
     extensions: [".ts", ".js", ".hbs"],
+    alias: {
+      "@components": path.resolve("src", "components"),
+      "@controllers": path.resolve("src", "controllers"),
+      "@services": path.resolve("src", "services"),
+      "@utils": path.resolve("src", "utils"),
+      "@store": path.resolve("src", "store"),
+    },
   },
   module: {
     rules: [

@@ -1,5 +1,5 @@
+import Store from '@store';
 import API, { APIUser, PasswordData, FindUserData } from '../api/APIUser';
-import Store from '../store';
 import { SignupData } from '../api/APIAuth';
 
 class ControllerUser {

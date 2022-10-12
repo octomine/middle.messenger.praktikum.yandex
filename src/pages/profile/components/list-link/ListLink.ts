@@ -1,4 +1,4 @@
-import List, { ListProps } from '../../../../components/list';
+import List, { ListProps } from '@components/list';
 import LineLink, { LineLinkProps } from './elements/line-link';
 
 export default class ListLink extends List {

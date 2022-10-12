@@ -1,4 +1,4 @@
-import { EventBus } from '../utils';
+import { EventBus } from '@utils';
 
 export enum SocketEvents {
   Recive = 'recive',

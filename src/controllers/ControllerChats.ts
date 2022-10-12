@@ -1,7 +1,7 @@
+import Store from '@store';
 import API, {
   APIChats, GetChatsData, AddUsersData, CreateChatData,
 } from '../api/APIChats';
-import Store from '../store';
 import ControllerMessenger from './ControllerMessenger';
 
 import { CurrentChatData } from './types';

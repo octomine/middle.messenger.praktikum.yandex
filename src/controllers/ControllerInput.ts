@@ -1,6 +1,6 @@
-import Store from '../store';
-import { InputWrappedProps } from '../components/input-wrapped/types';
-import { getValidator, ValidType } from '../utils';
+import Store from '@store';
+import { InputWrappedProps } from '@components/input-wrapped/types';
+import { getValidator, ValidType } from '@utils';
 
 class ControllerInput {
   resetError(field: InputWrappedProps) {

@@ -1,4 +1,4 @@
-import { Indexed } from '../store';
+import { Indexed } from '@store';
 
 export interface CurrentChatData {
   id: string;

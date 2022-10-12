@@ -1,8 +1,8 @@
-import InputWrapped, { InputWrappedProps } from '../../../../../../components/input-wrapped';
-import Input from '../../../../../../components/input';
+import InputWrapped, { InputWrappedProps } from '@components/input-wrapped';
+import Input from '@components/input';
 
+import { Indexed } from '@store';
 import tmpl from './tmpl.hbs';
-import { Indexed } from '../../../../../../store';
 
 export default class LineInput extends InputWrapped {
   constructor(props: InputWrappedProps) {

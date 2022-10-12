@@ -1,16 +1,16 @@
-import Block, { TBlockProps } from '../../../../components/common/block';
+import Block, { TBlockProps } from '@components/common/block';
 
-import { connect, Indexed } from '../../../../store';
-import { isEqual } from '../../../../utils/is-equal';
-import ControllerPopup from '../../../../controllers/ControllerPopup';
+import { connect, Indexed } from '@store';
+import { isEqual } from '@utils';
+import ControllerPopup from '@controllers/ControllerPopup';
 
+import ControllerChats from '@controllers/ControllerChats';
 import ChatInput from './elements/chat-input';
 import ChatHeader from './elements/chat-header';
 import ListMessages from './elements/list-messages';
 import Popover from './elements/popover/Popover';
 
 import tmpl from './tmpl.hbs';
-import ControllerChats from '../../../../controllers/ControllerChats';
 
 export class Chat extends Block<TBlockProps> {
   private needToHidePopover: boolean = true;

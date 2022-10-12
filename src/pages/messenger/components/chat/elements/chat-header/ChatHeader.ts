@@ -1,7 +1,7 @@
-import Block, { TBlockProps } from '../../../../../../components/common/block';
+import Block, { TBlockProps } from '@components/common/block';
 
-import Avatar from '../../../../../../components/avatar';
-import Button from '../../../../../../components/button';
+import Avatar from '@components/avatar';
+import Button from '@components/button';
 
 import tmpl from './tmpl.hbs';
 

@@ -1,11 +1,11 @@
-import Block, { TBlockProps } from '../../components/common/block';
+import Block, { TBlockProps } from '@components/common/block';
 
+import ControllerAuth from '@controllers/ControllerAuth';
+import { connect, Indexed } from '@store';
 import tmpl from './tmpl.hbs';
 import FormWrapper from '../../wrappers/form-wrapper';
-import ControllerAuth from '../../controllers/ControllerAuth';
 import { SignupData } from '../../api/APIAuth';
 import { FIELDS_REGISTRATION } from '../../consts';
-import { connect, Indexed } from '../../store';
 
 const withRegistration = connect((state: Indexed) => {
   const { errors: { signup: errors } } = state;

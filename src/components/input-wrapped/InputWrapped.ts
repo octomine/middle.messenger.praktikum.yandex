@@ -1,6 +1,6 @@
+import ControllerInput from '@controllers/ControllerInput';
 import Block from '../common/block';
 import Input from '../input';
-import ControllerInput from '../../controllers/ControllerInput';
 import { InputWrappedProps } from './types';
 
 export default class InputWrapped extends Block<InputWrappedProps> {

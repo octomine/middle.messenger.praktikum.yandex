@@ -1,9 +1,9 @@
-import Block, { TBlockProps } from '../../components/common/block';
-import Button from '../../components/button';
+import Block, { TBlockProps } from '@components/common/block';
+import Button from '@components/button';
 
+import { connect, Indexed } from '@store';
+import ControllerPopup from '@controllers/ControllerPopup';
 import tmpl from './tmpl.hbs';
-import { connect, Indexed } from '../../store';
-import ControllerPopup from '../../controllers/ControllerPopup';
 import LineForm from '../form-wrapper/components/list-form/elements/line-form';
 import ListUsers from './components/list-users';
 import Upload from './components/upload';

@@ -1,17 +1,16 @@
-import List, { ListProps } from '../../../../components/list';
+import List, { ListProps } from '@components/list';
 
-import LineChat, { LineChatProps } from './elements/line-chat/LineChat';
-import Search from './elements/search';
-
+import { connect, Indexed } from '@store';
+import ControllerChats from '@controllers/ControllerChats';
+import { CurrentChatData } from '@controllers/types';
+import ControllerResources from '@controllers/ControllerResources';
+import { getTime } from '@utils';
+import Button from '@components/button';
+import ControllerPopup from '@controllers/ControllerPopup';
+import Block from '@components/common/block';
 import tmpl from './tmpl.hbs';
-import { connect, Indexed } from '../../../../store';
-import ControllerChats from '../../../../controllers/ControllerChats';
-import { CurrentChatData } from '../../../../controllers/types';
-import ControllerResources from '../../../../controllers/ControllerResources';
-import { getTime } from '../../../../utils/time';
-import Button from '../../../../components/button';
-import ControllerPopup from '../../../../controllers/ControllerPopup';
-import Block from '../../../../components/common/block';
+import Search from './elements/search';
+import LineChat, { LineChatProps } from './elements/line-chat/LineChat';
 
 export class ListChats extends List {
   private _selected: string | null = null;

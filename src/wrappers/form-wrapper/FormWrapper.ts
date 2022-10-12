@@ -1,14 +1,14 @@
-import Block, { TBlockProps } from '../../components/common/block';
-import { Indexed } from '../../store/Store';
+import Block, { TBlockProps } from '@components/common/block';
+import { Indexed } from '@store';
 
-import Button from '../../components/button';
+import Button from '@components/button';
 
+import ListCollector from '@components/list-collector';
+import { isEqual } from '@utils';
 import ListForm from './components/list-form';
 
 import tmpl from './tmpl.hbs';
 import Router from '../../router/Router';
-import ListCollector from '../../components/list-collector';
-import { isEqual } from '../../utils/is-equal';
 
 export interface FormProps extends TBlockProps {
   title: string;

@@ -1,5 +1,5 @@
+import Store from '@store';
 import APIBase from './APIBase';
-import Store from '../store';
 
 export interface TokenData {
   token: string;

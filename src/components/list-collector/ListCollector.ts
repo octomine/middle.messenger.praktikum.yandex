@@ -1,7 +1,7 @@
+import ControllerInput from '@controllers/ControllerInput';
 import List, { ListProps } from '../list/List';
 import InputWrapped, { InputWrappedProps } from '../input-wrapped';
 import { InputErrors } from '../../consts';
-import ControllerInput from '../../controllers/ControllerInput';
 
 export default class ListCollector extends List {
   constructor(props: ListProps) {

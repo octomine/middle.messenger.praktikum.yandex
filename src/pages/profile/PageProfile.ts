@@ -1,8 +1,13 @@
-import Block, { TBlockProps } from '../../components/common/block';
-import Button from '../../components/button';
+import Block, { TBlockProps } from '@components/common/block';
+import Button from '@components/button';
+import { connect, Indexed } from '@store';
+import ControllerAuth from '@controllers/ControllerAuth';
+import ControllerUser from '@controllers/ControllerUser';
+import { isEqual, PlainObject } from '@utils';
+import ControllerPopup from '@controllers/ControllerPopup';
+import ControllerResources from '@controllers/ControllerResources';
 import Router from '../../router/Router';
 
-import { connect, Indexed } from '../../store';
 import { FIELDS_PROFILE } from '../../consts';
 
 import ListLink from './components/list-link';
@@ -11,11 +16,6 @@ import ListInput from './components/list-input';
 import Avatar from './components/avatar';
 
 import tmpl from './tmpl.hbs';
-import ControllerAuth from '../../controllers/ControllerAuth';
-import ControllerUser from '../../controllers/ControllerUser';
-import { isEqual, PlainObject } from '../../utils/is-equal';
-import ControllerPopup from '../../controllers/ControllerPopup';
-import ControllerResources from '../../controllers/ControllerResources';
 import { SignupData } from '../../api/APIAuth';
 import { PasswordData } from '../../api/APIUser';
 

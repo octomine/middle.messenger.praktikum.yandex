@@ -1,4 +1,4 @@
-import List, { ListProps } from '../../../../components/list';
+import List, { ListProps } from '@components/list';
 import LineUser from '../line-user';
 import { LineUserProps } from '../line-user/LineUser';
 

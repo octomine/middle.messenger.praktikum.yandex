@@ -1,9 +1,7 @@
 import { v4 as makeID } from 'uuid';
 import { TemplateDelegate } from 'handlebars/runtime';
-import { EventBus } from '../../../utils';
-import { merge } from '../../../utils/merge';
-import { Indexed } from '../../../store/Store';
-import { isEqual } from '../../../utils/is-equal';
+import { EventBus, isEqual, merge } from '../../../utils';
+import { Indexed } from '@store';
 
 export interface TBlockProps extends Record<string, any> {
   block?: string,

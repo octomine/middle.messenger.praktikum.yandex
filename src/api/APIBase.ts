@@ -1,4 +1,4 @@
-import { HTTPTransport } from '../services/network';
+import { HTTPTransport } from '@services/network';
 
 export default abstract class APIBase {
   protected http: HTTPTransport;

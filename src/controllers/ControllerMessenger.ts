@@ -1,5 +1,5 @@
-import { SocketIO, SocketEvents } from '../services/socket-io';
-import Store, { Indexed } from '../store';
+import { SocketIO, SocketEvents } from '@services/socket-io';
+import Store, { Indexed } from '@store';
 
 export type TMessage = {
   type: string;

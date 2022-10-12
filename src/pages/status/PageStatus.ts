@@ -1,5 +1,5 @@
-import Block, { TBlockProps } from '../../components/common/block';
-import Button from '../../components/button';
+import Block, { TBlockProps } from '@components/common/block';
+import Button from '@components/button';
 import Router from '../../router/Router';
 
 import tmpl from './tmpl.hbs';

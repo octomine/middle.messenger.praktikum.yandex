@@ -1,4 +1,4 @@
-import { EventBus, set } from '../utils';
+import { EventBus, set } from '@utils';
 
 export type Indexed<T = any> = {
   [key in string]: T

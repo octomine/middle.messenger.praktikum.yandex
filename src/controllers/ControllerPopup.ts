@@ -1,4 +1,4 @@
-import Store from '../store';
+import Store from '@store';
 import ControllerUser from './ControllerUser';
 import ControllerChats from './ControllerChats';
 import { UserProps } from '../api/APIUser';

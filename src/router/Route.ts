@@ -1,5 +1,5 @@
-import Block from '../components/common/block';
-import { render } from '../utils/render';
+import Block from '@components/common/block';
+import { render } from '../utils';
 
 export interface BlcokConstructable<P extends Record<string, any> = any> {
   new(props: P): Block<P>;

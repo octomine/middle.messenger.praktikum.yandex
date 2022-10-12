@@ -1,14 +1,13 @@
-import Block, { TBlockProps } from '../../components/common/block';
+import Block, { TBlockProps } from '@components/common/block';
+import Button from '@components/button';
+import ControllerChats from '@controllers/ControllerChats';
+import ControllerMessenger from '@controllers/ControllerMessenger';
 import Router from '../../router/Router';
 
-import Button from '../../components/button';
 import ListChats from './components/list-chats';
 import ChatHOC, { Chat } from './components/chat';
 
 import tmpl from './tmpl.hbs';
-
-import ControllerChats from '../../controllers/ControllerChats';
-import ControllerMessenger from '../../controllers/ControllerMessenger';
 
 export default class PageMessenger extends Block<TBlockProps> {
   constructor(props: TBlockProps = {}) {

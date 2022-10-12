@@ -1,7 +1,7 @@
-import List, { ListProps } from '../../../../../../components/list';
+import List, { ListProps } from '@components/list';
+import Block, { TBlockProps } from '@components/common/block';
+import { connect, Indexed } from '@store';
 import LineMessage from '../line-message';
-import Block, { TBlockProps } from '../../../../../../components/common/block';
-import { connect, Indexed } from '../../../../../../store';
 
 class ListMessages extends List {
   constructor(props: ListProps) {
