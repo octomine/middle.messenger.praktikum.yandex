@@ -12,11 +12,12 @@ import Popover from './elements/popover/Popover';
 import tmpl from './tmpl.hbs';
 import ControllerChats from '../../../../controllers/ControllerChats';
 
-class Chat extends Block<TBlockProps> {
-  private needToHidePopover: boolean = false;
+export class Chat extends Block<TBlockProps> {
+  private needToHidePopover: boolean = true;
 
   constructor(props: TBlockProps) {
     super(props);
+    this.hidePopovers();
   }
 
   init() {
@@ -27,7 +28,6 @@ class Chat extends Block<TBlockProps> {
 
     this.children.popoverOptions = new Popover({
       modifiers: 'options',
-      styles: 'hide',
       fields: [
         {
           type: 'add_user',
@@ -65,7 +65,6 @@ class Chat extends Block<TBlockProps> {
     });
     this.children.popoverAttach = new Popover({
       modifiers: 'attach',
-      styles: 'hide',
       fields: [
         { type: 'media', label: 'Фото или Видео' },
         { type: 'file', label: 'Файл' },
@@ -80,6 +79,10 @@ class Chat extends Block<TBlockProps> {
     this.children.input = new ChatInput({
       attachClick: () => this.showPopover('Attach'),
     });
+  }
+
+  get header(): ChatHeader {
+    return this.children.header as ChatHeader;
   }
 
   showPopover(name: string): void {
@@ -108,7 +111,7 @@ class Chat extends Block<TBlockProps> {
 
   componentDidUpdate(oldProps: TBlockProps, newProps: TBlockProps): boolean {
     if (!isEqual(oldProps, newProps)) {
-      this.children.header.setProps(newProps);
+      this.header.setProps(newProps);
     }
     return super.componentDidUpdate(oldProps, newProps);
   }
@@ -123,4 +126,4 @@ const withChat = connect((state: Indexed) => {
   return { id, img, title };
 });
 
-export default withChat(Chat);
+export default withChat(Chat as typeof Block);

@@ -1,5 +1,4 @@
 import Block, { TBlockProps } from '../common/block';
-import '../common/styles';
 
 import tmpl from './tmpl.hbs';
 
@@ -15,7 +14,7 @@ export default class Input extends Block<InputProps> {
   }
 
   get value(): string {
-    return (this._element as HTMLInputElement).value;
+    return (this.element as HTMLInputElement).value;
   }
 
   render() {

@@ -2,9 +2,6 @@ import Block, { TBlockProps } from '../../components/common/block';
 import Button from '../../components/button';
 import Router from '../../router/Router';
 
-import '../../components/label';
-import '../../components/common/styles';
-
 import tmpl from './tmpl.hbs';
 
 interface StatusProps extends TBlockProps {
@@ -19,7 +16,7 @@ export default class PageStatus extends Block<StatusProps> {
 
   init() {
     this.children.button = new Button({
-      label: 'Назад к чатам',
+      title: 'Назад к чатам',
       modifiers: 'link',
       events: {
         click: () => Router.go('/messenger'),

@@ -36,12 +36,12 @@ export default class PageSignup extends Block<TBlockProps> {
       linkPath: '/',
     };
 
-    this.children.form = new (withRegistration(FormWrapper))(ctx);
+    this.children.form = new (withRegistration(FormWrapper as typeof Block))(ctx);
   }
 
   submit() {
     const req = this.form.submit();
-    if (Object.keys(req).length > 0) {
+    if (Object.keys(req as object).length > 0) {
       ControllerAuth.signup(req as SignupData);
     }
   }

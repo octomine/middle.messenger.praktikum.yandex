@@ -1,13 +1,13 @@
-import { Indexed } from '../store';
+export type TFieldProps = Record<string, Record<string, string | boolean>>;
 
-export const FIELDS_LOGIN: Indexed = {
+export const FIELDS_LOGIN: TFieldProps = {
   login: { title: 'Логин', isRequired: true, errorSpace: 'login' },
   password: {
     title: 'Пароль', isPassword: true, isRequired: true, errorSpace: 'login',
   },
 };
 
-export const FIELDS_REGISTRATION: Indexed = {
+export const FIELDS_REGISTRATION: TFieldProps = {
   email: {
     title: 'Почта', isRequired: true, validated: true, errorSpace: 'signup',
   },
@@ -32,7 +32,7 @@ export const FIELDS_REGISTRATION: Indexed = {
   },
 };
 
-export const FIELDS_PROFILE: Indexed = {
+export const FIELDS_PROFILE: TFieldProps = {
   email: { title: 'Почта' },
   login: { title: 'Логин' },
   first_name: { title: 'Имя' },

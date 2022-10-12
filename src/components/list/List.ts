@@ -1,13 +1,15 @@
 import Block, { TBlockProps } from '../common/block';
 import { Indexed } from '../../store/Store';
-import '../common/styles';
 
 import tmpl from './tmpl.hbs';
 import { isEqual } from '../../utils/is-equal';
-import { InputWrappedProps } from '../input-wrapped';
+
+export interface LineBase {
+  name: string;
+}
 
 export interface ListProps extends TBlockProps {
-  fields?: Record<string, string | boolean>[],
+  fields: Record<string, any>[],
 }
 
 export default class List extends Block<ListProps> {
@@ -17,31 +19,32 @@ export default class List extends Block<ListProps> {
 
   init() {
     const { fields } = this.props;
-    this.children.fields = fields.map((field: unknown) => this.line(field));
+    this.children.fields = fields?.map((field: Record<string, any>) => this.line(field));
   }
 
-  line(field: Indexed): Block<unknown> | null {
-    return null;
+  line(field: Indexed): Block<any> {
+    return new Block(field);
   }
 
-  getField(fieldName: string): Block<unknown> {
+  getField(fieldName: string): Block<any> | undefined {
     const { fields } = this.children;
-    return fields.filter(({ name }) => name === fieldName)[0]; // name у всех уникальный
+    // @ts-ignore
+    return fields?.filter(({ name }) => name === fieldName)[0]; // name у всех уникальный
   }
 
-  getFieldProps(fieldName: string): InputWrappedProps {
+  getFieldProps(fieldName: string): Record<string, any> | undefined {
     const { fields } = this.props;
-    return fields.filter(({ name }) => name === fieldName)[0]; // name у всех уникальный
+    return fields?.filter(({ name }) => name === fieldName)[0]; // name у всех уникальный
   }
 
   componentDidUpdate({ fields: oldFields }: Indexed, { fields }: Indexed): boolean {
     if (isEqual(oldFields as Indexed, fields as Indexed)) {
       return false;
     }
-    const l = Math.max(fields.length, this.children.fields.length);
+    const l = Math.max(fields.length, this.children.fields!.length);
 
     for (let i: number = 0; i < l; i++) {
-      const field = this.children.fields[i];
+      const field = this.children.fields![i];
       if (field) {
         if (fields[i]) {
           field.setProps(fields[i]);
@@ -49,7 +52,7 @@ export default class List extends Block<ListProps> {
           field.hide();
         }
       } else {
-        this.children.fields.push(this.line(fields[i]));
+        this.children?.fields?.push(this.line(fields[i]));
       }
     }
     return true;

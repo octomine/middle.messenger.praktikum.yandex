@@ -2,7 +2,6 @@ import Block, { TBlockProps } from '../../components/common/block';
 import { Indexed } from '../../store/Store';
 
 import Button from '../../components/button';
-import '../../components/label';
 
 import ListForm from './components/list-form';
 
@@ -12,12 +11,14 @@ import ListCollector from '../../components/list-collector';
 import { isEqual } from '../../utils/is-equal';
 
 export interface FormProps extends TBlockProps {
-  title: string,
-  block: string,
-  button: string,
-  link: string,
-  errors?: Indexed,
-  submit: () => void,
+  title: string;
+  block: string;
+  button: string;
+  link: string;
+  errors?: Indexed;
+  submit: () => void;
+  linkPath: string;
+  fields: Record<string, any>[];
 }
 
 export default class FormWrapper extends Block<FormProps> {
@@ -32,17 +33,17 @@ export default class FormWrapper extends Block<FormProps> {
   init() {
     const {
       block, button, link, submit, linkPath, fields,
-    } = this.props;
+    }: FormProps = this.props;
 
     this.children.list = new ListForm({ block, fields });
     this.children.button = new Button({
-      label: button,
+      title: button,
       events: {
         click: submit,
       },
     });
     this.children.link = new Button({
-      label: link,
+      title: link,
       modifiers: 'link',
       events: {
         click: () => Router.go(linkPath),
@@ -50,7 +51,7 @@ export default class FormWrapper extends Block<FormProps> {
     });
   }
 
-  submit(): object {
+  submit(): Record<string, string> | undefined {
     return this.list.collect();
   }
 

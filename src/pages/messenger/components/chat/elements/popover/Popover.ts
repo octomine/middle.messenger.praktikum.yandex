@@ -19,7 +19,7 @@ export default class Popover extends List {
   }
 
   show() {
-    this.getContent().style.display = 'block';
+    this.getContent()!.style.display = 'block';
   }
 
   componentDidUpdate(oldProps: PopoverProps, newProps: PopoverProps): boolean {

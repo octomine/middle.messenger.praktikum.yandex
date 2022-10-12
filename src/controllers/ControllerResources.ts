@@ -7,7 +7,7 @@ class ControllerResources {
     this.api = API;
   }
 
-  resourcePath(path: string) {
+  resourcePath(path: string | null) {
     return path ? this.api.getPath(path) : null;
   }
 
